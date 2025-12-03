@@ -79,7 +79,11 @@ if (faq_section) {
   />
 
   <!-- Trust Bar -->
-  <TrustBar trust_badges={trust_badges} showVideo={Boolean(system.data.video)}/>
+  <TrustBar
+    trust_badges={trust_badges}
+    showVideo={system.data.video}
+    video_url={system.data.video_url}
+  />
 
   <!-- Main Content (from MDX) -->
   {

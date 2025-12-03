@@ -1,11 +1,11 @@
 ---
-import VideoMd from "@/content/videos/Youtube.md";
 interface Props {
   trust_badges?: { icon: string; title: string; description?: string }[];
   showVideo?: boolean;
+  video_url?: string;
 }
 
-const { trust_badges,showVideo = false} = Astro.props;
+const { trust_badges,showVideo = false, video_url} = Astro.props;
 
 // Default trust badges if none provided
 const defaultBadges = [
@@ -65,8 +65,16 @@ const badges = trust_badges || defaultBadges;
       </div>
     </div>
   </div>
-  {showVideo && (
+  {showVideo && video_url && (
     <div class="mt-8 flex justify-center">
-    <VideoMd />
-  </div> )};
+      <iframe
+        width="560"
+        height="315"
+        src={video_url}
+        title="Product Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  )}
 </section>
