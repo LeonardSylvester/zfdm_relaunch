@@ -79,11 +79,66 @@ if (faq_section) {
   />
 
   <!-- Trust Bar -->
-  <TrustBar
-    trust_badges={trust_badges}
-    showVideo={system.data.video}
-    video_url={system.data.video_url}
-  />
+  <TrustBar trust_badges={trust_badges} />
+
+  {system.id === "zeiterfassung-mit-chip" && (
+    <section class="section pt-0" data-aos="fade-up-sm">
+      <div class="container text-center">
+        <h2 class="h3 mb-4">Zeiterfassungs-Chip Demo</h2>
+        <p class="mb-6">
+          Sehen Sie, wie unser moderner Zeiterfassungs-Chip Unternehmen hilft, Arbeitszeiten, Check-ins und Produktivitätsdaten einfach zu erfassen.
+        </p>
+
+        <div class="yt-iframe-wrapper mx-auto">
+          <iframe
+            src="https://www.youtube.com/embed/2ngql52rMNg"
+            title="Zeiterfassungs-Chip Demo"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <script type="application/ld+json" set:html={`{
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      "name": "Zeiterfassungs-Chip Demo",
+      "description": "Sehen Sie eine vollständige Demonstration eines modernen Zeiterfassungs-Chips, der Unternehmen hilft, Arbeitszeiten, Mitarbeiter-Check-ins und Produktivitätsdaten einfach zu erfassen.",
+      "thumbnailUrl": "https://img.youtube.com/vi/2ngql52rMNg/hqdefault.jpg",
+      "uploadDate": "2025-01-01",
+      "contentUrl": "https://www.yourwebsite.com/zeiterfassungssysteme/zeiterfassung-mit-chip",
+      "embedUrl": "https://www.youtube.com/embed/2ngql52rMNg",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Your Company Name",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.yourwebsite.com/logo.png"
+        }
+      }
+    }`} />
+
+      <style>
+        .yt-iframe-wrapper {
+          width: 100%;
+          max-width: 60rem;
+          aspect-ratio: 16/9;
+          border-radius: 1rem;
+          overflow: hidden;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+          margin: 2rem auto 0;
+        }
+        .yt-iframe-wrapper iframe {
+          width: 100%;
+          height: 100%;
+          border: none;
+          display: block;
+        }
+      </style>
+    </section>
+  )}
+
 
   <!-- Main Content (from MDX) -->
   {
@@ -104,6 +159,7 @@ if (faq_section) {
 
   <!-- Feature Showcase -->
   <FeatureShowcase features={features} />
+
 
   <!-- Specifications Tabs -->
   <SpecificationTabs specifications={specifications} />
