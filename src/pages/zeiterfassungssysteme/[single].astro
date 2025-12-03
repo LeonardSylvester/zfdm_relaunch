@@ -39,8 +39,8 @@ const {
   testimonial,
   pricing,
   faq_section,
-  video
-} = system.data;
+
+} = system.data  as any;
 
 const { Content } = await render(system);
 
@@ -79,7 +79,7 @@ if (faq_section) {
   />
 
   <!-- Trust Bar -->
-  <TrustBar trust_badges={trust_badges} showVideo={video}/>
+  <TrustBar trust_badges={trust_badges} showVideo={Boolean(system.data.video)}/>
 
   <!-- Main Content (from MDX) -->
   {

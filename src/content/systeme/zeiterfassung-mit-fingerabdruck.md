@@ -2,14 +2,14 @@
 title: "Zeiterfassung mit Fingerabdruck"
 meta_title: "Fingerabdruck-Zeiterfassung | Biometrische Zeiterfassung | ZFDM"
 description: "Biometrische Zeiterfassung per Fingerabdruck. Höchste Sicherheit und Manipulationssicherheit für Ihr Unternehmen."
-image: "\images\systeme\fingerabdruck.jpg"
+image: "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
 icon: "fingerprint"
 video: false
 
 
 badges:
   - "DSGVO-konform"
-  - "Made in Germany"
+  - "Made in Germany" 
   - "Biometrisch"
 
 feature_grid:
