@@ -1,0 +1,151 @@
+---
+import IconMapper from "@/components/IconMapper.astro";
+
+interface Props {
+  specifications?: {
+    technical?: { label: string; value: string }[];
+    delivery?: string[];
+    requirements?: string[];
+  };
+}
+
+const { specifications } = Astro.props;
+
+const hasTechnical = specifications?.technical && specifications.technical.length > 0;
+const hasDelivery = specifications?.delivery && specifications.delivery.length > 0;
+const hasRequirements = specifications?.requirements && specifications.requirements.length > 0;
+
+const hasAnySpecs = hasTechnical || hasDelivery || hasRequirements;
+---
+
+{
+  hasAnySpecs && (
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="bg-white dark:bg-darkmode-primary rounded-2xl border border-border dark:border-darkmode-border overflow-hidden"
+              data-aos="fade-up-sm"
+            >
+              {/* Tab Navigation */}
+              <div class="flex border-b border-border dark:border-darkmode-border">
+                {hasTechnical && (
+                  <button
+                    class="spec-tab flex-1 px-6 py-4 font-medium transition-colors duration-300 hover:bg-light dark:hover:bg-darkmode-light bg-light dark:bg-darkmode-light border-b-2 border-primary inline-flex items-center justify-center gap-2"
+                    data-tab="technical"
+                  >
+                    <IconMapper icon="⚙️" size="1.25rem" ariaHidden={true} />
+                    Technische Daten
+                  </button>
+                )}
+                {hasDelivery && (
+                  <button
+                    class={`spec-tab flex-1 px-6 py-4 font-medium transition-colors duration-300 hover:bg-light dark:hover:bg-darkmode-light inline-flex items-center justify-center gap-2 ${!hasTechnical ? "bg-light dark:bg-darkmode-light border-b-2 border-primary" : ""}`}
+                    data-tab="delivery"
+                  >
+                    <IconMapper icon="📦" size="1.25rem" ariaHidden={true} />
+                    Lieferumfang
+                  </button>
+                )}
+                {hasRequirements && (
+                  <button
+                    class={`spec-tab flex-1 px-6 py-4 font-medium transition-colors duration-300 hover:bg-light dark:hover:bg-darkmode-light inline-flex items-center justify-center gap-2 ${!hasTechnical && !hasDelivery ? "bg-light dark:bg-darkmode-light border-b-2 border-primary" : ""}`}
+                    data-tab="requirements"
+                  >
+                    <IconMapper icon="✓" size="1.25rem" ariaHidden={true} />
+                    Voraussetzungen
+                  </button>
+                )}
+              </div>
+
+              {/* Tab Content */}
+              <div class="p-8">
+                {/* Technical Specifications */}
+                {hasTechnical && (
+                  <div
+                    class="spec-content"
+                    data-content="technical"
+                  >
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {specifications.technical.map((spec) => (
+                        <div class="flex justify-between items-center p-4 bg-light dark:bg-darkmode-light rounded-lg">
+                          <span class="font-medium">{spec.label}</span>
+                          <span class="text-text-dark dark:text-darkmode-text-dark">
+                            {spec.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Delivery Content */}
+                {hasDelivery && (
+                  <div
+                    class={`spec-content ${!hasTechnical ? "" : "hidden"}`}
+                    data-content="delivery"
+                  >
+                    <ul class="space-y-3">
+                      {specifications.delivery.map((item) => (
+                        <li class="flex items-start gap-3">
+                          <IconMapper icon="✓" className="text-primary mt-1" size="1.25rem" ariaHidden={true} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Requirements */}
+                {hasRequirements && (
+                  <div
+                    class={`spec-content ${!hasTechnical && !hasDelivery ? "" : "hidden"}`}
+                    data-content="requirements"
+                  >
+                    <ul class="space-y-3">
+                      {specifications.requirements.map((item) => (
+                        <li class="flex items-start gap-3">
+                          <IconMapper icon="•" className="text-primary mt-1" size="1.25rem" ariaHidden={true} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const tabs = document.querySelectorAll(".spec-tab");
+    const contents = document.querySelectorAll(".spec-content");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const targetTab = tab.getAttribute("data-tab");
+
+        // Remove active classes
+        tabs.forEach((t) => {
+          t.classList.remove("bg-light", "dark:bg-darkmode-light", "border-b-2", "border-primary");
+        });
+        contents.forEach((c) => c.classList.add("hidden"));
+
+        // Add active classes
+        tab.classList.add("bg-light", "dark:bg-darkmode-light", "border-b-2", "border-primary");
+        const targetContent = document.querySelector(
+          `[data-content="${targetTab}"]`
+        );
+        if (targetContent) {
+          targetContent.classList.remove("hidden");
+        }
+      });
+    });
+  });
+</script>

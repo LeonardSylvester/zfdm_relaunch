@@ -1,0 +1,56 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import Button from "@/shortcodes/Button";
+
+const cta = await getListPage("sections", "call-to-action");
+if(!cta?.data.enable) return null;
+const { title, description, image, button } = cta.data;
+---
+
+    <section class="section pb-0">
+      <div class="container">
+        <div
+          class="rounded-3xl bg-secondary px-5 pt-7 md:px-12 md:pt-24"
+          data-aos="fade-up-sm"
+        >
+          <div class="row justify-center">
+            <div class="col-12 text-center">
+              {title && <h2
+                set:html={markdownify(title)}
+                class="mb-3 text-light lg:h1"
+                data-aos="fade-up-sm"
+              />}
+              {description &&<p
+                set:html={markdownify(description)}
+                class="mb-6 text-light"
+                data-aos="fade-up-sm"
+              />}
+              {button && button.enable && (
+                <div data-aos="zoom-in-sm">
+                  <Button
+                    className="mb-16 md:mb-24"
+                    link={button.link}
+                    label={button.label}
+                    style="light"
+                  />
+                </div>
+              )}
+            </div>
+            <div class="col-12">
+              {image &&<div data-aos="fade-up-sm">
+                <ImageMod
+                  class="w-full mx-auto px-4 pt-4 bg-light/30 rounded-t-3xl"
+                  src={image}
+                  width={1012}
+                  height={324}
+                  alt="cta-image"
+                  format="webp"
+                />
+              </div>}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>

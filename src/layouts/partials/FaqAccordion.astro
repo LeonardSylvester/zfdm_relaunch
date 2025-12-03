@@ -1,0 +1,68 @@
+---
+import { getListPage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const faqIndex = await getListPage("faq", "-index");
+if(faqIndex.data.draft){
+  return Astro.redirect("/404");
+}
+const { faqs } = faqIndex.data;
+---
+
+<div class="accordion-container">
+  {
+    faqs.map((f: any, index: number) => (
+      <div
+        class={"accordion" + (index === 0 ? " active" : "")}
+        data-aos="fade-up-sm"
+        data-aos-delay={100 + index * 50}
+      >
+        <button class="accordion-header" data-accordion>
+          <span set:html={markdownify(f.question)} />
+          <svg
+            class="accordion-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="rgb(10, 9, 21)"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </button>
+        <div class="accordion-content">
+          <div class="faq-body" set:html={f.answer} />
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const accordionContainer = document.querySelector(".accordion-container");
+    const accordionHeaders = document.querySelectorAll("[data-accordion]");
+
+    accordionHeaders.forEach((header) => {
+      header.addEventListener("click", () => {
+        const clickedItem = header.parentElement;
+
+        // Close all other accordion items
+        const allAccordionItems =
+          accordionContainer?.querySelectorAll(".accordion");
+        allAccordionItems?.forEach((item) => {
+          if (item !== clickedItem && item.classList.contains("active")) {
+            item.classList.remove("active");
+          }
+        });
+
+        // Toggle the clicked item
+        if (clickedItem) {
+          clickedItem.classList.toggle("active");
+        }
+      });
+    });
+  });
+</script>

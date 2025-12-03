@@ -1,0 +1,99 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import GridBg from "@/components/GridBg.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import Share from "@/components/Share.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import dateFormat from "@/lib/utils/dateFormat";
+import similarItems from "@/lib/utils/similarItems";
+import { markdownify } from "@/lib/utils/textConverter";
+import { render } from "astro:content";
+
+const { post } = Astro.props;
+
+const posts = await getSinglePage("blog");
+const similarPosts = similarItems(post, posts);
+const { Content } = await render(post);
+const { title, description, author, image, date } = post.data;
+---
+
+<section class="section relative overflow-hidden pt-20 pb-0">
+  <GridBg />
+  <div class="container">
+    <h1
+      set:html={markdownify(title)}
+      class="text-center text-balance mb-20 text-[2rem] md:text-[2.5rem] lg:text-[4rem]"
+      data-aos="fade-up-sm"
+      data-aos-delay="100"
+    />
+    <div class="row justify-center">
+      <article class="lg:col-10">
+        <div
+          class="relative rounded-3xl overflow-hidden mb-16"
+          data-aos="zoom-in-sm"
+          data-aos-delay="200"
+        >
+          {
+            image && (
+              <div class="mb-10">
+                <ImageMod
+                  src={image}
+                  width={0}
+                  height={0}
+                  alt={title}
+                  class="w-full h-full object-cover"
+                  format="webp"
+                />
+              </div>
+            )
+          }
+          <div
+            class="absolute bottom-0 w-full px-3 py-2 md:px-10 md:py-6 backdrop-blur-xl bg-text-dark/40 flex flex-col max-md:gap-y-4 md:flex-row items-center justify-between text-light"
+          >
+            <ul class="max-md:text-center">
+              <li class="mr-6 inline-block">
+                <p class="text-sm text-light/70">Written by</p>
+                <p class="font-medium" set:html={author} />
+              </li>
+              <li class="inline-block">
+                <p class="text-sm text-light/70">Published on</p>
+                <p class="font-medium">{dateFormat(date)}</p>
+              </li>
+            </ul>
+            <div class="flex items-center">
+              <p class="mr-3">Share On</p>
+              <Share
+                className="social-icons"
+                title={title}
+                description={description}
+                slug={post.id}
+              />
+            </div>
+          </div>
+        </div>
+        <div class="content" data-aos="fade-up-sm" data-aos-delay="400">
+          <Content />
+        </div>
+      </article>
+    </div>
+
+    <!-- Related posts -->
+    <div class="section pb-0">
+      <p class="text-sm text-center" data-aos="fade-up-sm">
+        Recent Insights & Blogs
+      </p>
+      <h2 class="h1 mb-16 text-center" data-aos="fade-up-sm">
+        Read similar articles
+      </h2>
+      <div class="row g-4 justify-center">
+        {
+          similarPosts.slice(0, 3).map((post, i) => (
+            <div class="lg:col-4 md:col-6">
+              <BlogCard data={post} index={i} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+import GridBg from "@/components/GridBg.astro";
+import Base from "@/layouts/Base.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import { render } from "astro:content";
+
+// get static paths for all pages
+export async function getStaticPaths() {
+  const pages = await getSinglePage("pages");
+
+  const paths = pages.map((page) => ({
+    params: {
+      regular: page.id,
+    },
+    props: { page },
+  }));
+  return paths;
+}
+
+const { page } = Astro.props;
+const { title, meta_title, description, update } = page.data;
+const { Content } = await render(page);
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <section class="section pb-0 relative overflow-hidden">
+    <GridBg />
+    <div class="container">
+      {
+        title && (
+          <h1
+            set:html={humanize(title)}
+            class="text-center text-[32px] md:text-[48px] lg:text-[64px]"
+            data-aos="fade-up-sm"
+            data-aos-delay="200"
+          />
+        )
+      }
+      {
+        update && (
+          <p
+            class="text-center text-lg mt-6"
+            data-aos="fade-up-sm"
+            data-aos-delay="300"
+          >
+            Last Update: {dateFormat(update)}
+          </p>
+        )
+      }
+      <div class="mt-16 row justify-center">
+        <div class="lg:col-10">
+          <div class="content" data-aos="fade-up-sm" data-aos-delay="400">
+            <Content />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

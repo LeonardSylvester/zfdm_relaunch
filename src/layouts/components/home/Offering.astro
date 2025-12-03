@@ -1,0 +1,65 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import ImageMod from "../ImageMod.astro";
+
+type Props = {
+  offering: CollectionEntry<"homepage">["data"]["offering"];
+}
+const { offering } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    {
+      offering.map((item, index) => (
+        <div class="row justify-between items-center g-4 mb-30 last:mb-0">
+          <div
+            class={`col-12 lg:col-6 xl:col-5 ${index % 2 === 0 ? "lg:order-1" : "lg:order-2"}`}
+          >
+            <div data-aos="fade-up-sm" data-aos-delay={200 + index * 50}>
+              <p
+                set:html={markdownify(item.subtitle)}
+                class="px-4 py-1 rounded-lg! bg-tertiary text-sm mb-4 w-fit"
+              />
+              <h2 set:html={markdownify(item.title)} class="lg:h1 mb-4" />
+              <p set:html={markdownify(item.content)} class="mb-12" />
+              <ul>
+                {item.points.map((p) => (
+                  <li class="flex items-start gap-3 mb-6 last:mb-0">
+                    <div class="mt-2 rounded-full aspect-square w-3 bg-secondary shrink-0" />
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div
+            class={`col-12 lg:col-6 ${index % 2 !== 0 ? "lg:order-1" : "lg:order-2"}`}
+          >
+            <div
+              data-aos="fade-up-sm"
+              data-aos-delay={200 + index * 50}
+              class="bg-light rounded-3xl overflow-hidden flex flex-col"
+            >
+              <ImageMod
+                src={item.image}
+                alt={item.title}
+                width={600}
+                height={400}
+                class="w-full h-auto"
+              />
+              <ImageMod
+                src={item.image_1}
+                alt={item.title}
+                width={600}
+                height={400}
+                class="w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

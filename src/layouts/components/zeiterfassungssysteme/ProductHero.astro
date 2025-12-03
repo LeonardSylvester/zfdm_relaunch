@@ -1,0 +1,95 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  icon?: string;
+  badges?: string[];
+  feature_grid?: { icon: string; label: string }[];
+}
+
+const { title, description, image, icon, badges, feature_grid, videoId } = Astro.props;
+
+// Default icon if none provided
+const displayIcon = icon || "🔒";
+---
+
+<section class="section relative overflow-hidden pt-16 pb-0">
+  <div class="container">
+    <div class="row items-center flex-col-reverse lg:flex-row">
+      <!-- Left Column: Product Image -->
+      <div class="col-12 lg:col-6 mb-10 lg:mb-0">
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-lg border border-gray-200"
+          data-aos="zoom-in-sm"
+          data-aos-delay="150"
+        >
+          {image && (
+            <ImageMod
+              src={image}
+              width={0}
+              height={0}
+              alt={title}
+              class="w-full h-full object-cover"
+              format="webp"
+            />
+          )}
+        </div>
+      </div>
+
+      <!-- Right Column: Content -->
+      <div class="col-12 lg:col-6">
+        <div data-aos="fade-left" data-aos-delay="200">
+
+          <!-- Title -->
+          <h1
+            set:html={markdownify(title)}
+            class="mb-4 text-[2rem] md:text-[2.5rem] lg:text-[3rem] leading-tight font-semibold"
+          />
+
+          <!-- Description -->
+          {description && (
+            <p class="text-lg text-text-dark dark:text-darkmode-text-dark mb-6">
+              {description}
+            </p>
+          )}
+
+
+          <!-- Feature Grid -->
+          {feature_grid && feature_grid.length > 0 && (
+            <div class="grid grid-cols-2 gap-3 mb-6">
+              {feature_grid.map((feature) => (
+                <div class="flex items-center gap-2">
+                  <IconMapper icon={feature.icon} size="1.4rem" ariaHidden={true} />
+                  <span class="text-sm font-medium">{feature.label}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 mt-6">
+            <a
+              href="/preise"
+              class="btn bg-primary text-white px-6 py-3 rounded-xl text-base font-semibold shadow-md hover:opacity-90"
+            >
+              Jetzt kaufen
+            </a>
+
+            <a
+              href="#features"
+              class="btn border border-primary text-primary px-6 py-3 rounded-xl text-base font-semibold hover:bg-primary/10"
+            >
+              Details ansehen
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

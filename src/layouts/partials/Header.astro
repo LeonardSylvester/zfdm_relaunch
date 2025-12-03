@@ -1,0 +1,270 @@
+---
+import Logo from "@/components/Logo.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import Button from "@/shortcodes/Button";
+
+export interface ChildNavigationLink {
+  name: string;
+  url: string;
+  isLabel?: boolean;
+}
+
+export interface NavigationLink {
+  name: string;
+  url: string;
+  hasChildren?: boolean;
+  children?: ChildNavigationLink[];
+}
+
+const { navigation_button, settings } = config;
+const { pathname } = Astro.url;
+
+const { customHeader } = Astro.props;
+---
+
+<header
+  class={`header z-30 ${customHeader ? "bg-primary/98 border-border/20" : "border-border/10"} ${settings.sticky_header && "sticky top-0"}`}
+>
+  <nav class="navbar container xl:px-0">
+    <!-- logo -->
+    <div class="order-0">
+      <Logo {customHeader} />
+    </div>
+
+    <!-- navbar toggler -->
+    <input id="nav-toggle" type="checkbox" class="hidden" />
+    <label
+      for="nav-toggle"
+      class="order-3 cursor-pointer flex items-center lg:hidden lg:order-1 relative"
+    >
+      <svg
+        id="show-button"
+        class="h-6 fill-current absolute right-0 transition-opacity duration-300 ease-in-out"
+        viewBox="0 0 20 20"
+      >
+        <title>Menu Open</title>
+        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+      </svg>
+      <svg
+        id="hide-button"
+        class="h-6 fill-current absolute right-0 opacity-0 transition-opacity duration-300 ease-in-out"
+        viewBox="0 0 20 20"
+      >
+        <title>Menu Close</title>
+        <polygon
+          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+          transform="rotate(45 10 10)"></polygon>
+      </svg>
+    </label>
+
+    <!-- /navbar toggler -->
+
+    <ul id="nav-menu" class="navbar-nav">
+      {
+        menu?.main.map((menu: any) => (
+          <>
+            {menu.hasChildren ? (
+              <li class="nav-item nav-dropdown group relative">
+                <span
+                  class={`nav-link ${customHeader && "text-light/80 hover:text-light"}`}
+                >
+                  {menu.name}
+                  <svg
+                    class="h-4 w-4 fill-current transition-transform duration-200"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </span>
+                <ul class={`nav-dropdown-list ${menu.name === "Branchen" ? "nav-dropdown-list-branchen" : ""}`}>
+                  {menu.name === "Branchen" ? (
+                    (() => {
+                      const groups: any[] = [];
+                      let currentGroup: any = null;
+
+                      menu.children?.forEach((child: any) => {
+                        if (child.isLabel) {
+                          if (currentGroup) groups.push(currentGroup);
+                          currentGroup = { label: child.name, items: [] };
+                        } else if (currentGroup) {
+                          currentGroup.items.push(child);
+                        }
+                      });
+                      if (currentGroup) groups.push(currentGroup);
+
+                      return groups.map((group) => (
+                        <div class="nav-dropdown-category">
+                          <span class="nav-dropdown-label block px-4 mb-2 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
+                            {group.label}
+                          </span>
+                          {group.items.map((item: any) => (
+                            <a
+                              href={item.url}
+                              aria-label={item.name}
+                              class={`nav-dropdown-link block ${
+                                (pathname === `${item.url}/` ||
+                                  pathname === item.url) &&
+                                "active"
+                              }`}
+                            >
+                              {item.name}
+                            </a>
+                          ))}
+                        </div>
+                      ));
+                    })()
+                  ) : (
+                    menu.children?.map((child: any) => (
+                      <li class="nav-dropdown-item">
+                        {child.isLabel ? (
+                          <span class="nav-dropdown-label block px-4 mt-3 mb-1 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
+                            {child.name}
+                          </span>
+                        ) : (
+                          <a
+                            href={child.url}
+                            aria-label={child.name}
+                            class={`nav-dropdown-link block ${
+                              (pathname === `${child.url}/` ||
+                                pathname === child.url) &&
+                              "active"
+                            }`}
+                          >
+                            {child.name}
+                          </a>
+                        )}
+                      </li>
+                    ))
+                  )}
+                </ul>
+              </li>
+            ) : (
+              <li class="nav-item">
+                <a
+                  href={menu.url}
+                  class={`nav-link block ${
+                    (pathname === `${menu.url}/` || pathname === menu.url) &&
+                    `${customHeader ? "text-tertiary" : "active"}`
+                  } ${customHeader && "text-light/80 hover:text-light"}`}
+                >
+                  {menu.name}
+                </a>
+              </li>
+            )}
+          </>
+        ))
+      }
+      <!-- CTA Buttons - Mobile -->
+      <li class="mt-4 inline-block lg:hidden">
+        <Button
+          className="btn-sm w-full mb-2"
+          style="outline"
+          link="/contact"
+          label="Beratung buchen"
+          icon="FaCalendarDays"
+        />
+      </li>
+      <li class="inline-block lg:hidden">
+        <Button
+          className="btn-sm w-full"
+          style="primary"
+          link="/preise"
+          label="Jetzt kaufen"
+          icon="FaCartShopping"
+        />
+      </li>
+    </ul>
+
+    <div class="order-1 ml-auto flex items-center gap-3 md:order-2">
+      <!-- CTA Buttons - Desktop -->
+      <Button
+        className="hidden lg:inline-flex"
+        style="outline"
+        link="/contact"
+        label="Beratung buchen"
+        icon="FaCalendarDays"
+      />
+      <Button
+        className="hidden lg:inline-flex"
+        style="primary"
+        link="/preise"
+        label="Jetzt kaufen"
+        icon="FaCartShopping"
+      />
+    </div>
+  </nav>
+</header>
+
+<script>
+  function setupMobileDropdowns() {
+    const dropdownButtons = document.querySelectorAll(
+      ".nav-dropdown .nav-link"
+    );
+
+    dropdownButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        // Only handle clicks on mobile
+        if (window.innerWidth >= 1024) return;
+
+        e.preventDefault();
+        const dropdown =
+          button.parentElement?.querySelector(".nav-dropdown-list");
+        const arrow = button.querySelector("svg");
+
+        // Close other dropdowns
+        dropdownButtons.forEach((otherButton) => {
+          if (otherButton !== button) {
+            const otherDropdown =
+              otherButton.parentElement?.querySelector(".nav-dropdown-list");
+            const otherArrow = otherButton.querySelector("svg");
+
+            otherDropdown?.classList.add("hidden");
+            otherArrow?.classList.remove("rotate-180");
+          }
+        });
+
+        // Toggle current dropdown
+        dropdown?.classList.toggle("hidden");
+        arrow?.classList.toggle("rotate-180");
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+      if (window.innerWidth >= 1024) return;
+
+      const target = e.target as HTMLElement;
+      if (!target.closest(".nav-dropdown")) {
+        dropdownButtons.forEach(  (button) => {
+          const dropdown =
+            button.parentElement?.querySelector(".nav-dropdown-list");
+          const arrow = button.querySelector("svg");
+
+          dropdown?.classList.add("hidden");
+          arrow?.classList.remove("rotate-180");
+        });
+      }
+    });
+
+    // Close dropdowns when resizing to desktop
+    window.addEventListener("resize", () => {
+      dropdownButtons.forEach((button) => {
+        const dropdown =
+          button.parentElement?.querySelector(".nav-dropdown-list");
+        const arrow = button.querySelector("svg");
+
+        if (window.innerWidth >= 1024) {
+          dropdown?.classList.remove("hidden");
+          arrow?.classList.remove("rotate-180");
+        } else {
+          dropdown?.classList.add("hidden");
+          arrow?.classList.remove("rotate-180");
+        }
+      });
+    });
+  }
+
+  // Run setup when the DOM is ready
+  document.addEventListener("astro:page-load", setupMobileDropdowns);
+</script>

@@ -1,0 +1,53 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Base from "@/layouts/Base.astro";
+import Button from "@/shortcodes/Button";
+---
+
+<Base title="Page Not Found" customHeader={true}>
+  <section class="section pt-[3.188rem] bg-primary/98 relative">
+    <div class="container">
+      <div class="row justify-center items-center">
+        <div class="col-12 md:col-6">
+          <ImageMod
+            src="/images/404.png"
+            alt="404"
+            width={465}
+            height={465}
+            class="mx-auto"
+          />
+        </div>
+        <div class="col-12 md:col-6 text-light">
+          <h1 class="mb-4 text-light tracking-normal">404 Error!</h1>
+          <p class="mb-12 text-light/70">
+            Stay organized, prioritize with ease, and get things done faster.
+            Our all-in-one task management tool keeps your team aligned and on
+            track.
+          </p>
+          <Button
+            link="/"
+            label="Go back homepage"
+            icon="FaAngleRight"
+            style="secondary"
+            className="w-fit"
+          />
+        </div>
+      </div>
+    </div>
+
+    <ImageMod
+      src="/images/404-left-grid.png"
+      alt="left grid bg image"
+      width={188}
+      height={330}
+      class="absolute left-0 bottom-0"
+    />
+    <ImageMod
+      src="/images/404-right-grid.png"
+      alt="left grid bg image"
+      width={420}
+      height={330}
+      class="absolute right-0 bottom-0"
+    />
+  </section>
+</Base>

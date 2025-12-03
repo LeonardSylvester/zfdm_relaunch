@@ -1,0 +1,30 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import dateFormat from "@/lib/utils/dateFormat";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { version, date, image } = Astro.props;
+---
+
+<div class="changelog">
+  <div class="changelog-info">
+    <h4 class="mb-4 mt-0 text-center md:text-left font-medium text-2xl">
+      version <span set:html={markdownify(version)} />
+    </h4>
+    <p class="text-text-dark mb-5 text-center md:text-left">
+      {dateFormat(date)}
+    </p>
+  </div>
+  <div class="changelog-content">
+    <div class="bg-light rounded-3xl w-full mb-6 max-sm:p-4 p-[4.438rem]">
+      <ImageMod
+        src={image}
+        width={280}
+        height={298}
+        alt={version}
+        class="border-b-4 border-transparent/10 m-auto rounded-2xl w-auto"
+      />
+    </div>
+    <slot />
+  </div>
+</div>

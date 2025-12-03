@@ -1,0 +1,63 @@
+---
+import GridBg from "@/components/GridBg.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { render } from "astro:content";
+
+const { caseStudy } = Astro.props;
+
+const { Content } = await render(caseStudy);
+const { title, image, stats } = caseStudy.data;
+---
+
+<section class="section relative overflow-hidden pt-20 pb-0">
+  <GridBg />
+  <div class="container">
+    <h1
+      set:html={markdownify(title)}
+      class="text-center mb-20 text-[2rem] md:text-[2.5rem] lg:text-[4rem]"
+      data-aos="fade-up-sm"
+    />
+    <div class="row justify-center">
+      <article class="lg:col-10">
+        {
+          image && (
+            <div data-aos="zoom-in" data-aos-delay="200">
+              <ImageMod
+                src={image}
+                width={1016}
+                height={612}
+                alt={title}
+                class="aspect-1016/612 object-cover rounded-3xl mx-auto mb-16"
+                format="webp"
+              />
+            </div>
+          )
+        }
+
+        <div
+          class="mb-14 flex flex-col md:flex-row md:justify-between justify-center gap-6"
+        >
+          {
+            stats.map((s: { value: string; key: string }, i: number) => (
+              <div
+                class="w-fit max-md:mx-auto md:w-full border-b border-border/30 pb-6"
+                data-aos="fade-up-sm"
+                data-aos-delay={250 + i * 100}
+              >
+                <p
+                  set:html={markdownify(s.value)}
+                  class="h1 font-semibold text-text-dark mb-2 max-md:text-center"
+                />
+                <p set:html={markdownify(s.key)} class="" />
+              </div>
+            ))
+          }
+        </div>
+        <div class="content" data-aos="fade-up-sm" data-aos-delay="400">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

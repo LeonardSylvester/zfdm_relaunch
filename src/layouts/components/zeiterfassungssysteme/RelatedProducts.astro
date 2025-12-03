@@ -1,0 +1,99 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import DashedSeparator from "@/components/DashedSeparator.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+interface RelatedProduct {
+  id: string;
+  data: {
+    title: string;
+    description?: string;
+    image?: string;
+    icon?: string;
+  };
+}
+
+interface Props {
+  products: RelatedProduct[];
+}
+
+const { products } = Astro.props;
+---
+
+{
+  products && products.length > 0 && (
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row mb-8">
+          <div class="col-12 text-center">
+            <h2 class="h3 mb-2" data-aos="fade-up-sm">
+              Weitere Zeiterfassungssysteme
+            </h2>
+            <p
+              class="text-text-dark dark:text-darkmode-text-dark"
+              data-aos="fade-up-sm"
+              data-aos-delay="100"
+            >
+              Entdecken Sie auch unsere anderen Zeiterfassungslösungen
+            </p>
+          </div>
+        </div>
+
+        <div class="row gy-4 justify-center">
+          {products.map((product, index) => {
+            const { title, description, image, icon } = product.data;
+            const displayIcon = icon || "🔒";
+
+            return (
+              <div
+                class="col-12 md:col-6 lg:col-4"
+                data-aos="fade-up-sm"
+                data-aos-delay={index * 100}
+              >
+                <div class="bg-white dark:bg-darkmode-primary rounded-2xl p-6 h-full flex flex-col border border-border dark:border-darkmode-border hover:shadow-lg transition-shadow duration-300">
+                  {/* Image */}
+                  {image && (
+                    <div class="mb-4 -mx-6 -mt-6">
+                      <ImageMod
+                        src={image}
+                        alt={title}
+                        width={400}
+                        height={250}
+                        class="rounded-t-2xl w-full object-cover aspect-[16/10]"
+                      />
+                    </div>
+                  )}
+
+                  {/* Icon */}
+                  <div class="mb-4">
+                    <IconMapper icon={displayIcon} size="3rem" ariaLabel={`${title} icon`} />
+                  </div>
+
+                  {/* Title and Description */}
+                  <h3 set:html={markdownify(title)} class="h5 mb-3" />
+                  {description && (
+                    <p
+                      set:html={markdownify(description)}
+                      class="text-sm text-text-dark dark:text-darkmode-text-dark mb-4 flex-grow"
+                    />
+                  )}
+
+                  <DashedSeparator />
+
+                  <a
+                    href={`/zeiterfassungssysteme/${product.id}`}
+                    class="text-primary hover:text-secondary transition duration-300 inline-flex items-center justify-center mt-4 font-medium"
+                  >
+                    Mehr erfahren
+                    <IconMapper icon="→" className="ml-1" size="1em" ariaHidden={true} />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,204 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getSinglePage, getListPage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import { render } from "astro:content";
+import IconMapper from "@/components/IconMapper.astro";
+import ProductHero from "@/components/zeiterfassungssysteme/ProductHero.astro";
+import TrustBar from "@/components/zeiterfassungssysteme/TrustBar.astro";
+import FeatureShowcase from "@/components/zeiterfassungssysteme/FeatureShowcase.astro";
+import SpecificationTabs from "@/components/zeiterfassungssysteme/SpecificationTabs.astro";
+import RelatedProducts from "@/components/zeiterfassungssysteme/RelatedProducts.astro";
+import FaqAccordion from "@/partials/FaqAccordion.astro";
+
+export async function getStaticPaths() {
+  const systeme = await getSinglePage("systeme");
+
+  const paths = systeme.map((system) => ({
+    params: {
+      single: system.id,
+    },
+    props: { system },
+  }));
+  return paths;
+}
+
+const { system } = Astro.props;
+const {
+  title,
+  meta_title,
+  description,
+  image,
+  icon,
+  badges,
+  feature_grid,
+  trust_badges,
+  features,
+  specifications,
+  gallery,
+  testimonial,
+  pricing,
+  faq_section,
+  video
+} = system.data;
+
+const { Content } = await render(system);
+
+// Get related products (other systems)
+const allSysteme = await getSinglePage("systeme");
+const relatedSysteme = allSysteme
+  .filter((s) => s.id !== system.id)
+  .slice(0, 3);
+
+// Load FAQ section if specified
+let faqs = null;
+if (faq_section) {
+  try {
+    const faqData = await getListPage("faq", faq_section);
+    faqs = faqData.data.faqs;
+  } catch (e) {
+    console.warn(`FAQ section '${faq_section}' not found`);
+  }
+}
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <!-- Product Hero -->
+  <ProductHero
+    title={title}
+    description={description}
+    image={image}
+    icon={icon}
+    badges={badges}
+    feature_grid={feature_grid}
+  />
+
+  <!-- Trust Bar -->
+  <TrustBar trust_badges={trust_badges} showVideo={video}/>
+
+  <!-- Main Content (from MDX) -->
+  {
+    Content && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row justify-center">
+            <article class="lg:col-10">
+              <div class="content" data-aos="fade-up-sm">
+                <Content />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Feature Showcase -->
+  <FeatureShowcase features={features} />
+
+  <!-- Specifications Tabs -->
+  <SpecificationTabs specifications={specifications} />
+
+  <!-- Testimonial Section -->
+  {
+    testimonial && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 lg:col-10 mx-auto">
+              <div
+                class="bg-gradient-to-br from-secondary/10 to-primary/10 dark:from-darkmode-secondary/10 dark:to-darkmode-primary/10 rounded-2xl p-8 lg:p-12 relative"
+                data-aos="fade-up-sm"
+              >
+                <div class="text-primary/30 absolute top-8 left-8 text-6xl font-serif leading-none">
+                  "
+                </div>
+                <div class="relative z-10 pl-8">
+                  <blockquote class="text-xl lg:text-2xl font-medium mb-6 italic">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                      <IconMapper icon="👤" size="1.5rem" ariaHidden={true} />
+                    </div>
+                    <div>
+                      <div class="font-semibold">{testimonial.author}</div>
+                      <div class="text-sm text-text-dark dark:text-darkmode-text-dark">
+                        {testimonial.company}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Pricing CTA Section -->
+  {
+    pricing && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div
+                class="bg-primary/5 dark:bg-darkmode-primary/5 rounded-2xl p-8 lg:p-12 text-center"
+                data-aos="fade-up-sm"
+              >
+                <h2 class="h3 mb-4">Jetzt kostenlos testen</h2>
+                {pricing.starting_from && (
+                  <p class="text-2xl font-bold text-primary mb-4">
+                    {pricing.starting_from}
+                  </p>
+                )}
+                {pricing.note && (
+                  <p class="text-sm text-text-dark dark:text-darkmode-text-dark mb-6">
+                    {pricing.note}
+                  </p>
+                )}
+                <a
+                  href={pricing.link || "/kontakt"}
+                  class="btn btn-primary"
+                >
+                  Jetzt anfragen
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- FAQ Section -->
+  {
+    faqs && faqs.length > 0 && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row justify-center">
+            <div class="col-12 lg:col-8">
+              <h2 class="h3 mb-8 text-center" data-aos="fade-up-sm">
+                Häufig gestellte Fragen
+              </h2>
+              <FaqAccordion faqs={faqs} />
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Related Products -->
+  <RelatedProducts products={relatedSysteme} />
+
+  <!-- Call to Action -->
+  <CallToAction />
+</Base>

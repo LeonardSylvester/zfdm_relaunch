@@ -1,0 +1,74 @@
+---
+import { getListPage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import { Icon } from "astro-icon/components";
+import DashedSeparator from "../DashedSeparator.astro";
+
+// Career collection was removed - return null if not available
+let job = null;
+try {
+  const careerIndex = await getListPage("career", "-index");
+  if (!careerIndex.data.draft) {
+    job = careerIndex.data.job;
+  }
+} catch (e) {
+  // Career collection doesn't exist, skip rendering
+}
+
+if (!job) return null;
+---
+
+<section class="section pb-0">
+  <div class="container">
+    <p
+      set:html={markdownify(job.subtitle)}
+      class="mb-4 text-sm text-center"
+      data-aos="fade-up-sm"
+    />
+    <h2
+      set:html={markdownify(job.title)}
+      class="h2 lg:h1 mb-14 text-center"
+      data-aos="fade-up-sm"
+    />
+
+    <div class="row justify-center g-4">
+      {
+        job.jobs.map((job, index) => (
+          <div class="col-12 md:col-6 lg:col-4 min-h-full">
+            <div
+              class="p-6 rounded-3xl border border-border/10 hover:border-border transition! duration-75! flex flex-col justify-between h-full"
+              data-aos="fade-up-sm"
+              data-aos-delay={200 + index * 50}
+            >
+              <div>
+                <h4
+                  set:html={markdownify(job.title)}
+                  class="mb-3 font-medium"
+                  data-aos="fade-left-sm"
+                />
+                <p
+                  set:html={markdownify(job.description)}
+                  data-aos="fade-left-sm"
+                />
+              </div>
+
+              <DashedSeparator class="my-4" />
+
+              <div class="flex flex-wrap gap-3">
+                {job.details.map((detail) => (
+                  <p
+                    class="flex items-center gap-3 text-text-dark rounded-md border border-border/10 px-3 py-2 bg-light"
+                    data-aos="fade-left-sm"
+                    data-aos-delay={250 + index * 50}
+                  >
+                    <Icon name={detail.icon} /> {detail.info}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

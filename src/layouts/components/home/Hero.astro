@@ -1,0 +1,99 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import Button from "@/shortcodes/Button";
+import type { CollectionEntry } from "astro:content";
+import ImageMod from "../ImageMod.astro";
+
+type Props = {
+  hero: CollectionEntry<"homepage">["data"]["hero"];
+}
+const { hero } = Astro.props;
+---
+
+<section class="section pt-[76px] pb-0 relative hero overflow-hidden">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="col-12 sm:col-10 mb-8 text-center">
+        <h1
+          set:html={markdownify(hero.title)}
+          class="hero-title max-md:[&>br]:hidden"
+          data-aos="fade-up-sm"
+        />
+        <p
+          set:html={markdownify(hero.content)}
+          class="hero-content"
+          data-aos="fade-up-sm"
+          data-aos-delay="100"
+        />
+      </div>
+
+      <div class="col-12 sm:col-10 lg:col-8 mb-8">
+        <div
+          class="flex flex-col lg:flex-row justify-center gap-4"
+          data-aos="fade-up-sm"
+          data-aos-delay="200"
+        >
+          {
+            hero.button.map((button, i) => (
+              <Button
+                label={button.label}
+                link={button.link}
+                style={i % 2 === 0 ? "primary" : "light"}
+                icon={i % 2 !== 0 && "FaAngleRight"}
+                className="w-fit max-lg:mx-auto"
+              />
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="col-12 sm:col-10 lg:col-8 mb-10 md:mb-24">
+        <div class="flex flex-col lg:flex-row gap-5 justify-center">
+          <div
+            class="flex max-lg:mx-auto"
+            data-aos="fade-left-sm"
+            data-aos-delay="300"
+          >
+            {
+              hero.customer.image.map((image, i) => (
+                <ImageMod
+                  class={`profile-images ${i === 0 && "translate-x-0"} last:mr-[-60px]`}
+                  src={image}
+                  alt="customer-logo"
+                  width={44}
+                  height={44}
+                  style={{
+                    transform: `translateX(${-i * 17}px)`,
+                  }}
+                />
+              ))
+            }
+          </div>
+          <p
+            set:html={markdownify(hero.customer.note)}
+            class="max-lg:text-center max-lg:mx-auto text-sm max-lg:[&>br]:hidden text-text-dark"
+            data-aos="fade-left-sm"
+            data-aos-delay="400"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 max-md:px-0">
+        <div data-aos="fade-up-sm" data-aos-delay="500">
+          <ImageMod
+            src={hero.image}
+            alt="hero-image"
+            width={1096}
+            height={382}
+            format="webp"
+            class="mx-auto px-4 pt-4 bg-light rounded-t-3xl"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="absolute bottom-0 left-0 w-full h-full md:h-[115%] -z-10 bg-repeat bg-size-[1439px] bg-[url('/images/home/grid.svg')]"
+  >
+  </div>
+</section>

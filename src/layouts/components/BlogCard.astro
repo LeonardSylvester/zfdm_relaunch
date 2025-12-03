@@ -1,0 +1,45 @@
+---
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, slugify } from "@/lib/utils/textConverter";
+import ImageMod from "./ImageMod.astro";
+
+const { data, index } = Astro.props;
+const { title, image, date, categories } = data.data;
+---
+
+<div class="relative group" data-aos="fade-up-sm" data-aos-delay={index * 100}>
+  <div
+    class="backdrop-blur-lg bg-text-dark/40 absolute top-3 left-3 px-3 py-1.5 rounded-lg z-10"
+  >
+    {
+      categories.map((category: string, i: number) => (
+        <a href={`/ressourcen/blog/kategorien/${slugify(category)}`} class="text-light text-sm">
+          {humanize(category)}
+          {i !== categories.length - 1 && ","}
+        </a>
+      ))
+    }
+  </div>
+  {
+    image && (
+      <div class="mb-4 rounded-2xl overflow-hidden">
+        <ImageMod
+          class="w-full group-hover:scale-105 transition duration-500"
+          src={image}
+          alt={title}
+          width={400}
+          height={265}
+          format="webp"
+        />
+      </div>
+    )
+  }
+
+  {date && <p class="mb-2">{dateFormat(date)}</p>}
+
+  <h4 class="mb-3 h5 font-medium leading-normal">
+    <a href={`/ressourcen/blog/${data.id}`} class="stretched-link">
+      {title}
+    </a>
+  </h4>
+</div>

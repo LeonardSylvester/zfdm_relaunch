@@ -1,0 +1,301 @@
+---
+import Base from "@/layouts/Base.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import { getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import DashedSeparator from "@/components/DashedSeparator.astro";
+import GridBg from "@/components/GridBg.astro";
+import Share from "@/components/Share.astro";
+import { render } from "astro:content";
+
+export async function getStaticPaths() {
+  const branchen = await getSinglePage("branchen");
+
+  const paths = branchen.map((branche) => ({
+    params: {
+      single: branche.id,
+    },
+    props: { branche },
+  }));
+  return paths;
+}
+
+const { branche } = Astro.props;
+const { title, meta_title, description, image, stats, testimonial, category } =
+  branche.data;
+const { Content } = await render(branche);
+
+// Get other branchen for recommendations
+const allBranchen = await getSinglePage("branchen");
+// Get 3 other branchen from same category, or mixed if not enough
+const sameCategoryBranchen = allBranchen.filter(
+  (b) => b.id !== branche.id && b.data.category === category,
+);
+const otherCategoryBranchen = allBranchen.filter(
+  (b) => b.id !== branche.id && b.data.category !== category,
+);
+const relatedBranchen = [
+  ...sameCategoryBranchen.slice(0, 2),
+  ...otherCategoryBranchen.slice(0, 3 - sameCategoryBranchen.slice(0, 2).length),
+].slice(0, 3);
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <!-- Hero Section -->
+  <section class="section relative overflow-hidden pt-20 pb-0">
+    <GridBg />
+    <div class="container">
+      <h1
+        set:html={markdownify(title)}
+        class="text-center text-balance mb-20 text-[2rem] md:text-[2.5rem] lg:text-[4rem]"
+        data-aos="fade-up-sm"
+        data-aos-delay="100"
+      />
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div
+            class="relative rounded-3xl overflow-hidden mb-16"
+            data-aos="zoom-in-sm"
+            data-aos-delay="200"
+          >
+            {
+              image && (
+                <div class="mb-10">
+                  <ImageMod
+                    src={image}
+                    width={0}
+                    height={0}
+                    alt={title}
+                    class="w-full h-full object-cover"
+                    format="webp"
+                  />
+                </div>
+              )
+            }
+            <div
+              class="absolute bottom-0 w-full px-3 py-2 md:px-10 md:py-6 backdrop-blur-xl bg-text-dark/40 flex flex-col max-md:gap-y-4 md:flex-row items-center justify-between text-light"
+            >
+              <ul class="max-md:text-center">
+                <li class="mr-6 inline-block">
+                  <p class="text-sm text-light/70">Kategorie</p>
+                  <p class="font-medium capitalize">{category === "groesse" ? "Unternehmensgröße" : "Tätigkeit"}</p>
+                </li>
+                {stats && stats.length > 0 && (
+                  <li class="inline-block">
+                    <p class="text-sm text-light/70">Highlights</p>
+                    <p class="font-medium">
+                      {stats.slice(0, 2).map((stat: { label: string; value: string }) => stat.label).join(" • ")}
+                    </p>
+                  </li>
+                )}
+              </ul>
+              <div class="flex items-center">
+                <p class="mr-3">Teilen</p>
+                <Share
+                  className="social-icons"
+                  title={title}
+                  description={description}
+                  slug={branche.id}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-center">
+        <article class="lg:col-10">
+          <div class="content" data-aos="fade-up-sm">
+            <Content />
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial Section -->
+  {
+    testimonial && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 lg:col-10 mx-auto">
+              <div
+                class="bg-gradient-to-br from-secondary/10 to-primary/10 dark:from-darkmode-secondary/10 dark:to-darkmode-primary/10 rounded-2xl p-8 lg:p-12 relative"
+                data-aos="fade-up-sm"
+              >
+                <div class="text-primary/30 absolute top-8 left-8 text-6xl font-serif leading-none">
+                  "
+                </div>
+                <div class="relative z-10 pl-8">
+                  <blockquote class="text-xl lg:text-2xl font-medium mb-6 italic">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  <div class="flex items-center">
+                    <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center mr-4">
+                      <IconMapper icon="👤" className="text-primary" size="1.5rem" ariaHidden={true} />
+                    </div>
+                    <div>
+                      <div class="font-semibold">{testimonial.author}</div>
+                      <div class="text-sm text-text-dark dark:text-darkmode-text-dark">
+                        {testimonial.company}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Features/Benefits Section -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div
+            class="bg-primary/5 dark:bg-darkmode-primary/5 rounded-2xl p-8 lg:p-12"
+            data-aos="fade-up-sm"
+          >
+            <h2 class="h3 mb-6 text-center">Warum ZFDM für Ihre Branche?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div class="text-center">
+                <div class="mb-3">
+                  <IconMapper icon="✓" className="text-primary" size="3rem" ariaHidden={true} />
+                </div>
+                <h4 class="h5 mb-2">DSGVO-konform</h4>
+                <p class="text-sm">
+                  Höchste Datenschutzstandards für Ihre Branche
+                </p>
+              </div>
+              <div class="text-center">
+                <div class="mb-3">
+                  <IconMapper icon="🎯" className="text-primary" size="3rem" ariaHidden={true} />
+                </div>
+                <h4 class="h5 mb-2">Branchenspezifisch</h4>
+                <p class="text-sm">
+                  Angepasst an Ihre speziellen Anforderungen
+                </p>
+              </div>
+              <div class="text-center">
+                <div class="mb-3">
+                  <IconMapper icon="❓" className="text-primary" size="3rem" ariaHidden={true} />
+                </div>
+                <h4 class="h5 mb-2">Persönlicher Support</h4>
+                <p class="text-sm">
+                  Deutscher Kundenservice mit Branchenkenntnis
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Industries Section -->
+  {
+    relatedBranchen.length > 0 && (
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row mb-8">
+            <div class="col-12 text-center">
+              <h2 class="h3 mb-2" data-aos="fade-up-sm">
+                Weitere Branchen
+              </h2>
+              <p
+                class="text-text-dark dark:text-darkmode-text-dark"
+                data-aos="fade-up-sm"
+                data-aos-delay="100"
+              >
+                Entdecken Sie auch unsere anderen branchenspezifischen Lösungen
+              </p>
+            </div>
+          </div>
+
+          <div class="row gy-4 justify-center">
+            {relatedBranchen.map((relatedBranche, index) => {
+              const { title, description, image, stats } = relatedBranche.data;
+              const firstTwoStats = stats?.slice(0, 2) || [];
+
+              return (
+                <div
+                  class="col-12 md:col-6 lg:col-4"
+                  data-aos="fade-up-sm"
+                  data-aos-delay={index * 100}
+                >
+                  <div class="bg-white dark:bg-darkmode-primary rounded-2xl p-6 h-full flex flex-col border border-border dark:border-darkmode-border hover:shadow-lg transition-shadow duration-300">
+                    {/* Image */}
+                    {image && (
+                      <div class="mb-4 -mx-6 -mt-6">
+                        <ImageMod
+                          src={image}
+                          alt={title}
+                          width={400}
+                          height={250}
+                          class="rounded-t-2xl w-full object-cover aspect-[16/10]"
+                        />
+                      </div>
+                    )}
+
+                    {/* Title and Description */}
+                    <h3 set:html={markdownify(title)} class="h5 mb-3" />
+                    <p
+                      set:html={markdownify(description)}
+                      class="text-sm text-text-dark dark:text-darkmode-text-dark mb-4 flex-grow"
+                    />
+
+                    {/* Stats Preview */}
+                    {firstTwoStats.length > 0 && (
+                      <div class="grid grid-cols-2 gap-3 mb-4">
+                        {firstTwoStats.map(
+                          (stat: { label: string; value: string }) => (
+                            <div class="bg-primary/5 dark:bg-darkmode-primary/5 rounded-lg p-3 text-center">
+                              <div class="text-lg font-bold text-primary mb-1">
+                                {stat.value}
+                              </div>
+                              <div class="text-xs text-text-dark dark:text-darkmode-text-dark">
+                                {stat.label}
+                              </div>
+                            </div>
+                          ),
+                        )}
+                      </div>
+                    )}
+
+                    <DashedSeparator />
+
+                    <a
+                      href={`/branchen/${relatedBranche.id}`}
+                      class="text-primary hover:text-secondary transition duration-300 inline-flex items-center justify-center mt-4 font-medium"
+                    >
+                      Mehr erfahren
+                      <IconMapper icon="→" className="ml-1" size="1rem" ariaHidden={true} />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CallToAction />
+</Base>

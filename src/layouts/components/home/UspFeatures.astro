@@ -1,0 +1,20 @@
+---
+const { usps } = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="row gy-4 justify-center text-center">
+      {
+        usps?.map((usp: { icon: string; title: string }) => (
+          <div class="md:col-6 lg:col-4 xl:col-3" data-aos="fade-up">
+            <div class="rounded-xl bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+              <span class="text-5xl mb-4 block">{usp.icon}</span>
+              <h3 class="h5 mb-0">{usp.title}</h3>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

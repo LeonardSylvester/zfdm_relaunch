@@ -1,0 +1,47 @@
+/* navbar toggler */
+input#nav-toggle:checked + label #show-button {
+  @apply opacity-0;
+}
+input#nav-toggle:checked + label #hide-button {
+  @apply opacity-100;
+}
+input#nav-toggle:checked ~ #nav-menu {
+  @apply max-lg:block;
+}
+
+/* form style */
+.form-input {
+  @apply w-full rounded-lg border-border/20 bg-text-light px-4 py-3 text-text-dark placeholder:text-border focus:border-primary focus:ring-transparent placeholder:opacity-50;
+}
+.form-label {
+  @apply mb-2 block text-text-dark;
+}
+/* Placeholder style */
+.custom-select select.disabled-option,
+.placeholder-option {
+  @apply text-border/50;
+}
+/* Style when a valid option is selected */
+.custom-select select:not(.disabled-option) {
+  @apply text-text-dark;
+}
+
+.testimonial-slider-pagination {
+  @apply xl:absolute max-xl:flex max-xl:justify-center bottom-0 right-0 max-xl:mt-5;
+  .swiper-pagination-bullet {
+    @apply h-3 w-3 bg-border;
+  }
+  .swiper-pagination-bullet-active {
+    @apply opacity-50;
+  }
+}
+
+.career-slider-pagination {
+  @apply flex items-center justify-center mt-12;
+  .swiper-pagination-bullet {
+    @apply h-2.5 w-2.5 bg-light opacity-80;
+  }
+  .swiper-pagination-bullet-active {
+    @apply opacity-100;
+  }
+}

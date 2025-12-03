@@ -1,0 +1,41 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { title, content } = Astro.props;
+---
+
+<div class="pt-12 xl:pt-20 pb-24 xl:pb-40 relative overflow-hidden">
+  <div class="container">
+    <h1
+      set:html={markdownify(title)}
+      class="mb-6 text-[2.5rem] lg:text-[4rem] text-center"
+      data-aos="fade-up-sm"
+    />
+    {content && (
+      <p
+        set:html={markdownify(content)}
+        class="max-lg:[&>br]:hidden leading-relaxed text-center text-xl"
+        data-aos="fade-up-sm"
+      />
+    )}
+    <slot />
+  </div>
+
+  <!-- bg grid images -->
+  <ImageMod
+    src="/images/left-grid.png"
+    alt="left grid bg image"
+    width={438}
+    height={302}
+    class="absolute w-[28%] left-[-12%] top-[12%] opacity-20 -z-10"
+  />
+  <ImageMod
+    src="/images/right-grid.png"
+    alt="left grid bg image"
+    width={420}
+    height={330}
+    class="absolute w-[30%] right-[-3%] top-[5%] opacity-20 -z-10"
+  />
+  <!-- bg grid images -->
+</div>

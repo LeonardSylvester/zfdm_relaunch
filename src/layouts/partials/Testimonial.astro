@@ -1,0 +1,109 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "@/components/ImageMod.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+
+const testimonial = await getListPage("sections", "testimonial");
+if(!testimonial.data.enable) return null;
+const { title, subtitle, testimonials } = testimonial.data;
+---
+
+    <section class="section">
+      <div class="container">
+        <div class="mb-20 text-center">
+          {subtitle && <p
+            set:html={markdownify(subtitle)}
+            class="mb-4 text-sm"
+            data-aos="fade-up-sm"
+          />}
+          {title && <h2
+            set:html={markdownify(title)}
+            class="lg:h1"
+            data-aos="fade-up-sm"
+          />}
+        </div>
+        <div class="row justify-center">
+          <div class="col-12">
+            <div class="swiper testimonial-slider relative">
+              <div class="swiper-wrapper">
+                {testimonials && testimonials.map((item, index) => (
+                    <div class="swiper-slide">
+                      <div class="flex flex-col xl:flex-row items-center justify-between">
+                        <div
+                          class="lg:w-3/5 xl:w-[49%] max-xl:order-2"
+                          data-aos="fade-right-sm"
+                          data-aos-delay={`${index * 50 + 200}`}
+                        >
+                          <ImageMod
+                            width={226}
+                            height={57}
+                            class="mb-8"
+                            src={item.avatar}
+                            alt={item.name}
+                            format="webp"
+                          />
+                          <h4
+                            class="mb-10 text-2xl font-medium"
+                            set:html={markdownify(item.content)}
+                          />
+
+                          <p
+                            set:text={item.name}
+                            class="text-xl text-text-dark mb-1"
+                          />
+                          <p set:text={item.designation} class="text-sm" />
+                        </div>
+
+                        <div
+                          class="xl:w-[41%]"
+                          data-aos="fade-left-sm"
+                          data-aos-delay={`${index * 50 + 300}`}
+                        >
+                         {item.image && <ImageMod
+                            width={502}
+                            height={502}
+                            class="rounded-2xl w-full object-cover aspect-square max-xl:mb-7"
+                            src={item.image}
+                            alt={item.name}
+                            format="webp"
+                            quality="high"
+                          />}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+              <div class="testimonial-slider-pagination" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<script>
+  import { Swiper } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".testimonial-slider", {
+      modules: [Pagination, Autoplay],
+      spaceBetween: 24,
+      slidesPerView: 1,
+      loop: true,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".testimonial-slider-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+    });
+  });
+</script>

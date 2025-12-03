@@ -1,0 +1,85 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import { Icon } from "astro-icon/components";
+import ImageMod from "../ImageMod.astro";
+
+const { why } = Astro.props;
+---
+
+<section class="section bg-tertiary">
+  <div class="container">
+    <div class="mb-14" data-aos="fade-up-sm" data-aos-delay="200">
+      <p
+        set:html={markdownify(why.subtitle)}
+        class="mb-4 text-center text-sm"
+      />
+      <h2 set:html={markdownify(why.title)} class="h2 lg:h1 text-center" />
+    </div>
+
+    <div class="flex flex-col xl:flex-row gap-10 justify-between">
+      <div class="w-full xl:w-[53%]">
+        <div class="flex max-xl:justify-center items-center mb-6">
+          <div
+            class="bg-secondary rounded-full w-3 aspect-square mr-4"
+            data-aos="fade-left-sm"
+          >
+          </div>
+          <p set:html={markdownify(why.badge)} data-aos="fade-left-sm" />
+        </div>
+
+        <h2
+          set:html={markdownify(why.reason)}
+          class="mb-5 max-xl:text-center max-md:[&>br]:hidden"
+          data-aos="fade-up-sm"
+        />
+        <p
+          set:html={markdownify(why.content)}
+          class="mb-14 text-text-dark max-xl:text-center max-md:[&>br]:hidden"
+          data-aos="fade-up-sm"
+        />
+
+        <div
+          class="flex flex-col md:flex-row max-xl:justify-center justify-between gap-6"
+        >
+          {
+            why.points.map(
+              (
+                p: { icon: string; title: string; content: string },
+                index: number
+              ) => (
+                <div class="max-xl:text-center w-full md:w-1/2">
+                  <div
+                    class="w-fit mb-6 bg-transparent/[0.02] border border-border/10 p-1.5 rounded-lg max-xl:mx-auto"
+                    data-aos="fade-up-sm"
+                    data-aos-delay={index * 100}
+                  >
+                    <Icon name={p.icon} class="text-2xl" />
+                  </div>
+                  <p
+                    set:html={p.title}
+                    class="text-2xl font-medium text-text-dark mb-2"
+                    data-aos="fade-up-sm"
+                  />
+                  <p
+                    set:html={p.content}
+                    class="text-text-dark"
+                    data-aos="fade-up-sm"
+                  />
+                </div>
+              )
+            )
+          }
+        </div>
+      </div>
+      <div class="w-full xl:w-[43%]" data-aos="fade-up-sm">
+        <ImageMod
+          src={why.image}
+          alt="why"
+          width={490}
+          height={559}
+          class="mx-auto w-full rounded-3xl object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

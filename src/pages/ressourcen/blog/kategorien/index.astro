@@ -1,0 +1,33 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getAllTaxonomy, getTaxonomy } from "@/lib/taxonomyParser.astro";
+import { humanize } from "@/lib/utils/textConverter";
+
+const categories = await getTaxonomy("blog", "categories");
+const allCategories = await getAllTaxonomy("blog", "categories");
+---
+
+<Base title={"Categories"}>
+  <section class="section">
+    <div class="container text-center">
+      <ul>
+        {
+          categories.map((category: string) => {
+            const count = allCategories.filter((c) => c === category).length;
+            return (
+              <li class="m-3 inline-block">
+                <a
+                  href={`/ressourcen/blog/kategorien/${category}`}
+                  class="block rounded bg-light px-4 py-2 text-xl text-text-dark  "
+                >
+                  {humanize(category)}{" "}
+                  <span class="ml-2 rounded bg-body px-2 ">{count}</span>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </section>
+</Base>

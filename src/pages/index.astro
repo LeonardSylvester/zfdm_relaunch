@@ -1,0 +1,28 @@
+---
+import Benefits from "@/components/home/Benefits.astro";
+import CustomerReferences from "@/components/home/CustomerReferences.astro";
+import Features from "@/components/home/Features.astro";
+import Hero from "@/components/home/Hero.astro";
+import Offering from "@/components/home/Offering.astro";
+import Plans from "@/components/home/Plans.astro";
+import Base from "@/layouts/Base.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import Testimonial from "@/partials/Testimonial.astro";
+import TestimonialSlider from "@/partials/TestimonialSlider.astro";
+
+const homepage = await getListPage("homepage", "-index");
+const { hero, feature, offering, benefits, plan, customer_references } = homepage.data;
+---
+
+<Base>
+  <Hero {hero} />
+  <CustomerReferences data={customer_references} />
+  <Features {feature} />
+  <Offering {offering} />
+  <Benefits {benefits} />
+  <TestimonialSlider />
+  {/*<Testimonial />
+  <Plans plan={plan} />*/}
+  <CallToAction />
+</Base>

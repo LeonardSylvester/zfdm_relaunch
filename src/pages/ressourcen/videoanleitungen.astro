@@ -1,0 +1,252 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getListPage, getSinglePage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import Youtube from "@/shortcodes/Youtube";
+
+// Get page configuration
+const videosIndex = await getListPage("videos", "-index");
+if (videosIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+
+const { title, meta_title, description } = videosIndex.data;
+
+// Get all videos and sort by order field
+const allVideos = await getSinglePage("videos");
+const sortedVideos = allVideos.sort((a, b) => {
+  const orderA = a.data.order ?? 999;
+  const orderB = b.data.order ?? 999;
+  return orderA - orderB;
+});
+
+// Group videos by category
+const videosByCategory: Record<string, typeof sortedVideos> = {};
+sortedVideos.forEach((video) => {
+  const category = video.data.category || "Sonstiges";
+  if (!videosByCategory[category]) {
+    videosByCategory[category] = [];
+  }
+  videosByCategory[category].push(video);
+});
+
+// Helper function to create URL-safe anchor
+const createAnchor = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/[äöü]/g, (c) => ({ ä: "ae", ö: "oe", ü: "ue" }[c] || c))
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <PageHeader title={title} content={description} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <!-- Category Navigation (Optional) -->
+      {
+        Object.keys(videosByCategory).length > 1 && (
+          <div class="row mb-12">
+            <div class="col-12">
+              <nav
+                class="flex flex-wrap justify-center gap-3 mb-8"
+                aria-label="Video-Kategorien"
+                data-aos="fade-up-sm"
+              >
+                {Object.keys(videosByCategory).map((category) => (
+                  <a
+                    href={`#kategorie-${createAnchor(category)}`}
+                    class="px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary hover:text-white transition-all duration-300 text-sm font-medium text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary dark:hover:bg-darkmode-primary dark:hover:text-white"
+                  >
+                    {category}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
+        )
+      }
+
+      <!-- Videos by Category -->
+      {
+        Object.entries(videosByCategory).map(
+          ([category, videos], categoryIndex) => (
+            <div
+              id={`kategorie-${createAnchor(category)}`}
+              class="mb-16 scroll-mt-24"
+            >
+              {/* Category Title */}
+              <div class="row mb-8">
+                <div class="col-12">
+                  <h2
+                    class="h3 mb-2 text-center lg:text-left"
+                    data-aos="fade-up-sm"
+                  >
+                    {category}
+                  </h2>
+                  <div
+                    class="w-20 h-1 bg-primary mx-auto lg:mx-0 rounded-full"
+                    data-aos="fade-up-sm"
+                    data-aos-delay="100"
+                  />
+                </div>
+              </div>
+
+              {/* Video List */}
+              <div class="row gy-12">
+                {videos.map((video, index) => {
+                  const {
+                    title: videoTitle,
+                    description: videoDescription,
+                    youtube_id,
+                    duration,
+                  } = video.data;
+                  const videoAnchor = createAnchor(videoTitle);
+
+                  return (
+                    <div
+                      id={videoAnchor}
+                      class="col-12 scroll-mt-24"
+                      data-aos="fade-up-sm"
+                      data-aos-delay={index * 50}
+                    >
+                      <div class="max-w-4xl mx-auto">
+                        {/* Video Header */}
+                        <div class="mb-4 flex items-start justify-between gap-4 flex-wrap">
+                          <div class="flex-grow">
+                            <h3 class="h4 mb-2">{videoTitle}</h3>
+                            {videoDescription && (
+                              <p class="text-text-dark dark:text-darkmode-text-dark">
+                                {videoDescription}
+                              </p>
+                            )}
+                          </div>
+                          <div class="flex gap-2 flex-shrink-0">
+                            {duration && (
+                              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-secondary/10 text-secondary dark:bg-darkmode-secondary/10 dark:text-darkmode-secondary">
+                                {duration}
+                              </span>
+                            )}
+                            <a
+                              href={`#${videoAnchor}`}
+                              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-300 dark:bg-darkmode-primary/10 dark:text-darkmode-primary dark:hover:bg-darkmode-primary dark:hover:text-white"
+                              title="Link zu diesem Video kopieren"
+                            >
+                              <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                                />
+                              </svg>
+                            </a>
+                          </div>
+                        </div>
+
+                        {/* YouTube Video Embed */}
+                        {youtube_id ? (
+                          <div class="relative rounded-2xl overflow-hidden shadow-lg">
+                            <Youtube
+                              id={youtube_id}
+                              title={videoTitle}
+                              client:visible
+                            />
+                          </div>
+                        ) : (
+                          <div class="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 aspect-video flex items-center justify-center">
+                            <p class="text-text-dark dark:text-darkmode-text-dark">
+                              Video wird in Kürze verfügbar sein
+                            </p>
+                          </div>
+                        )}
+
+                        {/* Video Schema.org Markup for SEO */}
+                        {youtube_id && (
+                          <script
+                            type="application/ld+json"
+                            set:html={JSON.stringify({
+                              "@context": "https://schema.org",
+                              "@type": "VideoObject",
+                              name: videoTitle,
+                              description: videoDescription || videoTitle,
+                              thumbnailUrl: `https://img.youtube.com/vi/${youtube_id}/maxresdefault.jpg`,
+                              uploadDate: new Date().toISOString(),
+                              contentUrl: `https://www.youtube.com/watch?v=${youtube_id}`,
+                              embedUrl: `https://www.youtube.com/embed/${youtube_id}`,
+                              duration: duration,
+                            })}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ),
+        )
+      }
+
+      <!-- Help Text -->
+      <div class="row mt-16">
+        <div class="col-12 lg:col-10 mx-auto">
+          <div
+            class="bg-primary/5 dark:bg-darkmode-primary/5 rounded-2xl p-8 text-center"
+            data-aos="fade-up-sm"
+          >
+            <svg
+              class="w-16 h-16 text-primary mx-auto mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              />
+            </svg>
+            <h3 class="h4 mb-4">
+              Sie vermissen ein bestimmtes Thema oder haben Fragen?
+            </h3>
+            <p class="mb-6">
+              Kontaktieren Sie uns und wir helfen Ihnen gerne weiter oder
+              erstellen ein passendes Video für Ihr Anliegen.
+            </p>
+            <a
+              href="/contact"
+              class="btn btn-primary inline-flex items-center gap-2"
+            >
+              Jetzt Kontakt aufnehmen
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

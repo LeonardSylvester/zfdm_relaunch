@@ -1,0 +1,105 @@
+---
+import ImageMod from "@/components/ImageMod.astro";
+import Logo from "@/components/Logo.astro";
+import Social from "@/components/Social.astro";
+import config from "@/config/config.json";
+import menu from "@/config/menu.json";
+import social from "@/config/social.json";
+import { markdownify } from "@/lib/utils/textConverter";
+
+const { copyright, footer_text, award } = config.params;
+---
+
+<footer>
+  <div class="container pt-16 md:pt-32 xl:px-9 mb-24">
+    <div class="row justify-center md:justify-between md:mb-16 gy-4">
+      <div class="col-12 lg:col-4">
+        <div class="mb-4 lg:mb-6" data-aos="fade-up-sm">
+          <Logo />
+        </div>
+        <p
+          class="mb-7 lg:mb-[71px] sm:w-3/5 lg:w-full text-sm xl:text-left xl:text-wrap"
+          set:html={markdownify(footer_text)}
+          data-aos="fade-up-sm"
+        />
+        <div class="flex flex-col md:flex-row md:items-center gap-4">
+          <p
+            set:html={markdownify(award.title)}
+            class="text-sm text-text-dark leading-[25px] tracking-[-0.2px]"
+            data-aos="fade-up-sm"
+          />
+          <div class="flex gap-4">
+            {
+              award.badges.map(
+                (badge: { link: string; image: string }, i: number) => (
+                  <a
+                    href={badge.link}
+                    data-aos="fade-up-sm"
+                    data-aos-delay={200 + i * 50}
+                  >
+                    <ImageMod
+                      src={badge.image}
+                      alt={badge.link}
+                      width={47}
+                      height={56}
+                    />
+                  </a>
+                )
+              )
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 lg:col-6">
+        <div class="flex flex-wrap lg:justify-between mb-4 lg:mb-8">
+          {
+            menu.footer.map((section: { name: unknown; menu: any[] }) => (
+              <div class="w-full md:w-1/3 mb-7 last:mb-0">
+                <p
+                  class="mb-4 text-text-dark "
+                  data-aos="fade-up-sm"
+                  data-aos-delay="200"
+                >
+                  {section.name}
+                </p>
+                <ul>
+                  {section.menu.map(
+                    (
+                      child: {
+                        url: string | URL | null | undefined;
+                        name: unknown;
+                      },
+                      i: number
+                    ) => (
+                      <li
+                        class="mb-2 last:mb-0 hover:text-secondary"
+                        data-aos="fade-up-sm"
+                        data-aos-delay={200 + i * 50}
+                      >
+                        <a href={child?.url}>{child.name}</a>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="flex flex-col md:flex-row justify-between md:items-center gap-6 pt-4 border-t border-border/20"
+      data-aos="fade-up-sm"
+    >
+      <p class="copyright max-md:order-2" set:html={markdownify(copyright)} />
+
+      <Social
+        source={social.main}
+        className="social-icons"
+        data-aos="fade-up-sm"
+      />
+    </div>
+  </div>
+</footer>

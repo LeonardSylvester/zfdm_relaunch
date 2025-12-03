@@ -1,0 +1,103 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "../ImageMod.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  slider: CollectionEntry<"career">["data"]["slider"];
+};
+
+const { slider } = Astro.props;
+---
+
+<section class="py-24 bg-primary">
+  <div class="container">
+    <div
+      class="swiper career-slider relative"
+      data-aos="fade-left-sm"
+      data-aos-delay={300}
+    >
+      <div class="swiper-wrapper">
+        {
+          slider.map((item) => (
+            <div class="swiper-slide">
+              <div class="flex flex-col xl:flex-row gap-8 xl:gap-6 justify-between text-light">
+                {/* left */}
+                <div class="flex flex-col sm:flex-row xl:flex-col justify-center mx-auto xl:justify-between xl:w-[41%] max-xl:order-2 gap-6 ">
+                  <ImageMod
+                    alt="slider image"
+                    src={item.company}
+                    width={226}
+                    height={59}
+                    class="opacity-30 object-contain"
+                  />
+
+                  <div class="flex flex-col justify-center">
+                    <p
+                      set:html={markdownify(item.stats.value)}
+                      class="h1 font-semibold mb-1 max-xl:text-center"
+                    />
+                    <p
+                      set:html={markdownify(item.stats.about)}
+                      class="max-xl:text-center"
+                    />
+                  </div>
+                </div>
+                {/* right */}
+                <div class="flex flex-col justify-center mx-auto xl:justify-between lg:w-4/5 xl:w-[49%]">
+                  <p
+                    set:html={markdownify(item.review)}
+                    class="h4 font-medium mb-[5.313rem] max-xl:text-center"
+                  />
+                  <div class="flex justify-center xl:justify-start items-center gap-4">
+                    <ImageMod
+                      src={item.avatar}
+                      alt="slider image"
+                      width={80}
+                      height={80}
+                    />
+                    <div>
+                      <p
+                        set:html={markdownify(item.name)}
+                        class="text-xl mb-1"
+                      />
+                      <p set:html={markdownify(item.designation)} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <div class="career-slider-pagination"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import "swiper/css/pagination";
+  import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".career-slider", {
+      modules: [Pagination, Autoplay],
+      spaceBetween: 24,
+      slidesPerView: 1,
+      loop: true,
+      centeredSlides: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".career-slider-pagination",
+        type: "bullets",
+        clickable: true,
+      },
+    });
+  });
+</script>

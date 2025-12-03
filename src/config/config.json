@@ -1,0 +1,59 @@
+{
+  "site": {
+    "title": "ZFDM: Mitarbeiter Zeiterfassung & Zeiterfassungssysteme für KMUs",
+    "base_url": "https://www.zeiterfassung-fdm.de/",
+    "base_path": "/",
+    "trailing_slash": false,
+    "favicon": "",
+    "logo": "/images/ZFDM-Logo-optimized.webp",
+    "logo_darkmode": "/images/ZFDM-Logo-optimized.webp",
+    "logo_width": "44",
+    "logo_height": "44",
+    "logo_text": "ZFDM"
+  },
+
+  "settings": {
+    "search": true,
+    "sticky_header": true,
+    "default_theme": "system",
+    "pagination": 2,
+    "summary_length": 200
+  },
+
+  "params": {
+    "copyright": "Copyright 2025, Get2world Systems – alle Rechte vorbehalten",
+    "footer_text": "ZFDM ist ein einfaches, webbasiertes Zeiterfassungssystem für kleine Betriebe und KMU. Es kombiniert zuverlässige Hardware-Terminals mit intuitiver Software – als einmalige Anschaffung, ohne laufende Kosten und vollständig rechtskonform.",
+    "award": {
+      "enable": false,
+      "title": "",
+      "badges": [
+        {
+          "image": "",
+          "link": ""
+        },
+        {
+          "image": "",
+          "link": ""
+        }
+      ]
+    },
+    "contact_form_action": "#"
+  },
+
+  "navigation_button": {
+    "enable": true,
+    "label": "Get This Template",
+    "link": "https://themefisher.com/products/syncmaster-astro"
+  },
+
+  "google_tag_manager": {
+    "enable": false,
+    "gtm_id": "GTM-XXXXXX"
+  },
+
+  "metadata": {
+    "meta_author": "Roy",
+    "meta_image": "",
+    "meta_description": "astro and tailwind saas theme"
+  }
+}

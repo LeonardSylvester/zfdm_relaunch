@@ -1,0 +1,126 @@
+---
+import Base from "@/layouts/Base.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import { getListPage, getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import { render } from "astro:content";
+
+const systemeIndex = await getListPage("systeme", "-index");
+if (systemeIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+
+const systems = await getSinglePage("systeme");
+const { title, meta_title, description, image } = systemeIndex.data;
+const { Content } = await render(systemeIndex);
+
+// Emoji mapping for each system
+const emojiMap: Record<string, string> = {
+  chip: "💳",
+  fingerabdruck: "👆",
+  gesichtserkennung: "👤",
+};
+---
+
+<Base title={title} meta_title={meta_title} description={description} image={image}>
+  <PageHeader title={title} content={description} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <!-- Main Content -->
+      <div class="row mb-16">
+        <div class="col-12">
+          <div
+            class="prose max-w-none text-center mx-auto"
+            data-aos="fade-up-sm"
+          >
+            <Content />
+          </div>
+        </div>
+      </div>
+
+      <!-- Systems Grid -->
+      <div class="row gy-4 justify-center">
+        {
+          systems.map((system, index) => {
+            const { title, description, icon, features, image } = system.data;
+            const emoji = emojiMap[system.id] || emojiMap[icon] || "📱";
+            const firstThreeFeatures = features?.slice(0, 3) || [];
+
+            return (
+              <div
+                class="col-12 md:col-6 lg:col-4"
+                data-aos="fade-up-sm"
+                data-aos-delay={index * 100}
+              >
+                <div class="bg-white dark:bg-darkmode-primary rounded-2xl p-6 h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow duration-300 border border-border dark:border-darkmode-border">
+                  {/* Icon */}
+                  <div class="mb-6 flex justify-center">
+                    <div class="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                      <IconMapper icon={emoji} size="3rem" ariaLabel={`${title} icon`} />
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    set:html={markdownify(title)}
+                    class="h4 mb-4 text-center"
+                  />
+
+                  {/* Description */}
+                  <p
+                    set:html={markdownify(description)}
+                    class="text-text-dark dark:text-darkmode-text-dark mb-6 text-center flex-grow"
+                  />
+
+                  {/* Features Preview */}
+                  {firstThreeFeatures.length > 0 && (
+                    <ul class="mb-6 space-y-2">
+                      {firstThreeFeatures.map((feature: string) => (
+                        <li class="flex items-start text-sm">
+                          <IconMapper icon="✓" className="text-primary mr-2 flex-shrink-0 mt-0.5" size="0.875rem" ariaHidden={true} />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {/* Link to Detail Page */}
+                  <div class="mt-auto pt-4 border-t border-border dark:border-darkmode-border">
+                    <a
+                      href={`/zeiterfassungssysteme/${system.id}`}
+                      class="text-primary hover:text-secondary transition duration-300 flex items-center justify-center font-medium"
+                    >
+                      Mehr erfahren
+                      <IconMapper icon="→" className="ml-2" size="0.875rem" ariaHidden={true} />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        }
+      </div>
+
+      <!-- Additional Info Section -->
+      <div class="row mt-16">
+        <div class="col-12 lg:col-10 mx-auto">
+          <div
+            class="bg-secondary/5 dark:bg-darkmode-secondary/5 rounded-2xl p-8 text-center"
+            data-aos="fade-up-sm"
+          >
+            <h3 class="h4 mb-4">Alle Systeme sind DSGVO-konform</h3>
+            <p class="mb-0">
+              Unsere Zeiterfassungssysteme erfüllen höchste Sicherheitsstandards und sind vollständig konform mit der Datenschutz-Grundverordnung. Ihre Mitarbeiterdaten sind bei uns in sicheren Händen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

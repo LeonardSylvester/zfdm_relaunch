@@ -1,0 +1,28 @@
+{
+  "colors": {
+    "default": {
+      "theme_color": {
+        "primary": "#1a72f5",
+        "secondary": "#29BF12",
+        "tertiary": "#D8E8FD",
+        "body": "#fff",
+        "border": "#52525a",
+        "light": "#f7f6f4"
+      },
+      "text_color": {
+        "text": "#6c6b73",
+        "text-dark": "#0a0915",
+        "text-light": "#fff"
+      }
+    }
+  },
+  "fonts": {
+    "font_family": {
+      "primary": "Inter:wght@400;500",
+      "primary_type": "sans-serif",
+      "secondary": "Be+Vietnam+Pro:wght@500;600",
+      "secondary_type": "sans-serif"
+    },
+    "font_size": { "base": "16", "scale": "1.2" }
+  }
+}

@@ -1,0 +1,75 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+const ressourcenIndex = await getListPage("ressourcen", "-index");
+if (ressourcenIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+const { title, content, meta_title, description } = ressourcenIndex.data;
+
+// Define the three resource sections
+const sections = [
+  {
+    title: "FAQs",
+    description: "Antworten auf die häufigsten Fragen zur ZFDM Zeiterfassung",
+    icon: "FaCircleQuestion",
+    link: "/ressourcen/faqs",
+    linkText: "Zu den FAQs",
+  },
+  {
+    title: "Videoanleitungen",
+    description: "Schritt-für-Schritt Anleitungen für alle Funktionen",
+    icon: "FaCirclePlay",
+    link: "/ressourcen/videoanleitungen",
+    linkText: "Zu den Videos",
+  },
+  {
+    title: "Blog",
+    description: "Neuigkeiten, Tipps und Best Practices rund um Zeiterfassung",
+    icon: "FaNewspaper",
+    link: "/ressourcen/blog",
+    linkText: "Zum Blog",
+  },
+];
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <PageHeader title={title} content={content} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row g-4 justify-center">
+        {
+          sections.map((section) => (
+            <div class="col-12 md:col-6 lg:col-4" data-aos="fade-up-sm">
+              <a
+                href={section.link}
+                class="group block h-full rounded-2xl border-2 border-border p-8 transition-all duration-300 hover:border-primary hover:shadow-lg dark:border-darkmode-border dark:hover:border-darkmode-primary"
+              >
+                <div class="mb-6 flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-white dark:bg-darkmode-primary/10 dark:text-darkmode-primary dark:group-hover:bg-darkmode-primary dark:group-hover:text-white">
+                  <DynamicIcon icon={section.icon} className="h-8 w-8" client:load />
+                </div>
+                <h3 class="mb-3 text-2xl font-semibold text-dark dark:text-darkmode-light">
+                  {section.title}
+                </h3>
+                <p class="mb-4 text-text dark:text-darkmode-text">
+                  {section.description}
+                </p>
+                <span class="inline-flex items-center gap-2 font-medium text-primary transition-all duration-300 group-hover:gap-3 dark:text-darkmode-primary">
+                  {section.linkText}
+                  <DynamicIcon icon="FaArrowRight" className="h-4 w-4" client:load />
+                </span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

@@ -1,0 +1,208 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import Button from "@/shortcodes/Button";
+import { Icon } from "astro-icon/components";
+
+const { pricing_card, pricing_tab } = Astro.props;
+---
+
+<section class="section pt-0 -mt-12 lg:-mt-24">
+  <div class="container">
+    <div class="row g-4 justify-center">
+      <div class="col-12 pb-10" data-aos="fade-up-sm">
+        <div
+          class="flex items-center justify-around lg:justify-center gap-x-3 px-4 lg:px-8 py-2 lg:py-4 border border-border/20 rounded-2xl w-fit mx-auto"
+        >
+          {
+            pricing_tab.map((plan: any, index: number) => (
+              <span
+                class={`select-none text-text-dark ${index === 0 ? "order-0" : "order-3"}`}
+                set:html={markdownify(plan)}
+              />
+            ))
+          }
+          <label
+            class="relative inline-block h-3.5 w-5.5 cursor-pointer order-1 rounded-full bg-primary"
+          >
+            <span class="sr-only">Pricing Switcher</span>
+            <input
+              type="checkbox"
+              id="checkbox"
+              class="pricing-check peer w-full cursor-pointer opacity-0"
+            />
+            <span
+              class="absolute -left-px -top-px cursor-pointer before:absolute before:left-1 before:top-1 before:h-2 before:w-2 before:translate-x-0 before:rounded-full before:bg-body before:transition-all before:delay-75 before:duration-300 peer-checked:before:translate-x-2 peer-checked:before:bg-tertiary"
+            ></span>
+          </label>
+        </div>
+      </div>
+
+      {
+        pricing_card?.map((item: any, index: number) => (
+          <div
+            class="col-12 md:col-6 lg:col-4"
+            data-aos="fade-up-sm"
+            data-aos-delay={200 + index * 50}
+          >
+            <div
+              class={`mx-auto rounded-2xl p-6 ${index % 2 === 0 ? "bg-light" : "bg-primary"}`}
+            >
+              {/* left */}
+              <div class="flex flex-col mb-8">
+                <h4
+                  set:html={markdownify(item.title)}
+                  class={`mb-1 ${index % 2 !== 0 && "text-light"}`}
+                />
+                <p
+                  set:html={markdownify(item.description)}
+                  class={`mb-6 text-sm ${index % 2 !== 0 && "text-light/70"}`}
+                />
+
+                <div class="flex gap-4 lg:mb-8 flex-row items-center">
+                  {item.price_monthly && item.price_yearly && (
+                    <>
+                      <p
+                        class={`text-[2.5rem] font-semibold  ${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
+                      >
+                        {markdownify(item.price_prefix)}
+                        <span
+                          class="data-count"
+                          data-count-yearly={item.price_yearly}
+                          data-count-monthly={item.price_monthly}
+                          set:html={markdownify(item.price_monthly)}
+                        />
+                      </p>
+                      <div>
+                        <p class={` ${index % 2 !== 0 && "text-light/70"}`}>
+                          /per {item.price_suffix.one}
+                        </p>
+                        <p class={` ${index % 2 !== 0 && "text-light/70"}`}>
+                          /per {item.price_suffix.two}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                  {item.price_description_monthly &&
+                    item.price_description_yearly && (
+                      <>
+                        <span
+                          class="text-monthly text-lg/[inherit]"
+                          set:html={markdownify(item.price_description_monthly)}
+                        />
+                        <span
+                          class="text-yearly hidden text-lg/[inherit]"
+                          set:html={markdownify(item.price_description_yearly)}
+                        />
+                      </>
+                    )}
+                </div>
+              </div>
+              {/* right */}
+              <div class="mb-10">
+                <p
+                  class={` ${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
+                >
+                  Included Features
+                </p>
+                <hr class="border border-border/20 mb-5 mt-4" />
+                <ul>
+                  {item.features.map((feature: any) => (
+                    <li class="mb-4 flex items-center ">
+                      <span
+                        class={`p-1.5 rounded bg-text/10 mr-2 border ${(index + 1) % 2 === 0 ? "border-border" : "border-border/20"}`}
+                      >
+                        <Icon
+                          name="cpu"
+                          class={`text-base ${(index + 1) % 2 === 0 ? "text-tertiary" : "text-text-dark"}`}
+                        />
+                      </span>
+
+                      <span
+                        set:html={markdownify(feature)}
+                        class={`${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button
+                label={item.button.label}
+                link={item.button.link}
+                style={`${index % 2 === 0 ? "secondary" : "primary"}`}
+                icon="FaAngleRight"
+                className={`${index % 2 !== 0 && "bg-tertiary text-text-dark hover:text-primary"}`}
+              />
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  function pricingInit() {
+    // Select the toggle switch element
+    const toggleSwitch =
+      document.querySelector<HTMLInputElement>(".pricing-check");
+    const numbers = document.querySelectorAll<HTMLDivElement>(".data-count");
+    toggleSwitch &&
+      toggleSwitch.addEventListener("change", function () {
+        if (toggleSwitch.checked) {
+          numbers.forEach(function (number) {
+            const yearlyCount = number.getAttribute("data-count-yearly");
+            if (yearlyCount) {
+              number.innerHTML = yearlyCount;
+              animateCounter(number, parseInt(yearlyCount, 10));
+            }
+          });
+          toggleVisibility(".text-yearly", "d-block", "hidden");
+          toggleVisibility(".text-monthly", "hidden", "d-block");
+        } else {
+          numbers.forEach(function (number) {
+            const monthlyCount = number.getAttribute("data-count-monthly");
+            if (monthlyCount) {
+              number.innerHTML = monthlyCount;
+              animateCounter(number, parseInt(monthlyCount, 10));
+            }
+          });
+          toggleVisibility(".text-monthly", "d-block", "hidden");
+          toggleVisibility(".text-yearly", "hidden", "d-block");
+        }
+      });
+
+    function animateCounter(element: HTMLElement, endValue: number) {
+      let startValue = 0;
+      const duration = 250;
+      let startTime: number | null = null;
+
+      function step(currentTime: number) {
+        if (!startTime) startTime = currentTime;
+        const progress = currentTime - startTime;
+        const value =
+          Math.min(progress / duration, 1) * (endValue - startValue) +
+          startValue;
+        element.innerHTML = Math.ceil(value).toString();
+        if (progress < duration) {
+          requestAnimationFrame(step);
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    function toggleVisibility(
+      selector: string,
+      addClass: string,
+      removeClass: string
+    ) {
+      const elements = document.querySelectorAll<HTMLElement>(selector);
+      elements.forEach(function (element) {
+        element.classList.add(addClass);
+        element.classList.remove(removeClass);
+      });
+    }
+  }
+  document.addEventListener("astro:page-load", pricingInit);
+</script>

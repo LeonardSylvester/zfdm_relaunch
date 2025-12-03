@@ -1,0 +1,95 @@
+---
+import DynamicIcon from "@/helpers/DynamicIcon";
+
+interface Props {
+  icon: string;
+  className?: string;
+  size?: string;
+  ariaLabel?: string;
+  ariaHidden?: boolean;
+}
+
+const { icon, className = "", size = "1em", ariaLabel, ariaHidden = false } = Astro.props;
+
+// Zentrale Mapping-Logik: Emoji/Text → react-icons
+const iconMap: Record<string, string> = {
+  // System identifiers (Zeiterfassungssysteme)
+  "chip": "FaCreditCard",
+  "💳": "FaCreditCard",
+  "fingerprint": "FaFingerprint",
+  "👆": "FaFingerprint",
+  "face": "FaUserCircle",
+  "👤": "FaUserCircle",
+
+  // Security & Trust
+  "🔒": "FaLock",
+  "🇩🇪": "FaFlag",
+
+  // Speed & Performance
+  "⚡": "FaBolt",
+  "🚀": "FaRocket",
+
+  // Features
+  "💧": "FaDroplet",
+  "🌍": "FaGlobe",
+  "🔧": "FaWrench",
+  "⚙️": "FaGear",
+  "💬": "FaComments",
+  "🏠": "FaHouse",
+  "📡": "FaWifi",
+  "💰": "FaMoneyBill",
+  "📱": "FaMobileScreen",
+  "🎯": "FaBullseye",
+  "👥": "FaUsers",
+
+  // UI elements
+  "✓": "FaCheck",
+  "✔": "FaCheck",
+  "✔️": "FaCheck",
+  "→": "FaArrowRight",
+  "•": "FaCircle",
+  "❓": "FaCircleQuestion",
+  "📦": "FaBox",
+  "❌": "FaXmark",
+  "ℹ️": "FaCircleInfo",
+  "⭐": "FaStar",
+  "❤️": "FaHeart",
+
+  // Business & Support
+  "📞": "FaPhone",
+  "📧": "FaEnvelope",
+  "🕒": "FaClock",
+  "📊": "FaChartLine",
+  "🎓": "FaGraduationCap",
+  "💼": "FaBriefcase",
+  "🏢": "FaBuilding",
+
+  // Status & Badges
+  "✅": "FaCircleCheck",
+  "⚠️": "FaTriangleExclamation",
+  "🔴": "FaCircle",
+  "🟢": "FaCircle",
+
+  // Navigation
+  "🔙": "FaArrowLeft",
+  "🔝": "FaArrowUp",
+  "🔽": "FaArrowDown",
+};
+
+// Fallback für unbekannte Icons
+const reactIcon = iconMap[icon] || "FaCircleQuestion";
+
+// Accessibility props
+const accessibilityProps = ariaHidden
+  ? { "aria-hidden": "true" }
+  : ariaLabel
+    ? { "aria-label": ariaLabel, role: "img" }
+    : {};
+---
+
+<DynamicIcon
+  icon={reactIcon}
+  className={className}
+  style={`font-size: ${size}`}
+  {...accessibilityProps}
+/>

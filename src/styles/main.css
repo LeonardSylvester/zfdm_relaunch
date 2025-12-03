@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@plugin "../tailwind-plugin/tw-theme.mjs";
+@plugin "../tailwind-plugin/tw-bs-grid.mjs";
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+@import "./safe.css";
+@import "./utilities.css";
+
+@layer base {
+  @import "./base.css";
+}
+
+@layer components {
+  @import "./components.css";
+  @import "./navigation.css";
+  @import "./buttons.css";
+  @import "./animation.css";
+}
+
+@theme {
+  --breakpoint-sm: 540px;
+
+  --shadow:
+    -125px 156px 56px #0000, -80px 100px 51px #00000003,
+    -45px 56px 43px #00000008, -20px 25px 32px #0000000a,
+    -5px 6px 17px #0000000d;
+
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}

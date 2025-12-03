@@ -1,0 +1,253 @@
+---
+import Base from "@/layouts/Base.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import { getListPage, getSinglePage } from "@/lib/contentParser.astro";
+import { markdownify } from "@/lib/utils/textConverter";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import { render } from "astro:content";
+
+const branchenIndex = await getListPage("branchen", "-index");
+if (branchenIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+
+const allBranchen = await getSinglePage("branchen");
+const { title, meta_title, description, image } = branchenIndex.data;
+const { Content } = await render(branchenIndex);
+
+// Filter branchen by category
+const bySize = allBranchen.filter((b) => b.data.category === "groesse");
+const byActivity = allBranchen.filter((b) => b.data.category === "taetigkeit");
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <PageHeader title={title} content={description} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <!-- Main Content -->
+      <div class="row mb-16">
+        <div class="col-12">
+          <div
+            class="prose max-w-none text-center mx-auto"
+            data-aos="fade-up-sm"
+          >
+            <Content />
+          </div>
+        </div>
+      </div>
+
+      <!-- Nach Größe Section -->
+      {
+        bySize.length > 0 && (
+          <>
+            <div class="row mb-8">
+              <div class="col-12">
+                <h2 class="h3 mb-2 text-center" data-aos="fade-up-sm">
+                  Nach Unternehmensgröße
+                </h2>
+                <p
+                  class="text-text-dark dark:text-darkmode-text-dark text-center mb-8"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="100"
+                >
+                  Optimale Zeiterfassungslösungen für Kleinbetriebe und
+                  Mittelstand
+                </p>
+              </div>
+            </div>
+
+            <div class="row gy-4 mb-16 justify-center">
+              {bySize.map((branche, index) => {
+                const { title, description, image, stats } = branche.data;
+                const firstTwoStats = stats?.slice(0, 2) || [];
+
+                return (
+                  <div
+                    class="col-12 md:col-6"
+                    data-aos="fade-up-sm"
+                    data-aos-delay={index * 100}
+                  >
+                    <div class="bg-gradient-to-br from-primary/5 to-secondary/5 dark:from-darkmode-primary/5 dark:to-darkmode-secondary/5 rounded-2xl p-6 h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow duration-300 border border-border dark:border-darkmode-border">
+                      {/* Image */}
+                      {image && (
+                        <div class="mb-6 -mx-6 -mt-6">
+                          <ImageMod
+                            src={image}
+                            alt={title}
+                            width={600}
+                            height={300}
+                            class="rounded-t-2xl w-full object-cover aspect-[2/1]"
+                          />
+                        </div>
+                      )}
+
+                      {/* Title */}
+                      <h3 set:html={markdownify(title)} class="h4 mb-4" />
+
+                      {/* Description */}
+                      <p
+                        set:html={markdownify(description)}
+                        class="text-text-dark dark:text-darkmode-text-dark mb-6 flex-grow"
+                      />
+
+                      {/* Stats Preview */}
+                      {firstTwoStats.length > 0 && (
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                          {firstTwoStats.map(
+                            (stat: { label: string; value: string }) => (
+                              <div class="bg-white dark:bg-darkmode-primary rounded-lg p-4 text-center">
+                                <div class="text-2xl font-bold text-primary mb-1">
+                                  {stat.value}
+                                </div>
+                                <div class="text-xs text-text-dark dark:text-darkmode-text-dark">
+                                  {stat.label}
+                                </div>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      )}
+
+                      {/* Link to Detail Page */}
+                      <div class="mt-auto pt-4 border-t border-border dark:border-darkmode-border">
+                        <a
+                          href={`/branchen/${branche.id}`}
+                          class="text-primary hover:text-secondary transition duration-300 flex items-center justify-center font-medium"
+                        >
+                          Mehr erfahren
+                          <IconMapper icon="→" className="ml-2" size="0.875rem" ariaHidden={true} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )
+      }
+
+      <!-- Nach Tätigkeit Section -->
+      {
+        byActivity.length > 0 && (
+          <>
+            <div class="row mb-8">
+              <div class="col-12">
+                <h2 class="h3 mb-2 text-center" data-aos="fade-up-sm">
+                  Nach Tätigkeit
+                </h2>
+                <p
+                  class="text-text-dark dark:text-darkmode-text-dark text-center mb-8"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="100"
+                >
+                  Branchenspezifische Lösungen für verschiedene
+                  Tätigkeitsbereiche
+                </p>
+              </div>
+            </div>
+
+            <div class="row gy-4 justify-center">
+              {byActivity.map((branche, index) => {
+                const { title, description, image, stats } = branche.data;
+                const firstThreeStats = stats?.slice(0, 3) || [];
+
+                return (
+                  <div
+                    class="col-12 md:col-6 lg:col-4"
+                    data-aos="fade-up-sm"
+                    data-aos-delay={index * 100}
+                  >
+                    <div class="bg-white dark:bg-darkmode-primary rounded-2xl p-6 h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow duration-300 border border-border dark:border-darkmode-border">
+                      {/* Image */}
+                      {image && (
+                        <div class="mb-6 -mx-6 -mt-6">
+                          <ImageMod
+                            src={image}
+                            alt={title}
+                            width={400}
+                            height={250}
+                            class="rounded-t-2xl w-full object-cover aspect-[16/10]"
+                          />
+                        </div>
+                      )}
+
+                      {/* Title */}
+                      <h3 set:html={markdownify(title)} class="h5 mb-3" />
+
+                      {/* Description */}
+                      <p
+                        set:html={markdownify(description)}
+                        class="text-sm text-text-dark dark:text-darkmode-text-dark mb-4 flex-grow"
+                      />
+
+                      {/* Stats Preview */}
+                      {firstThreeStats.length > 0 && (
+                        <div class="space-y-2 mb-4">
+                          {firstThreeStats.map(
+                            (stat: { label: string; value: string }) => (
+                              <div class="flex items-center justify-between text-xs">
+                                <span class="text-text-dark dark:text-darkmode-text-dark">
+                                  {stat.label}
+                                </span>
+                                <span class="font-semibold text-primary">
+                                  {stat.value}
+                                </span>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      )}
+
+                      {/* Link to Detail Page */}
+                      <div class="mt-auto pt-4 border-t border-border dark:border-darkmode-border">
+                        <a
+                          href={`/branchen/${branche.id}`}
+                          class="text-primary hover:text-secondary transition duration-300 flex items-center justify-center font-medium text-sm"
+                        >
+                          Mehr erfahren
+                          <IconMapper icon="→" className="ml-2" size="0.75rem" ariaHidden={true} />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )
+      }
+
+      <!-- Additional Info Section -->
+      <div class="row mt-16">
+        <div class="col-12 lg:col-10 mx-auto">
+          <div
+            class="bg-secondary/5 dark:bg-darkmode-secondary/5 rounded-2xl p-8 text-center"
+            data-aos="fade-up-sm"
+          >
+            <div class="mb-4">
+              <IconMapper icon="✓" className="text-primary" size="4rem" ariaHidden={true} />
+            </div>
+            <h3 class="h4 mb-4">Alle Lösungen sind DSGVO-konform</h3>
+            <p class="mb-0">
+              Unsere branchenspezifischen Zeiterfassungslösungen erfüllen
+              höchste Sicherheitsstandards und sind vollständig konform mit der
+              Datenschutz-Grundverordnung. Ihre Daten sind bei uns in sicheren
+              Händen.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

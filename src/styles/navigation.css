@@ -1,0 +1,78 @@
+.header {
+  @apply py-6 border-b;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+@supports not (backdrop-filter: blur(10px)) {
+  .header {
+    background: rgba(255, 255, 255, 0.95);
+  }
+}
+
+/* navbar items */
+.navbar {
+  @apply relative flex flex-wrap items-center lg:gap-12;
+}
+
+.navbar-brand {
+  @apply text-xl font-semibold;
+  image {
+    @apply max-h-full max-w-full;
+  }
+}
+
+.navbar-nav {
+  @apply text-center lg:text-left order-3 hidden w-full p-4 pb-7 lg:order-1 lg:flex lg:w-auto lg:gap-x-2 xl:gap-x-7 lg:p-0 max-lg:absolute max-lg:rounded-2xl max-lg:border max-lg:border-border/20 max-lg:bg-body max-lg:z-30 max-lg:w-11/12 max-lg:left-1/2 max-lg:top-16  max-lg:-translate-x-1/2;
+}
+
+.nav-item {
+  .active {
+    @apply text-secondary;
+  }
+}
+
+.nav-link {
+  @apply relative text-text-dark/80 hover:text-secondary p-3 transition lg:px-2 lg:py-3 inline-flex items-center cursor-pointer;
+}
+
+.nav-dropdown {
+  @apply mr-0;
+}
+
+.nav-dropdown-list {
+  @apply z-10 rounded bg-light lg:border lg:border-border/20 lg:bg-body p-4 shadow lg:p-8 mb-2 lg:mb-0 lg:transition-[opacity_transform] lg:duration-500 lg:fixed lg:invisible lg:group-hover:visible lg:opacity-0 lg:group-hover:opacity-100 lg:scale-95 lg:group-hover:scale-100 lg:flex lg:flex-col lg:min-w-80 lg:-translate-x-[5%];
+}
+
+@media (max-width: 1023px) {
+  .nav-dropdown-list {
+    @apply static w-full shadow-none;
+  }
+}
+
+.nav-dropdown-item {
+  @apply mb-2;
+}
+
+.nav-dropdown-link {
+  @apply block py-1 transition text-text-dark hover:text-secondary lg:py-3 lg:px-4 lg:-mx-4 hover:bg-light lg:rounded-md;
+}
+
+/* Special 2-column layout for Branchen dropdown with categories */
+.nav-dropdown-list.nav-dropdown-list-branchen {
+  @apply lg:grid lg:grid-cols-2 lg:gap-x-8 lg:min-w-[640px];
+}
+
+.nav-dropdown-category {
+  @apply flex flex-col;
+}
+
+.nav-dropdown-category .nav-dropdown-label {
+  @apply font-bold mb-2 mt-0;
+}
+
+.nav-dropdown-category .nav-dropdown-link {
+  @apply block py-2 px-4 -mx-4 transition text-text-dark hover:text-secondary hover:bg-light rounded-md;
+}

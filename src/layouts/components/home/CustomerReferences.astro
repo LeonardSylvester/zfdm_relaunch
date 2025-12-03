@@ -1,0 +1,88 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "../ImageMod.astro";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  data: CollectionEntry<"homepage">["data"]["customer_references"];
+};
+const { data } = Astro.props;
+---
+
+{
+  data?.enable && (
+    <section class="section">
+      <div class="container">
+        <div class="row">
+          {data.title && (
+            <div class="mx-auto mb-12 text-center md:col-10">
+              <h2
+                set:html={markdownify(data.title)}
+                class="h3 md:h2"
+                data-aos="fade-up"
+              />
+            </div>
+          )}
+
+          <div class="col-12">
+            <div
+              class="swiper customer-references-slider"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="swiper-wrapper items-center">
+                {data.logos?.map((logo, index) => (
+                  <div class="swiper-slide">
+                    <div class="flex items-center justify-center h-24">
+                      <ImageMod
+                        src={logo}
+                        alt="Kundenreferenz"
+                        width={200}
+                        height={75}
+                        class="object-contain w-auto h-auto max-h-[75px] max-w-full grayscale"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import { Autoplay } from "swiper/modules";
+
+  document.addEventListener("astro:page-load", () => {
+    new Swiper(".customer-references-slider", {
+      modules: [Autoplay],
+      slidesPerView: 2,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        768: {
+          slidesPerView: 4,
+          spaceBetween: 50,
+        },
+        1024: {
+          slidesPerView: 5,
+          spaceBetween: 60,
+        },
+      },
+    });
+  });
+</script>

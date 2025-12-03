@@ -1,0 +1,149 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "../ImageMod.astro";
+import Button from "@/shortcodes/Button";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+  feature: CollectionEntry<"homepage">["data"]["feature"];
+}
+const { feature } = Astro.props;
+---
+
+<section class="section bg-tertiary">
+  <div class="container max-md:px-5">
+    <div class="row">
+      <div class="mx-auto mb-12 text-center md:col-10 lg:col-8">
+        <p
+          set:html={markdownify(feature.subtitle)}
+          class="mb-4 text-sm"
+          data-aos="fade-up-sm"
+        />
+        <h2
+          set:html={markdownify(feature.title)}
+          class="md:mb-16 lg:h1"
+          data-aos="fade-up-sm"
+        />
+      </div>
+
+      <div class="col-12 mb-8">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          {
+            feature.features.map((item, index) => (
+              <div class="border-b-4 border-border/20 md:w-1/4 max-md:mb-6">
+                <p
+                  set:html={markdownify(item.title)}
+                  class="mx-auto mb-2 md:mb-6 md:w-fit max-md:text-center feature-pagination-item cursor-pointer text-text-dark"
+                  data-index={index}
+                  data-aos="fade-left-sm"
+                  data-aos-delay={index * 50}
+                />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="col-12 min-h-full">
+        <div
+          class="swiper feature-slider bg-text/5 md:p-[30px]! xl:pr-0! rounded-[20px] h-full"
+        >
+          <div class="swiper-wrapper">
+            {
+              feature.features.map((item) => (
+                <div class="swiper-slide w-full lg:w-4/5! xl:w-2/3! min-h-full max-md:p-5! last:xl:pr-[30px]!">
+                  <div
+                    class="bg-body rounded-[20px] overflow-hidden h-full"
+                    data-aos="fade-left-sm"
+                    data-aos-delay="300"
+                  >
+                    <div class="flex flex-col lg:flex-row">
+                      <ImageMod
+                        src={item.image}
+                        width={234}
+                        height={300}
+                        alt={item.title}
+                        class="object-contain max-lg:mx-auto p-5 md:pl-8 md:pr-5"
+                      />
+                      <div class="p-5 md:p-10">
+                        <p
+                          set:html={item.badge}
+                          class="w-fit border border-border/20 rounded-lg px-4 py-1 text-sm mb-4 max-lg:mx-auto"
+                        />
+                        <h3
+                          set:html={item.content}
+                          class="mb-3 h4 max-lg:text-center"
+                        />
+                        <p
+                          set:html={item.description}
+                          class="mb-12 max-lg:text-center"
+                        />
+                        {item.button.enable && (
+                          <Button
+                            link={item.button.link}
+                            label={item.button.label}
+                            style="ghost"
+                            icon="FaAngleRight"
+                            className="text-text-dark hover:text-secondary transition duration-300 lg:w-fit p-0"
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { Swiper } from "swiper";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
+
+  // astro:page-load event is fired when the page is loaded
+  document.addEventListener("astro:page-load", () => {
+    const featureItems = document.querySelectorAll(".feature-pagination-item");
+    // Add active state to first item by default
+    featureItems[0]?.classList.add("active");
+    featureItems[0]?.parentElement?.classList.add("!border-primary");
+
+    const featureCarouselSwiper = new Swiper(".feature-slider", {
+      modules: [Pagination, Autoplay],
+      slidesPerView: "auto",
+      spaceBetween: 24,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      on: {
+        slideChange: function (this: Swiper) {
+          // Remove active class from all items
+          featureItems.forEach((item) => {
+            item.classList.remove("active");
+            item?.parentElement?.classList.remove("!border-primary");
+          });
+          // Add active class to current item
+          const currentIndex = this.activeIndex;
+          const currentItem = document.querySelector(
+            `[data-index="${currentIndex}"]`
+          );
+          currentItem?.classList.add("active");
+          currentItem?.parentElement?.classList.add("!border-primary");
+        },
+      },
+    });
+
+    // Add click handlers to feature items
+    featureItems.forEach((item, index) => {
+      item.addEventListener("click", () => {
+        featureCarouselSwiper.slideTo(index);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,259 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "@/components/ImageMod.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import { FaStar } from "react-icons/fa6";
+
+const testimonial = await getListPage("sections", "testimonial-slider");
+if (!testimonial?.data.enable) return null;
+const { title, subtitle, reviews } = testimonial.data;
+---
+
+<section class="section bg-light">
+  <div class="container">
+    {
+      subtitle && (
+        <p set:html={markdownify(subtitle)} class="mb-4 text-sm text-center" />
+      )
+    }
+    {title && <h2 set:html={markdownify(title)} class="mb-14 text-center" />}
+  </div>
+  <div class="overflow-hidden relative">
+    <div
+      class="inf-slider"
+      data-inf-scroll-speed="200"
+      data-inf-direction="normal"
+      data-inf-slide-pause-on-hover="true"
+      data-aos="fade-left-sm"
+      data-aos-delay={300}
+    >
+      <div class="inf-slide-track space-x-5 h-full">
+        {
+          reviews &&
+            reviews.map((s) => (
+              <div class="inf-slide w-[250px] md:w-[400px]">
+                <div class="bg-body rounded-2xl p-5 border border-border/10">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                      <div class="rounded-full overflow-hidden mr-4">
+                        <ImageMod
+                          class="object-cover"
+                          src={s.customerAvatar}
+                          alt="customer image"
+                          height={64}
+                          width={64}
+                          format="webp"
+                        />
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <p
+                            class="font-medium text-text-dark"
+                            set:html={s.customerName}
+                          />
+                          {s.time && (
+                            <>
+                              <span class="text-text/50">•</span>
+                              <p class="text-sm text-text/70">{s.time}</p>
+                            </>
+                          )}
+                        </div>
+                        {s.rating && (
+                          <div class="flex items-center mt-1 gap-0.5">
+                            {Array.from({ length: s.rating }).map(() => (
+                              <FaStar className="text-yellow-500" size="0.875rem" />
+                            ))}
+                          </div>
+                        )}
+                        {s.customerDesignation && (
+                          <p class="text-sm mt-1" set:html={s.customerDesignation} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="border-t border-border/10 my-5" />
+
+                  <p
+                    class="before:content-[open-quote] after:content-[close-quote]"
+                    set:html={s.review}
+                  />
+                </div>
+              </div>
+            ))
+        }
+      </div>
+    </div>
+    <div
+      class="inf-slider"
+      data-inf-scroll-speed="200"
+      data-inf-direction="reverse"
+      data-inf-slide-pause-on-hover="true"
+      data-aos="fade-right-sm"
+      data-aos-delay={300}
+    >
+      <div class="inf-slide-track space-x-5 h-full">
+        {
+          reviews &&
+            reviews.map((s) => (
+              <div class="inf-slide w-[250px] md:w-[400px]">
+                <div class="bg-body rounded-2xl p-5 border border-border/10">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                      <div class="rounded-full overflow-hidden mr-4">
+                        <ImageMod
+                          class="object-cover"
+                          src={s.customerAvatar}
+                          alt="customer image"
+                          height={64}
+                          width={64}
+                          format="webp"
+                        />
+                      </div>
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <p
+                            class="font-medium text-text-dark"
+                            set:html={s.customerName}
+                          />
+                          {s.time && (
+                            <>
+                              <span class="text-text/50">•</span>
+                              <p class="text-sm text-text/70">{s.time}</p>
+                            </>
+                          )}
+                        </div>
+                        {s.rating && (
+                          <div class="flex items-center mt-1 gap-0.5">
+                            {Array.from({ length: s.rating }).map(() => (
+                              <FaStar className="text-yellow-500" size="0.875rem" />
+                            ))}
+                          </div>
+                        )}
+                        {s.customerDesignation && (
+                          <p class="text-sm mt-1" set:html={s.customerDesignation} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <hr class="border-t border-border/10 my-5" />
+
+                  <p
+                    class="before:content-[open-quote] after:content-[close-quote]"
+                    set:html={s.review}
+                  />
+                </div>
+              </div>
+            ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes inf-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes inf-scroll-reverse {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  .inf-slide {
+    flex-shrink: 0;
+    margin-bottom: 24px;
+  }
+
+  .inf-slide-track {
+    display: flex;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    interface SliderOptions {
+      scrollSpeed: string;
+      direction: "normal" | "reverse";
+      pauseOnHover: boolean;
+    }
+
+    const sliders: NodeListOf<HTMLElement> =
+      document.querySelectorAll(".inf-slider");
+
+    sliders.forEach((slider: HTMLElement) => {
+      const options: SliderOptions = {
+        scrollSpeed: slider.dataset.infScrollSpeed || "100", // Default scroll speed 100px/s
+        direction: (slider.dataset.infDirection === "reverse"
+          ? "reverse"
+          : "normal") as "normal" | "reverse",
+        pauseOnHover: slider.dataset.infSlidePauseOnHover === "true",
+      };
+
+      const track: HTMLElement | null =
+        slider.querySelector(".inf-slide-track");
+      if (!track) return;
+
+      const slides: HTMLCollectionOf<HTMLElement> =
+        track.getElementsByClassName(
+          "inf-slide"
+        ) as HTMLCollectionOf<HTMLElement>;
+      const numSlides: number = slides.length;
+
+      if (numSlides === 0) return;
+
+      // Calculate total width of all slides
+      let totalWidth = 0;
+      const slideWidths: number[] = [];
+
+      Array.from(slides).forEach((slide: HTMLElement) => {
+        const width = slide.offsetWidth;
+        slideWidths.push(width);
+        totalWidth += width;
+      });
+
+      // Clone slides
+      Array.from(slides).forEach((slide: HTMLElement, index: number) => {
+        const clone: Node = slide.cloneNode(true);
+        (clone as HTMLElement).style.width = `${slideWidths[index]}px`; // Set explicit width on clones
+        track.appendChild(clone);
+      });
+
+      // Set track width to accommodate all slides (original + cloned)
+      track.style.width = `${totalWidth * 2}px`;
+
+      // Calculate animation duration based on scrollSpeed (pixels per second)
+      const scrollSpeed: number = parseFloat(options.scrollSpeed);
+      const animationDuration: number = (totalWidth * 2) / scrollSpeed; // time = distance / speed
+
+      // Create a custom property with all slide widths
+      const slideWidthsString = slideWidths.join("px ") + "px";
+      slider.style.setProperty("--slide-widths", slideWidthsString);
+
+      // Set the animation with calculated duration
+      const animationName = `inf-scroll${options.direction === "reverse" ? "-reverse" : ""}`;
+      track.style.animation = `${animationName} ${animationDuration}s linear infinite`;
+
+      // Add pause on hover functionality
+      if (options.pauseOnHover) {
+        slider.addEventListener("mouseenter", () => {
+          track.style.animationPlayState = "paused";
+        });
+
+        slider.addEventListener("mouseleave", () => {
+          track.style.animationPlayState = "running";
+        });
+      }
+    });
+  });
+</script>

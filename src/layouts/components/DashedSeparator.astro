@@ -1,0 +1,24 @@
+---
+interface Props {
+  class?: string;
+  dash?: "low" | "mid" | "high";
+}
+const { class: className, dash } = Astro.props;
+---
+
+<svg
+  class={`w-full my-6 ${className}`}
+  width="1600"
+  height="1"
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <line
+    stroke="#52525a33"
+    stroke-dasharray={`${dash === "high" ? "12, 6" : dash === "mid" ? "8, 4" : "4, 2"}`}
+    x1="0"
+    y1="1"
+    x2="1600"
+    y2="1"
+    style="stroke-width: 2px;"></line>
+</svg>

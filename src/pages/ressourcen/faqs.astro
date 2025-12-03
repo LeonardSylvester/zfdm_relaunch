@@ -1,0 +1,173 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import IconMapper from "@/components/IconMapper.astro";
+
+const faqIndex = await getListPage("faq", "-index");
+if (faqIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+const { title, content, meta_title, description } = faqIndex.data;
+
+// Load all FAQ sections
+const allgemeineFragen = await getListPage("faq", "allgemeine-fragen");
+const fingerabdruck = await getListPage("faq", "fingerabdruck");
+const gesichtserkennung = await getListPage("faq", "gesichtserkennung");
+const chip = await getListPage("faq", "chip");
+
+const sections = [
+  {
+    id: "allgemeine-fragen",
+    title: "Allgemeine Fragen",
+    icon: "❓",
+    faqs: allgemeineFragen.data.faqs
+  },
+  {
+    id: "fingerabdruck",
+    title: "Zeiterfassung mit Fingerabdruck",
+    icon: "👆",
+    faqs: fingerabdruck.data.faqs
+  },
+  {
+    id: "gesichtserkennung",
+    title: "Zeiterfassung mit Gesichtserkennung",
+    icon: "👤",
+    faqs: gesichtserkennung.data.faqs
+  },
+  {
+    id: "chip",
+    title: "Zeiterfassung mit Chip",
+    icon: "💳",
+    faqs: chip.data.faqs
+  }
+];
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <PageHeader title={title} content={content} />
+
+  <!-- Jump Navigation -->
+  <section class="-mt-16 mb-12">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 lg:col-10">
+          <div class="bg-light dark:bg-darkmode-light rounded-lg p-6 lg:p-8">
+            <h2 class="h5 mb-6 text-center">Schnellnavigation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {sections.map((section) => (
+                <a
+                  href={`#${section.id}`}
+                  class="flex flex-col items-center justify-center p-4 bg-white dark:bg-darkmode-body rounded-lg border border-border dark:border-darkmode-border hover:border-primary dark:hover:border-primary transition-colors duration-300 text-center group"
+                >
+                  <div class="mb-3">
+                    <IconMapper icon={section.icon} size="2.5rem" ariaHidden={true} />
+                  </div>
+                  <span class="text-sm font-medium group-hover:text-primary transition-colors duration-300">
+                    {section.title}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Sections -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 lg:col-8">
+          {sections.map((section, sectionIndex) => (
+            <div id={section.id} class={sectionIndex > 0 ? "mt-16" : ""}>
+              <h2 class="h3 mb-8 flex items-center gap-3">
+                <IconMapper icon={section.icon} size="2.5rem" ariaHidden={true} />
+                <span>{section.title}</span>
+              </h2>
+
+              <div class="accordion-container">
+                {section.faqs.map((faq: any, index: number) => (
+                  <div
+                    class={"accordion" + (index === 0 ? " active" : "")}
+                    data-aos="fade-up-sm"
+                    data-aos-delay={100 + index * 50}
+                  >
+                    <button class="accordion-header" data-accordion>
+                      <span set:html={faq.question} />
+                      <svg
+                        class="accordion-icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        stroke="rgb(10, 9, 21)"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="m6 9 6 6 6-6" />
+                      </svg>
+                    </button>
+                    <div class="accordion-content">
+                      <div class="faq-body" set:html={faq.answer} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const accordionHeaders = document.querySelectorAll("[data-accordion]");
+
+    accordionHeaders.forEach((header) => {
+      header.addEventListener("click", () => {
+        const clickedItem = header.parentElement;
+
+        // Close all other accordion items in the same section
+        const accordionContainer = clickedItem?.closest(".accordion-container");
+        const allAccordionItems =
+          accordionContainer?.querySelectorAll(".accordion");
+        allAccordionItems?.forEach((item) => {
+          if (item !== clickedItem && item.classList.contains("active")) {
+            item.classList.remove("active");
+          }
+        });
+
+        // Toggle the clicked item
+        if (clickedItem) {
+          clickedItem.classList.toggle("active");
+        }
+      });
+    });
+
+    // Smooth scroll for jump navigation
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(
+          this.getAttribute("href") as string
+        );
+        if (target) {
+          const offset = 100;
+          const targetPosition =
+            target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  });
+</script>

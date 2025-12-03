@@ -1,0 +1,165 @@
+---
+import { getListPage } from "@/lib/contentParser.astro";
+import { Icon } from "astro-icon/components";
+
+const pricingIndex = await getListPage("pricing", "-index");
+if (pricingIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+
+const { title, subtitle, plans, categories } = pricingIndex.data.compare;
+---
+
+<section class="section pt-0">
+  <div class="container md:w-11/12 xl:w-full">
+    <div class="text-center mb-12">
+      <p class="mb-4 text-sm" data-aos="fade-up-sm">
+        {subtitle}
+      </p>
+      <h2 data-aos="fade-up-sm">{title}</h2>
+    </div>
+
+    <div class="hidden lg:block overflow-x-auto">
+      <table class="w-full border-collapse overflow-hidden">
+        <thead>
+          <tr>
+            <th class="py-4 text-xl text-center text-text-dark font-medium"
+            ></th>
+            {
+              plans.map((plan, index) => (
+                <th
+                  class="py-4 text-xl text-center text-text-dark font-medium"
+                  data-aos="fade-up-sm"
+                  data-aos-delay={index * 50}
+                >
+                  {plan.name}
+                </th>
+              ))
+            }
+          </tr>
+        </thead>
+
+        <tbody>
+          {
+            categories.map((category, index) => (
+              <>
+                <tr class="!mt-10 first:!mt-0 float-start">
+                  <td
+                    colspan={plans.length + 1}
+                    class="py-4 text-2xl font-medium text-text-dark"
+                    data-aos="fade-up-sm"
+                    data-aos-delay={index * 50}
+                  >
+                    {category.name}
+                  </td>
+                </tr>
+                {category.features.map((feature, featureIndex) => (
+                  <tr
+                    class={`${featureIndex === 0 ? "mt-4 border-dotted border-t border-border/20" : ""}`}
+                    data-aos="fade-up-sm"
+                    data-aos-delay={200 + featureIndex * 50}
+                  >
+                    <td class="py-4 text-left">
+                      <div class="flex items-center gap-2">
+                        <span class="text-text-dark">{feature.name}</span>
+                      </div>
+                    </td>
+                    {feature.values.map((value, valueIndex) => (
+                      <td
+                        class="py-4 text-center"
+                        data-aos="zoom-in-sm"
+                        data-aos-delay={250 + valueIndex * 50}
+                      >
+                        {value ? (
+                          <span class="text-green-500">
+                            <Icon name="tick" class="w-6 h-6 mx-auto" />
+                          </span>
+                        ) : (
+                          <span class="text-gray-300">
+                            <Icon name="cross" class="w-6 h-6 mx-auto" />
+                          </span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile View -->
+    <div class="lg:hidden space-y-8">
+      {
+        plans.map((plan, planIndex) => (
+          <div class="rounded-lg">
+            <div class="pt-6">
+              <h3
+                class="text-2xl font-bold text-center mb-2"
+                data-aos="fade-up-sm"
+                data-aos-delay={200 + planIndex * 50}
+              >
+                {plan.name}
+              </h3>
+            </div>
+
+            {categories.map((category, categoryIndex) => (
+              <div
+                class="py-6"
+                data-aos="fade-up-sm"
+                data-aos-delay={200 + categoryIndex * 50}
+              >
+                <h4 class="font-bold text-text-dark mb-4 pb-2 border-b border-border/30 border-dashed">
+                  {category.name}
+                </h4>
+                <div class="">
+                  {category.features.map((feature, featureIndex) => (
+                    <div
+                      class="flex items-center justify-between py-3"
+                      data-aos="fade-up-sm"
+                      data-aos-delay={250 + featureIndex * 50}
+                    >
+                      <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-900">
+                          {feature.name}
+                        </span>
+                      </div>
+                      <div>
+                        {typeof feature.values[planIndex] === "boolean" ? (
+                          feature.values[planIndex] ? (
+                            <Icon name="tick" class="w-6 h-6 mx-auto" />
+                          ) : (
+                            <Icon name="cross" class="w-6 h-6 mx-auto" />
+                          )
+                        ) : (
+                          <span class="text-sm text-gray-900">
+                            {feature.values[planIndex]}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .tooltip-trigger:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+</style>

@@ -1,0 +1,165 @@
+{
+  "main": [
+
+    {
+      "name": "Zeiterfassungssysteme",
+      "url": "/zeiterfassungssysteme",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Chip-Zeiterfassung",
+          "url": "/zeiterfassungssysteme/zeiterfassung-mit-chip"
+        },
+        {
+          "name": "Fingerabdruck",
+          "url": "/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck"
+        },
+        {
+          "name": "Gesichtserkennung",
+          "url": "/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung"
+        }
+      ]
+    },
+    {
+      "name": "Branchen",
+      "url": "/branchen",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "Nach Größe",
+          "url": "#",
+          "isLabel": true
+        },
+        {
+          "name": "Kleinbetriebe",
+          "url": "/branchen/kleinbetriebe"
+        },
+        {
+          "name": "Mittelstand",
+          "url": "/branchen/mittelstand"
+        },
+        {
+          "name": "Nach Tätigkeit",
+          "url": "#",
+          "isLabel": true
+        },
+        {
+          "name": "Arztpraxen",
+          "url": "/branchen/arztpraxen"
+        },
+        {
+          "name": "Handwerk",
+          "url": "/branchen/handwerk"
+        },
+        {
+          "name": "Gastronomie",
+          "url": "/branchen/gastronomie"
+        },
+        {
+          "name": "Logistik",
+          "url": "/branchen/logistik"
+        },
+        {
+          "name": "Agenturen",
+          "url": "/branchen/agenturen"
+        },
+        {
+          "name": "Schulen",
+          "url": "/branchen/schulen"
+        },
+        {
+          "name": "Kindergarten",
+          "url": "/branchen/kindergarten"
+        }
+      ]
+    },
+    {
+      "name": "Preise",
+      "url": "/preise"
+    },
+    {
+      "name": "Ressourcen",
+      "url": "/ressourcen",
+      "hasChildren": true,
+      "children": [
+        {
+          "name": "FAQs",
+          "url": "/ressourcen/faqs"
+        },
+        {
+          "name": "Videoanleitungen",
+          "url": "/ressourcen/videoanleitungen"
+        },
+        {
+          "name": "Blog",
+          "url": "/ressourcen/blog"
+        }
+      ]
+    },
+    {
+      "name": "Über uns",
+      "url": "/ueber-uns"
+    }
+  ],
+  "footer": [
+    {
+      "name": "UNTERNEHMEN",
+      "menu": [
+        {
+          "name": "Über uns",
+          "url": "/ueber-uns"
+        },
+        {
+          "name": "Kontakt",
+          "url": "/kontakt"
+        },
+        {
+          "name": "Impressum",
+          "url": "/impressum"
+        },
+        {
+          "name": "Datenschutz",
+          "url": "/datenschutz"
+        },
+        {
+          "name": "AGB",
+          "url": "/agb"
+        }
+      ]
+    },
+    {
+      "name": "LÖSUNGEN",
+      "menu": [
+        {
+          "name": "Zeiterfassungssysteme",
+          "url": "/zeiterfassungssysteme"
+        },
+        {
+          "name": "Branchen",
+          "url": "/branchen"
+        },
+        {
+          "name": "Preise",
+          "url": "/preise"
+        }
+      ]
+    },
+    {
+      "name": "SUPPORT",
+      "menu": [
+        {
+          "name": "FAQs",
+          "url": "/ressourcen/faqs"
+        },
+        {
+          "name": "Videoanleitungen",
+          "url": "/ressourcen/videoanleitungen"
+        },
+        {
+          "name": "Blog",
+          "url": "/ressourcen/blog"
+        }
+      ]
+    }
+  ]
+}

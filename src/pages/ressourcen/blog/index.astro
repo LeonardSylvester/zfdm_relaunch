@@ -1,0 +1,36 @@
+---
+import BlogCard from "@/components/BlogCard.astro";
+import Base from "@/layouts/Base.astro";
+import { getListPage, getSinglePage } from "@/lib/contentParser.astro";
+import { sortByDate } from "@/lib/utils/sortFunctions";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+
+const blogIndex = await getListPage("blog", "-index");
+if (blogIndex.data.draft) {
+  return Astro.redirect("/404");
+}
+const { title, meta_title, description, hero } = blogIndex.data;
+const posts = await getSinglePage("blog");
+const sortedPosts = sortByDate(posts);
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  {hero && <PageHeader title={hero.title} content={hero.content} />}
+
+  <section class="-mt-16">
+    <div class="container xl:w-[53%]">
+      <div class="row gap-12 justify-center">
+        {
+          sortedPosts.map((post, i: number) => (
+            <div class="md:col-5">
+              <BlogCard data={post} index={i} />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
