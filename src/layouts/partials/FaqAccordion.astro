@@ -2,11 +2,26 @@
 import { getListPage } from "@/lib/contentParser.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 
-const faqIndex = await getListPage("faq", "-index");
-if(faqIndex.data.draft){
-  return Astro.redirect("/404");
+// Accept faqs as prop for product-specific FAQs, otherwise load from index
+interface Props {
+  faqs?: Array<{ question: string; answer: string }>;
 }
-const { faqs } = faqIndex.data;
+
+const { faqs: propFaqs } = Astro.props as Props;
+
+let faqs: Array<{ question: string; answer: string }>;
+
+if (propFaqs && propFaqs.length > 0) {
+  // Use product-specific FAQs passed as prop
+  faqs = propFaqs;
+} else {
+  // Fallback to FAQ index (for backward compatibility)
+  const faqIndex = await getListPage("faq", "-index");
+  if(faqIndex.data.draft){
+    return Astro.redirect("/404");
+  }
+  faqs = faqIndex.data.faqs;
+}
 ---
 
 <div class="accordion-container">

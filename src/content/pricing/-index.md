@@ -6,68 +6,239 @@ image: ""
 draft: false
 
 hero:
-  title: "Pricing & Plan"
-  content: "Stay organized, prioritize with ease, and get things done faster. Our all-in-one <br> task management tool keeps your team aligned and on track."
+  title: "Preise und Pakete"
+  content: "Wählen Sie das passende Zeiterfassungssystem für Ihr Unternehmen. <br> Alle Preise zzgl. 19% USt. und einmalig zahlbar."
 
 pricing_tab:
-  - "Billed Yearly"
-  - "Billed Monthly"
+  - "Chip"
+  - "Fingerabdruck"
+  - "Gesichtserkennung"
 
-pricing_card:
-  - title: "Starter Plan"
-    description: "Perfect for trying out the core features"
-    price_prefix: "$"
-    price_monthly: "29"
-    price_yearly: "129"
-    price_suffix:
-      one: "user"
-      two: "month"
-    features:
-      - Custom Integrations
-      - Dedicated Account
-      - Automated Email
-      - Set budgets & goals
-      - Priority Support
-    button:
-      enable: true
-      label: "Get Started for Free"
-      link: "/contact"
-  - title: "Growth Plan"
-    description: "Perfect for trying out the core features"
-    price_prefix: "$"
-    price_monthly: "120"
-    price_yearly: "199"
-    price_suffix:
-      one: "user"
-      two: "month"
-    features:
-      - 10,000 Leads
-      - Advanced Analytics
-      - Automated Email
-      - Set budgets & goals
-      - Priority Support
-    button:
-      enable: true
-      label: "Get Started for Free"
-      link: "/contact"
-  - title: "Enterprise Plan"
-    description: "Perfect for trying out the core features"
-    price_prefix: "$"
-    price_monthly: "120"
-    price_yearly: "199"
-    price_suffix:
-      one: "user"
-      two: "month"
-    features:
-      - 10,000 Leads
-      - Advanced Analytics
-      - Automated Email
-      - Set budgets & goals
-      - Priority Support
-    button:
-      enable: true
-      label: "Get Started for Free"
-      link: "/contact"
+pricing_products:
+  chip:
+    plans:
+      - title: "STARTER"
+        badge: ""
+        price: "579"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 10 Mitarbeiter"
+        features:
+          - "Einmaliger Preis"
+          - "Inkl. 10 RFID Chips"
+          - "Keine monatlichen Lizenzkosten"
+          - "1 Jahr Gewährleistung"
+          - "1 Jahr kostenloser E-Mail und Telefon-Support"
+          - "Schritt-für-Schritt Video-Anleitung"
+          - "Automatische E-Mail Benachrichtigung an Vorgesetzten"
+          - "Urlaubsverwaltung"
+          - "Verwaltung von Fehlzeiten"
+          - "Homeoffice fähig"
+          - "Inkl. WLAN-Funktion"
+          - "Jederzeit erweiterbar für zusätzliche Mitarbeiter"
+          - "Optional: 24/7 Support mit Chroni"
+          - "Optionale Module verfügbar (z. B. Vernetzung)"
+          - "Automatische Datensicherung inklusive"
+          - "Individualisierung mit eigenem Logo für das Webinterface und die Berichterstattung"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "MEDIUM"
+        badge: ""
+        price: "939"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 30 Mitarbeiter"
+        features:
+          - "Alles aus dem Starter-Paket"
+          - "Inkl. 30 RFID Chips"
+          - "2 Jahre Gewährleistung"
+          - "+ Aufträge erfassen & filtern"
+          - "+ Dienstpläne"
+          - "+ Spesenabrechnung"
+          - "+ Nachtzuschläge"
+          - "+ Arbeitszeiten an Feiertagen konfigurierbar"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "BELIEBT"
+            link: ""
+            style: "badge"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "PRO"
+        badge: ""
+        price: ""
+        price_note: "zzgl. 19% Ust"
+        price_custom: "Angebot erhalten"
+        description: "Ab 30 Mitarbeiter"
+        features:
+          - "Alles aus beiden Paketen"
+          - "Inkl. aller RFID Chips"
+          - "3 Jahre Gewährleistung"
+          - "2 Jahre kostenloser E-Mail und Telefon-Support"
+          - "+ Standortbestimmung aller Geräte"
+          - "+ Überstunden im 15-Minuten Intervall"
+          - "+ Live Monitoring (Mitarbeiter Status)"
+          - "+ Pausen zusammenfassen"
+          - "+ API Schnittstelle für andere Systeme"
+        buttons:
+          - label: "Individuelles Angebot erhalten"
+            link: "/contact"
+            style: "primary"
+
+  fingerabdruck:
+    plans:
+      - title: "STARTER"
+        badge: ""
+        price: "659"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 10 Mitarbeiter"
+        features:
+          - "Einmaliger Preis"
+          - "Inkl. 10 RFID Chips"
+          - "Keine monatlichen Lizenzkosten"
+          - "1 Jahr Gewährleistung"
+          - "1 Jahr kostenloser E-Mail und Telefon-Support"
+          - "Schritt-für-Schritt Video-Anleitung"
+          - "Automatische E-Mail Benachrichtigung an Vorgesetzten"
+          - "Urlaubsverwaltung"
+          - "Verwaltung von Fehlzeiten"
+          - "Homeoffice fähig"
+          - "Inkl. WLAN-Funktion"
+          - "Jederzeit erweiterbar für zusätzliche Mitarbeiter"
+          - "Optional: 24/7 Support mit Chroni"
+          - "Optionale Module verfügbar (z. B. Vernetzung)"
+          - "Automatische Datensicherung inklusive"
+          - "Individualisierung mit eigenem Logo für das Webinterface und die Berichterstattung"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "MEDIUM"
+        badge: ""
+        price: "989"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 30 Mitarbeiter"
+        features:
+          - "Alles aus dem Starter-Paket"
+          - "Inkl. 30 RFID Chips"
+          - "2 Jahre Gewährleistung"
+          - "+ Aufträge erfassen & filtern"
+          - "+ Dienstpläne"
+          - "+ Spesenabrechnung"
+          - "+ Nachtzuschläge"
+          - "+ Arbeitszeiten an Feiertagen konfigurierbar"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "BELIEBT"
+            link: ""
+            style: "badge"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "PRO"
+        badge: ""
+        price: ""
+        price_note: "zzgl. 19% Ust"
+        price_custom: "Angebot erhalten"
+        description: "Ab 30 Mitarbeiter"
+        features:
+          - "Alles aus beiden Paketen"
+          - "Inkl. aller RFID Chips"
+          - "3 Jahre Gewährleistung"
+          - "2 Jahre kostenloser E-Mail und Telefon-Support"
+          - "+ Standortbestimmung aller Geräte"
+          - "+ Überstunden im 15-Minuten Intervall"
+          - "+ Live Monitoring (Mitarbeiter Status)"
+          - "+ Pausen zusammenfassen"
+          - "+ API Schnittstelle für andere Systeme"
+        buttons:
+          - label: "Individuelles Angebot erhalten"
+            link: "/contact"
+            style: "primary"
+
+  gesichtserkennung:
+    plans:
+      - title: "STARTER"
+        badge: ""
+        price: "624"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 10 Mitarbeiter"
+        features:
+          - "Einmaliger Preis"
+          - "Keine monatlichen Lizenzkosten"
+          - "1 Jahr Gewährleistung"
+          - "1 Jahr kostenloser E-Mail und Telefon-Support"
+          - "Schritt-für-Schritt Video-Anleitung"
+          - "Automatische E-Mail Benachrichtigung an Vorgesetzten"
+          - "Urlaubsverwaltung"
+          - "Verwaltung von Fehlzeiten"
+          - "Homeoffice fähig"
+          - "Inkl. WLAN-Funktion"
+          - "Jederzeit erweiterbar für zusätzliche Mitarbeiter"
+          - "Optional: 24/7 Support mit Chroni"
+          - "Optionale Module verfügbar (z. B. Vernetzung)"
+          - "Automatische Datensicherung inklusive"
+          - "Individualisierung mit eigenem Logo für das Webinterface und die Berichterstattung"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "MEDIUM"
+        badge: ""
+        price: "979"
+        price_note: "zzgl. 19% Ust."
+        description: "Für bis zu 30 Mitarbeiter"
+        features:
+          - "Alles aus dem Starter-Paket"
+          - "2 Jahre Gewährleistung"
+          - "+ Aufträge erfassen & filtern"
+          - "+ Dienstpläne"
+          - "+ Spesenabrechnung"
+          - "+ Nachtzuschläge"
+          - "+ Arbeitszeiten an Feiertagen konfigurierbar"
+        buttons:
+          - label: "Mit 10% Rabatt sofort bestellen"
+            link: "/contact"
+            style: "primary"
+          - label: "BELIEBT"
+            link: ""
+            style: "badge"
+          - label: "Kostenlos 14 Tage testen"
+            link: "/contact"
+            style: "secondary"
+      - title: "PRO"
+        badge: ""
+        price: ""
+        price_note: "zzgl. 19% Ust"
+        price_custom: "Angebot erhalten"
+        description: "Ab 30 Mitarbeiter"
+        features:
+          - "Alles aus beiden Paketen"
+          - "3 Jahre Gewährleistung"
+          - "2 Jahre kostenloser E-Mail und Telefon-Support"
+          - "+ Standortbestimmung aller Geräte"
+          - "+ Überstunden im 15-Minuten Intervall"
+          - "+ Live Monitoring (Mitarbeiter Status)"
+          - "+ Pausen zusammenfassen"
+          - "+ API Schnittstelle für andere Systeme"
+        buttons:
+          - label: "Individuelles Angebot erhalten"
+            link: "/contact"
+            style: "primary"
 
 compare:
   title: "Compare between plans"

@@ -84,8 +84,26 @@ pricing:
   starting_from: "Ab 499 € einmalig"
   link: "/kontakt"
   note: "Keine monatlichen Kosten. Keine versteckten Gebühren."
+  price_chip: "299"
+  price_finger: "399"
+  price_geschicht: "499"
+
+  price_prefix: "€"
+
+  price_suffix:
+    one: "Chip"
+    two: "Fingerabdruck"
+    three: "Gesicht"
+
+  price_description_chip: "RFID Chip System"
+  price_description_finger: "Fingerabdruck System"
+  price_description_geschicht: "Gesichtserkennung System"
+
 
 faq_section: "gesichtserkennung"
+
+gallery:
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
 
 draft: false
 ---

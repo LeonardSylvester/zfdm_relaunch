@@ -1,0 +1,35 @@
+---
+import { Swiper, SwiperSlide } from 'swiper/astro';
+import 'swiper/css';
+import ImageMod from "@/components/ImageMod.astro";
+
+interface Props {
+  title: string;
+  images: string[
+    
+    ]; // array of image URLs
+}
+const { title, images } = Astro.props;
+---
+
+<div class="product-slider">
+  <Swiper
+    spaceBetween={20}
+    slidesPerView={1}
+    loop={true}
+    navigation={true}
+    pagination={{ clickable: true }}
+  >
+    {images.map((img) => (
+      <SwiperSlide>
+        <ImageMod
+          src={img}
+          width={0}
+          height={0}
+          alt={title}
+          class="w-full h-full object-cover rounded-2xl"
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>

@@ -3,206 +3,501 @@ import { markdownify } from "@/lib/utils/textConverter";
 import Button from "@/shortcodes/Button";
 import { Icon } from "astro-icon/components";
 
-const { pricing_card, pricing_tab } = Astro.props;
+const { pricing_card, pricing_tab, pricing_products } = Astro.props;
+
+// Get the current product type (default to first tab - Chip)
+const currentProduct = pricing_products?.chip || null;
+const productKeys = Object.keys(pricing_products || {});
 ---
 
 <section class="section pt-0 -mt-12 lg:-mt-24">
   <div class="container">
     <div class="row g-4 justify-center">
+      {/* Product Type Tabs */}
       <div class="col-12 pb-10" data-aos="fade-up-sm">
-        <div
-          class="flex items-center justify-around lg:justify-center gap-x-3 px-4 lg:px-8 py-2 lg:py-4 border border-border/20 rounded-2xl w-fit mx-auto"
-        >
-          {
-            pricing_tab.map((plan: any, index: number) => (
-              <span
-                class={`select-none text-text-dark ${index === 0 ? "order-0" : "order-3"}`}
-                set:html={markdownify(plan)}
-              />
-            ))
-          }
-          <label
-            class="relative inline-block h-3.5 w-5.5 cursor-pointer order-1 rounded-full bg-primary"
-          >
-            <span class="sr-only">Pricing Switcher</span>
-            <input
-              type="checkbox"
-              id="checkbox"
-              class="pricing-check peer w-full cursor-pointer opacity-0"
-            />
-            <span
-              class="absolute -left-px -top-px cursor-pointer before:absolute before:left-1 before:top-1 before:h-2 before:w-2 before:translate-x-0 before:rounded-full before:bg-body before:transition-all before:delay-75 before:duration-300 peer-checked:before:translate-x-2 peer-checked:before:bg-tertiary"
-            ></span>
-          </label>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          {pricing_tab?.map((tab: string, index: number) => {
+            const tabId = tab.toLowerCase().replace(/\s+/g, '-');
+            const isActive = index === 0;
+            // Map tab names to product keys in pricing_products
+            const productKeyMap = {
+              "chip": "chip",
+              "fingerabdruck": "fingerabdruck",
+              "gesichtserkennung": "gesichtserkennung"
+            };
+            const productKey = productKeyMap[tab.toLowerCase()] || tab.toLowerCase();
+            return (
+              <button
+                class={`product-tab-btn px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                  isActive
+                    ? "bg-primary text-white"
+                    : "bg-light dark:bg-darkmode-light text-text-dark dark:text-darkmode-text-dark hover:bg-primary/10"
+                }`}
+                data-tab={tabId}
+                data-product={productKey}
+              >
+                {tab}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {
-        pricing_card?.map((item: any, index: number) => (
+      {/* Pricing Cards - Will be dynamically updated via JavaScript */}
+      {currentProduct?.plans?.map((plan: any, index: number) => {
+        const isPopular = plan.badge === "BELIEBT" || index === 1;
+        return (
           <div
-            class="col-12 md:col-6 lg:col-4"
+            class="col-12 md:col-6 lg:col-4 pricing-card-wrapper"
             data-aos="fade-up-sm"
             data-aos-delay={200 + index * 50}
+            data-product="chip"
           >
             <div
-              class={`mx-auto rounded-2xl p-6 ${index % 2 === 0 ? "bg-light" : "bg-primary"}`}
+              class={`mx-auto rounded-2xl p-6 h-full flex flex-col ${
+                isPopular ? "bg-primary" : "bg-light"
+              }`}
             >
-              {/* left */}
+              {/* Header */}
               <div class="flex flex-col mb-8">
+                {plan.badge && (
+                  <span
+                    class={`inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 w-fit ${
+                      isPopular
+                        ? "bg-tertiary text-text-dark"
+                        : "bg-primary/10 text-primary"
+                    }`}
+                  >
+                    {plan.badge}
+                  </span>
+                )}
                 <h4
-                  set:html={markdownify(item.title)}
-                  class={`mb-1 ${index % 2 !== 0 && "text-light"}`}
-                />
+                  class={`mb-1 text-2xl font-bold ${
+                    isPopular ? "text-light" : "text-text-dark"
+                  }`}
+                >
+                  {plan.title}
+                </h4>
                 <p
-                  set:html={markdownify(item.description)}
-                  class={`mb-6 text-sm ${index % 2 !== 0 && "text-light/70"}`}
-                />
+                  class={`mb-2 text-sm ${
+                    isPopular ? "text-light/70" : "text-text-dark/70"
+                  }`}
+                >
+                  {plan.description}
+                </p>
 
-                <div class="flex gap-4 lg:mb-8 flex-row items-center">
-                  {item.price_monthly && item.price_yearly && (
+                {/* Price */}
+                <div class="mt-4">
+                  {plan.price ? (
                     <>
                       <p
-                        class={`text-[2.5rem] font-semibold  ${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
+                        class={`text-[2.5rem] font-semibold mb-1 ${
+                          isPopular ? "text-light" : "text-text-dark"
+                        }`}
                       >
-                        {markdownify(item.price_prefix)}
-                        <span
-                          class="data-count"
-                          data-count-yearly={item.price_yearly}
-                          data-count-monthly={item.price_monthly}
-                          set:html={markdownify(item.price_monthly)}
-                        />
+                        {plan.price} €
                       </p>
-                      <div>
-                        <p class={` ${index % 2 !== 0 && "text-light/70"}`}>
-                          /per {item.price_suffix.one}
-                        </p>
-                        <p class={` ${index % 2 !== 0 && "text-light/70"}`}>
-                          /per {item.price_suffix.two}
-                        </p>
-                      </div>
+                      <p
+                        class={`text-sm ${
+                          isPopular ? "text-light/70" : "text-text-dark/70"
+                        }`}
+                      >
+                        {plan.price_note}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p
+                        class={`text-xl font-semibold mb-1 ${
+                          isPopular ? "text-light" : "text-text-dark"
+                        }`}
+                      >
+                        {plan.price_custom}
+                      </p>
+                      <p
+                        class={`text-sm ${
+                          isPopular ? "text-light/70" : "text-text-dark/70"
+                        }`}
+                      >
+                        {plan.price_note}
+                      </p>
                     </>
                   )}
-                  {item.price_description_monthly &&
-                    item.price_description_yearly && (
-                      <>
-                        <span
-                          class="text-monthly text-lg/[inherit]"
-                          set:html={markdownify(item.price_description_monthly)}
-                        />
-                        <span
-                          class="text-yearly hidden text-lg/[inherit]"
-                          set:html={markdownify(item.price_description_yearly)}
-                        />
-                      </>
-                    )}
                 </div>
               </div>
-              {/* right */}
-              <div class="mb-10">
+
+              {/* Features */}
+              <div class="mb-8 flex-grow">
                 <p
-                  class={` ${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
+                  class={`mb-4 font-medium ${
+                    isPopular ? "text-light" : "text-text-dark"
+                  }`}
                 >
-                  Included Features
+                  Enthaltene Features
                 </p>
-                <hr class="border border-border/20 mb-5 mt-4" />
-                <ul>
-                  {item.features.map((feature: any) => (
-                    <li class="mb-4 flex items-center ">
+                <hr
+                  class={`mb-5 ${
+                    isPopular ? "border-light/20" : "border-border/20"
+                  }`}
+                />
+                <ul class="space-y-3">
+                  {plan.features?.map((feature: string) => (
+                    <li class="flex items-start">
                       <span
-                        class={`p-1.5 rounded bg-text/10 mr-2 border ${(index + 1) % 2 === 0 ? "border-border" : "border-border/20"}`}
+                        class={`p-1.5 rounded mr-2 mt-0.5 flex-shrink-0 ${
+                          isPopular
+                            ? "bg-light/20 border border-light/30"
+                            : "bg-text/10 border border-border/20"
+                        }`}
                       >
                         <Icon
                           name="cpu"
-                          class={`text-base ${(index + 1) % 2 === 0 ? "text-tertiary" : "text-text-dark"}`}
+                          class={`text-sm ${
+                            isPopular ? "text-tertiary" : "text-text-dark"
+                          }`}
                         />
                       </span>
-
                       <span
-                        set:html={markdownify(feature)}
-                        class={`${index % 2 !== 0 ? "text-light" : "text-text-dark"}`}
-                      />
+                        class={`text-sm ${
+                          isPopular ? "text-light" : "text-text-dark"
+                        }`}
+                      >
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <Button
-                label={item.button.label}
-                link={item.button.link}
-                style={`${index % 2 === 0 ? "secondary" : "primary"}`}
-                icon="FaAngleRight"
-                className={`${index % 2 !== 0 && "bg-tertiary text-text-dark hover:text-primary"}`}
-              />
+              {/* Buttons */}
+              <div class="mt-auto space-y-3">
+                {plan.buttons?.map((btn: any) => {
+                  if (btn.style === "badge") {
+                    return (
+                      <div
+                        class={`inline-block px-4 py-2 rounded-lg text-sm font-semibold w-full text-center ${
+                          isPopular
+                            ? "bg-tertiary text-text-dark"
+                            : "bg-primary/10 text-primary"
+                        }`}
+                      >
+                        {btn.label}
+                      </div>
+                    );
+                  }
+                  return (
+                    <a
+                      href={btn.link}
+                      class={`btn w-full text-center ${
+                        btn.style === "primary"
+                          ? isPopular
+                            ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
+                            : "btn-primary"
+                          : isPopular
+                            ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
+                            : "btn-secondary"
+                      }`}
+                    >
+                      {btn.label}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        ))
-      }
+        );
+      })}
     </div>
   </div>
 </section>
 
+<!-- Store pricing data in a script tag for JavaScript access -->
+<script type="application/json" id="pricing-products-data" set:html={JSON.stringify(pricing_products)}></script>
+
 <script>
-  function pricingInit() {
-    // Select the toggle switch element
-    const toggleSwitch =
-      document.querySelector<HTMLInputElement>(".pricing-check");
-    const numbers = document.querySelectorAll<HTMLDivElement>(".data-count");
-    toggleSwitch &&
-      toggleSwitch.addEventListener("change", function () {
-        if (toggleSwitch.checked) {
-          numbers.forEach(function (number) {
-            const yearlyCount = number.getAttribute("data-count-yearly");
-            if (yearlyCount) {
-              number.innerHTML = yearlyCount;
-              animateCounter(number, parseInt(yearlyCount, 10));
-            }
-          });
-          toggleVisibility(".text-yearly", "d-block", "hidden");
-          toggleVisibility(".text-monthly", "hidden", "d-block");
-        } else {
-          numbers.forEach(function (number) {
-            const monthlyCount = number.getAttribute("data-count-monthly");
-            if (monthlyCount) {
-              number.innerHTML = monthlyCount;
-              animateCounter(number, parseInt(monthlyCount, 10));
-            }
-          });
-          toggleVisibility(".text-monthly", "d-block", "hidden");
-          toggleVisibility(".text-yearly", "hidden", "d-block");
-        }
-      });
+  document.addEventListener("astro:page-load", () => {
+    // Get pricing data from JSON script tag
+    const pricingDataElement = document.getElementById("pricing-products-data");
+    if (!pricingDataElement) {
+      console.error("Pricing products data element not found");
+      return;
+    }
+    
+    let pricingProducts;
+    try {
+      pricingProducts = JSON.parse(pricingDataElement.textContent || "{}");
+    } catch (e) {
+      console.error("Failed to parse pricing products data:", e);
+      return;
+    }
 
-    function animateCounter(element: HTMLElement, endValue: number) {
-      let startValue = 0;
-      const duration = 250;
-      let startTime: number | null = null;
+    const tabButtons = document.querySelectorAll(".product-tab-btn");
+    const pricingCards = document.querySelectorAll(".pricing-card-wrapper");
 
-      function step(currentTime: number) {
-        if (!startTime) startTime = currentTime;
-        const progress = currentTime - startTime;
-        const value =
-          Math.min(progress / duration, 1) * (endValue - startValue) +
-          startValue;
-        element.innerHTML = Math.ceil(value).toString();
-        if (progress < duration) {
-          requestAnimationFrame(step);
-        }
+    function updatePricingCards(productType: string) {
+      // Try different possible key formats
+      let productData = pricingProducts[productType];
+      
+      // If not found, try lowercase
+      if (!productData) {
+        productData = pricingProducts[productType.toLowerCase()];
+      }
+      
+      // If still not found, log available keys
+      if (!productData) {
+        console.error(`Product data not found for: ${productType}`);
+        console.log("Available keys:", Object.keys(pricingProducts));
+        return;
+      }
+      
+      if (!productData.plans || !Array.isArray(productData.plans)) {
+        console.error(`No plans found for product: ${productType}`);
+        return;
+      }
+      
+      const plans = productData.plans;
+      const cardWrappers = Array.from(pricingCards);
+      
+      if (cardWrappers.length === 0) {
+        console.error("No pricing card wrappers found");
+        return;
+      }
+      
+      if (plans.length === 0) {
+        console.error("No plans found");
+        return;
       }
 
-      requestAnimationFrame(step);
-    }
+      plans.forEach((plan: any, index: number) => {
+        if (cardWrappers[index]) {
+          const card = cardWrappers[index].querySelector(".rounded-2xl");
+          if (!card) return;
 
-    function toggleVisibility(
-      selector: string,
-      addClass: string,
-      removeClass: string
-    ) {
-      const elements = document.querySelectorAll<HTMLElement>(selector);
-      elements.forEach(function (element) {
-        element.classList.add(addClass);
-        element.classList.remove(removeClass);
+          const isPopular = plan.badge === "BELIEBT" || index === 1;
+          
+          // Update product data attribute
+          cardWrappers[index].setAttribute("data-product", productType);
+
+          // Update badge - find the header container first
+          const headerContainer = card.querySelector(".flex.flex-col.mb-8");
+          if (headerContainer) {
+            // Remove all existing badges
+            const existingBadges = headerContainer.querySelectorAll("span.inline-block.px-3");
+            existingBadges.forEach(badge => badge.remove());
+            
+            // Add badge if plan has one (check badge field or if it's MEDIUM plan)
+            const shouldShowBadge = plan.badge === "BELIEBT" || (index === 1 && !plan.badge);
+            if (shouldShowBadge && index === 1) {
+              const badge = document.createElement("span");
+              badge.className = `inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 w-fit ${
+                isPopular ? "bg-tertiary text-text-dark" : "bg-primary/10 text-primary"
+              }`;
+              badge.textContent = "BELIEBT";
+              headerContainer.insertBefore(badge, headerContainer.firstChild);
+            } else if (plan.badge) {
+              const badge = document.createElement("span");
+              badge.className = `inline-block px-3 py-1 rounded-full text-xs font-semibold mb-2 w-fit ${
+                isPopular ? "bg-tertiary text-text-dark" : "bg-primary/10 text-primary"
+              }`;
+              badge.textContent = plan.badge;
+              headerContainer.insertBefore(badge, headerContainer.firstChild);
+            }
+          }
+
+          // Update title
+          const titleEl = card.querySelector("h4");
+          if (titleEl) {
+            titleEl.textContent = plan.title;
+            titleEl.className = `mb-1 text-2xl font-bold ${isPopular ? "text-light" : "text-text-dark"}`;
+          }
+
+          // Update description - find the description paragraph
+          const descEl = card.querySelector(".mb-2.text-sm");
+          if (descEl) {
+            descEl.textContent = plan.description;
+            descEl.className = `mb-2 text-sm ${isPopular ? "text-light/70" : "text-text-dark/70"}`;
+          }
+
+          // Update price
+          const priceContainer = card.querySelector(".mt-4");
+          if (priceContainer) {
+            if (plan.price) {
+              priceContainer.innerHTML = `
+                <p class="text-[2.5rem] font-semibold mb-1 ${
+                  isPopular ? "text-light" : "text-text-dark"
+                }">${plan.price} €</p>
+                <p class="text-sm ${
+                  isPopular ? "text-light/70" : "text-text-dark/70"
+                }">${plan.price_note}</p>
+              `;
+            } else {
+              priceContainer.innerHTML = `
+                <p class="text-xl font-semibold mb-1 ${
+                  isPopular ? "text-light" : "text-text-dark"
+                }">${plan.price_custom}</p>
+                <p class="text-sm ${
+                  isPopular ? "text-light/70" : "text-text-dark/70"
+                }">${plan.price_note}</p>
+              `;
+            }
+          }
+
+          // Update features
+          const featuresList = card.querySelector("ul.space-y-3");
+          if (featuresList) {
+            featuresList.innerHTML = plan.features
+              .map(
+                (feature: string) => `
+              <li class="flex items-start">
+                <span class="p-1.5 rounded mr-2 mt-0.5 flex-shrink-0 ${
+                  isPopular
+                    ? "bg-light/20 border border-light/30"
+                    : "bg-text/10 border border-border/20"
+                }">
+                  <svg class="w-4 h-4 ${
+                    isPopular ? "text-tertiary" : "text-text-dark"
+                  }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                </span>
+                <span class="text-sm ${
+                  isPopular ? "text-light" : "text-text-dark"
+                }">${feature}</span>
+              </li>
+            `
+              )
+              .join("");
+          }
+
+          // Update buttons
+          const buttonsContainer = card.querySelector(".mt-auto.space-y-3");
+          if (buttonsContainer && plan.buttons) {
+            buttonsContainer.innerHTML = plan.buttons
+              .map((btn: any) => {
+                if (btn.style === "badge") {
+                  return `
+                    <div class="inline-block px-4 py-2 rounded-lg text-sm font-semibold w-full text-center ${
+                      isPopular
+                        ? "bg-tertiary text-text-dark"
+                        : "bg-primary/10 text-primary"
+                    }">${btn.label}</div>
+                  `;
+                }
+                return `
+                  <a href="${btn.link}" class="btn w-full text-center ${
+                    btn.style === "primary"
+                      ? isPopular
+                        ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
+                        : "btn-primary"
+                      : isPopular
+                        ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
+                        : "btn-secondary"
+                  }">${btn.label}</a>
+                `;
+              })
+              .join("");
+          }
+
+          // Update card background
+          card.className = `mx-auto rounded-2xl p-6 h-full flex flex-col ${
+            isPopular ? "bg-primary" : "bg-light"
+          }`;
+
+          // Update all text colors based on popularity
+          const allTextElements = card.querySelectorAll("p, span, li");
+          allTextElements.forEach((el: Element) => {
+            const htmlEl = el as HTMLElement;
+            // Skip badge and button elements
+            if (htmlEl.closest(".mt-auto") || htmlEl.classList.contains("inline-block") && htmlEl.textContent?.includes("BELIEBT")) {
+              return;
+            }
+            
+            if (isPopular) {
+              // Update text colors for popular card
+              if (htmlEl.classList.contains("text-text-dark")) {
+                htmlEl.classList.remove("text-text-dark");
+                htmlEl.classList.add("text-light");
+              }
+              if (htmlEl.classList.contains("text-text-dark/70")) {
+                htmlEl.classList.remove("text-text-dark/70");
+                htmlEl.classList.add("text-light/70");
+              }
+            } else {
+              // Update text colors for regular card
+              if (htmlEl.classList.contains("text-light")) {
+                htmlEl.classList.remove("text-light");
+                htmlEl.classList.add("text-text-dark");
+              }
+              if (htmlEl.classList.contains("text-light/70")) {
+                htmlEl.classList.remove("text-light/70");
+                htmlEl.classList.add("text-text-dark/70");
+              }
+            }
+          });
+          
+          // Update feature list items
+          const featureItems = card.querySelectorAll("li span.text-sm");
+          featureItems.forEach((el: Element) => {
+            const htmlEl = el as HTMLElement;
+            htmlEl.className = `text-sm ${isPopular ? "text-light" : "text-text-dark"}`;
+          });
+        }
       });
     }
-  }
-  document.addEventListener("astro:page-load", pricingInit);
+
+    // Set up event listeners for tabs
+    if (tabButtons.length === 0) {
+      console.error("No tab buttons found");
+      return;
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const productType = button.getAttribute("data-product");
+        console.log("Tab clicked, product type:", productType);
+        
+        if (!productType) {
+          console.error("No product type found on button");
+          return;
+        }
+
+        // Update active tab styles
+        tabButtons.forEach((btn) => {
+          btn.classList.remove("bg-primary", "text-white");
+          btn.classList.add(
+            "bg-light",
+            "dark:bg-darkmode-light",
+            "text-text-dark",
+            "dark:text-darkmode-text-dark",
+            "hover:bg-primary/10"
+          );
+        });
+        button.classList.remove(
+          "bg-light",
+          "dark:bg-darkmode-light",
+          "text-text-dark",
+          "dark:text-darkmode-text-dark",
+          "hover:bg-primary/10"
+        );
+        button.classList.add("bg-primary", "text-white");
+
+        // Update pricing cards
+        console.log("Calling updatePricingCards with:", productType);
+        updatePricingCards(productType);
+      });
+    });
+    
+    // Initialize with first tab on page load
+    if (tabButtons.length > 0) {
+      const firstButton = tabButtons[0];
+      const firstProductType = firstButton.getAttribute("data-product");
+      console.log("Initializing with product type:", firstProductType);
+      if (firstProductType) {
+        updatePricingCards(firstProductType);
+      }
+    }
+  });
 </script>

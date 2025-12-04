@@ -21,6 +21,7 @@ const {
   hero,
   pricing_tab,
   pricing_card,
+  pricing_products,
   compare,
   faq,
 } = pricingIndex.data;
@@ -29,7 +30,7 @@ const {
 <Base title={title} meta_title={meta_title} description={description}>
   <PageHeader title={hero.title} content={hero.content} />
 
-  <Plan pricing_tab={pricing_tab} pricing_card={pricing_card} />
+  <Plan pricing_tab={pricing_tab} pricing_card={pricing_card} pricing_products={pricing_products} />
 
   <Compare compare={compare} />
 

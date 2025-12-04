@@ -1,5 +1,6 @@
 ---
 title: "FAQs Gesichtserkennung"
+faq_section: "gesichtserkennung"
 meta_title: "FAQs Zeiterfassung mit Gesichtserkennung | ZFDM"
 description: "Häufig gestellte Fragen zur Zeiterfassung mit Gesichtserkennung: Registrierung, Erkennung, Datenspeicherung, Branchen und Kosten."
 draft: false

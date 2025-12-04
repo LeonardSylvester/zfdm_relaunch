@@ -1,0 +1,192 @@
+---
+import Youtube from "@/shortcodes/Youtube";
+
+const videoTabs = [
+  {
+    id: "video-1",
+    label: "Funktionalität",
+    youtube_id: "rG2ExH2qFrs",
+    title: "Videoanleitung 1",
+    description: "Beschreibung für Video 1"
+  },
+  {
+    id: "video-2",
+    label: "Administrator",
+    youtube_id: "y1yR1zPj5DU",
+    title: "Videoanleitung 2",
+    description: "Beschreibung für Video 2"
+  },
+  {
+    id: "video-3",
+    label: "Vorgesetzter",
+    youtube_id: "g2AzbCv-buo",
+    title: "Videoanleitung 3",
+    description: "Beschreibung für Video 3"
+  },
+  {
+    id: "Mitarbeiter",
+    label: "Mitarbeiter",
+    youtube_id: "9fpDGi0PUTM",
+    title: "Videoanleitung 4",
+    description: "Beschreibung für Video 4"
+  },
+  {
+    id: "Android App",
+    label: "Android App",
+    youtube_id: "dqtJWFszdJg",
+    title: "Videoanleitung 5",
+    description: "Beschreibung für Video 5"
+  }
+];
+---
+
+<section class="section pt-0">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="col-12 lg:col-10">
+        {/* Video Tabs Navigation */}
+        <div class="mb-8" data-aos="fade-up-sm">
+          <div class="flex flex-wrap justify-center gap-3 border-b border-border dark:border-darkmode-border">
+            {videoTabs.map((tab, index) => (
+              <button
+                class={`video-tab-btn px-6 py-4 font-medium transition-all duration-300 hover:bg-light dark:hover:bg-darkmode-light inline-flex items-center justify-center gap-2 ${
+                  index === 0
+                    ? "bg-light dark:bg-darkmode-light border-b-2 border-primary text-primary dark:text-darkmode-primary"
+                    : "text-text-dark dark:text-darkmode-text-dark"
+                }`}
+                data-tab={tab.id}
+              >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          {videoTabs.map((tab, index) => (
+            <div
+              class={`video-content ${index === 0 ? "" : "hidden"}`}
+              data-content={tab.id}
+              data-aos="fade-up-sm"
+            >
+              {/* Video Header */}
+              <div class="mb-6">
+                <h3 class="h4 mb-2">{tab.title}</h3>
+                {tab.description && (
+                  <p class="text-text-dark dark:text-darkmode-text-dark">
+                    {tab.description}
+                  </p>
+                )}
+              </div>
+
+              {tab.youtube_id ? (
+                <div class="relative rounded-2xl overflow-hidden shadow-lg">
+                  <Youtube
+                    id={tab.youtube_id}
+                    title={tab.title}
+                    client:visible
+                  />
+                </div>
+              ) : (
+                <div class="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 aspect-video flex items-center justify-center">
+                  <p class="text-text-dark dark:text-darkmode-text-dark">
+                    Video wird in Kürze verfügbar sein
+                  </p>
+                </div>
+              )}
+
+              {tab.youtube_id && (
+                <script
+                  type="application/ld+json"
+                  set:html={JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "VideoObject",
+                    name: tab.title,
+                    description: tab.description || tab.title,
+                    thumbnailUrl: `https://img.youtube.com/vi/${tab.youtube_id}/maxresdefault.jpg`,
+                    uploadDate: new Date().toISOString(),
+                    contentUrl: `https://www.youtube.com/watch?v=${tab.youtube_id}`,
+                    embedUrl: `https://www.youtube.com/embed/${tab.youtube_id}`,
+                  })}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const tabButtons = document.querySelectorAll(".video-tab-btn");
+    const videoContents = document.querySelectorAll(".video-content");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetTab = button.getAttribute("data-tab");
+
+        tabButtons.forEach((btn) => {
+          btn.classList.remove(
+            "bg-light",
+            "dark:bg-darkmode-light",
+            "border-b-2",
+            "border-primary",
+            "text-primary",
+            "dark:text-darkmode-primary"
+          );
+          btn.classList.add(
+            "text-text-dark",
+            "dark:text-darkmode-text-dark"
+          );
+        });
+
+        videoContents.forEach((content) => {
+          content.classList.add("hidden");
+        });
+
+        button.classList.add(
+          "bg-light",
+          "dark:bg-darkmode-light",
+          "border-b-2",
+          "border-primary",
+          "text-primary",
+          "dark:text-darkmode-primary"
+        );
+        button.classList.remove(
+          "text-text-dark",
+          "dark:text-darkmode-text-dark"
+        );
+
+        const targetContent = document.querySelector(
+          `[data-content="${targetTab}"]`
+        );
+        if (targetContent) {
+          targetContent.classList.remove("hidden");
+        }
+      });
+    });
+  });
+</script>
+
+

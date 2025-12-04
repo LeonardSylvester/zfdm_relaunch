@@ -1,5 +1,6 @@
 ---
 title: "FAQs Fingerabdruck"
+faq_section: "fingerabdruck"
 meta_title: "FAQs Zeiterfassung mit Fingerabdruck | ZFDM"
 description: "Häufig gestellte Fragen zur Zeiterfassung mit Fingerabdruck: Funktionsweise, Registrierung, Vorteile, Datenübertragung und DSGVO-Konformität."
 draft: false
