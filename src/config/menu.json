@@ -93,6 +93,10 @@
         {
           "name": "Blog",
           "url": "/ressourcen/blog"
+        },
+        {
+          "name": "Kostenrechner",
+          "url": "/ressourcen/kostenrechner"
         }
       ]
     },
@@ -158,6 +162,10 @@
         {
           "name": "Blog",
           "url": "/ressourcen/blog"
+        },
+        {
+          "name": "Kostenrechner",
+          "url": "/ressourcen/kostenrechner"
         }
       ]
     }

@@ -28,27 +28,27 @@ feature:
       description: "Die bewährte Lösung für schnelle und unkomplizierte Zeiterfassung. Mitarbeiter stempeln einfach mit ihrem persönlichen RFID-Chip am Terminal ein und aus – ohne Passwörter oder komplizierte Eingaben."
       image: "/images/home/chip-system.png"
       button:
-        enable: false
-        label: "Get a quote"
-        link: "/features"
+        enable: true
+        label: "Mehr erfahren"
+        link: "/zeiterfassungssysteme/zeiterfassung-mit-chip"
     - title: "Fingerabdruck"
       badge: "Sicher"
       content: "Maximale Sicherheit durch Fingerabdruck am Terminal"
       description: "Höchste Sicherheit und präzise Erfassung durch biometrische Authentifizierung. Kein Kartenverlust, kein Kartenmissbrauch – jeder Mitarbeiter wird eindeutig identifiziert und die Zeiterfassung ist manipulationssicher."
       image: "/images/home/fingerprint-system.png"
       button:
-        enable: false
-        label: "Get a quote"
-        link: "/features"
+        enable: true
+        label: "Mehr erfahren"
+        link: "/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck"
     - title: "Gesichtserkennung"
       badge: "Hygienisch"
       content: "Hygienische Zeiterfassung per Gesichtserkennung am Terminal"
       description: "Moderne, kontaktlose Zeiterfassung für maximale Hygiene. Das System erkennt Mitarbeiter automatisch per Gesichtserkennung – vollkommen berührungslos, schnell und zukunftssicher für höchste Ansprüche."
       image: "/images/home/Zeiterfassung-Gesichtserkennung.webp"
       button:
-        enable: false
-        label: "Get a quote"
-        link: "/features"
+        enable: true
+        label: "Mehr erfahren"
+        link: "/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung"
     
 
 offering:
@@ -194,4 +194,63 @@ customer_references:
     - "/images/logos/johannes-bopp.png"
     - "/images/logos/le-postillion.png"
     - "/images/logos/rss-bochum.png"
+
+target_audiences:
+  title: "Günstige Zeiterfassung für kleine und mittlere Unternehmen"
+  subtitle: "Unsere elektronische Zeiterfassung ist ideal für Kleinbetriebe und den Mittelstand - von 1 bis 50+ Mitarbeitern"
+  items:
+    - title: "Digitale Zeiterfassung für Kleinbetriebe"
+      subtitle: "1-10 Mitarbeiter"
+      description: "Günstige und einfache Zeiterfassung für kleine Unternehmen. Unser Zeiterfassungssystem ist webbasiert, WLAN-fähig und wächst mit Ihrem Betrieb. Ideal für Kleinbetriebe bis 10 Mitarbeiter - ohne monatliche Lizenzgebühren."
+      image: "/images/branchen/Zeiterfassung-Kleinbetrieb.webp"
+      link: "/branchen/kleinbetriebe"
+      stats:
+        - label: "Mitarbeiter"
+          value: "1-10"
+        - label: "Paket"
+          value: "Ohne Abo"
+    - title: "Webbasierte Zeiterfassung für den Mittelstand"
+      subtitle: "10-50+ Mitarbeiter"
+      description: "Modulare Zeiterfassungssysteme für mittelständische Unternehmen. Flexibel skalierbar, RFID-Chip Erfassung, dezentraler Zugriff. Perfekt für den Mittelstand mit bis zu 50+ Mitarbeitern."
+      image: "/images/branchen/Zeiterfassung-Mittelstand.webp"
+      link: "/branchen/mittelstand"
+      stats:
+        - label: "Mitarbeiter"
+          value: "50+"
+        - label: "Modular"
+          value: "Skalierbar"
+
+industries:
+  enable: true
+  title: "Zeiterfassung fuer jede Branche"
+  subtitle: "Unsere Kunden kommen aus den unterschiedlichsten Branchen"
+  items:
+    - title: "Arztpraxen"
+      description: "DSGVO-konforme Zeiterfassung fuer medizinisches Personal"
+      image: "/images/branchen/Zeiterfassung-Arztpraxis.webp"
+      link: "/branchen/arztpraxen"
+    - title: "Handwerk"
+      description: "Mobile Zeiterfassung direkt von der Baustelle"
+      image: "/images/branchen/Zeiterfassung-Handwerk.webp"
+      link: "/branchen/handwerk"
+    - title: "Gastronomie"
+      description: "Schichtplanung und flexible Arbeitszeiten"
+      image: "/images/branchen/Zeiterfassung-Gastronomie.webp"
+      link: "/branchen/gastronomie"
+    - title: "Logistik"
+      description: "Zeiterfassung fuer mobile Teams und Lager"
+      image: "/images/branchen/Zeiterfassung-Logistik.webp"
+      link: "/branchen/logistik"
+    - title: "Agenturen"
+      description: "Projektbasierte Zeiterfassung und Reporting"
+      image: "/images/branchen/Zeiterfassung-Agenturen.webp"
+      link: "/branchen/agenturen"
+    - title: "Schulen"
+      description: "Zeiterfassung fuer Lehrpersonal und Verwaltung"
+      image: "/images/branchen/Zeiterfassung-Schulen.webp"
+      link: "/branchen/schulen"
+    - title: "Kindergarten"
+      description: "Einfache Zeiterfassung fuer Erzieher und Personal"
+      image: "/images/branchen/Zeiterfassung-Kindergarten.webp"
+      link: "/branchen/kindergarten"
 ---

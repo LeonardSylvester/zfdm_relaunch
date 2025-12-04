@@ -1,0 +1,173 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import ImageMod from "../ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+
+type Props = {
+  industries: NonNullable<CollectionEntry<"homepage">["data"]["industries"]>;
+};
+
+const { industries } = Astro.props;
+---
+
+<section class="section bg-light">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="row mb-12">
+      <div class="col-12 text-center">
+        <h2
+          set:html={markdownify(industries.title)}
+          class="h2 mb-4"
+          data-aos="fade-up-sm"
+        />
+        {industries.subtitle && (
+          <p
+            set:html={markdownify(industries.subtitle)}
+            class="text-lg max-w-3xl mx-auto"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          />
+        )}
+      </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid" data-aos="fade-up-sm" data-aos-delay="150">
+      {industries.items.map((item, index) => {
+        const isLarge = index < 2;
+        const gridClass = isLarge
+          ? "bento-item bento-large"
+          : "bento-item bento-small";
+
+        return (
+          <a
+            href={item.link}
+            class={`${gridClass} group flex flex-col overflow-hidden rounded-2xl bg-body border border-border/30 hover:border-primary/50 shadow-md hover:shadow-xl transition-all duration-300`}
+          >
+            {/* Image Container */}
+            <div class="relative overflow-hidden flex-shrink-0">
+              <ImageMod
+                class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+                src={item.image}
+                alt={item.title}
+                width={isLarge ? 600 : 400}
+                height={isLarge ? 300 : 200}
+                format="webp"
+              />
+            </div>
+
+            {/* Content */}
+            <div class="p-5 flex flex-col flex-grow bg-body">
+              <h3 class="text-lg font-semibold text-dark mb-2 group-hover:text-primary transition-colors">
+                {item.title}
+              </h3>
+              {item.description && isLarge && (
+                <p class="text-sm text-text mb-3 line-clamp-2 flex-grow">
+                  {item.description}
+                </p>
+              )}
+              <div class="flex items-center text-primary text-sm font-medium mt-auto">
+                Mehr erfahren
+                <IconMapper
+                  icon="arrow-right"
+                  size="1rem"
+                  className="ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                  ariaHidden={true}
+                />
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 1rem;
+  }
+
+  .bento-large :global(img) {
+    height: 180px;
+  }
+
+  .bento-small :global(img) {
+    height: 140px;
+  }
+
+  /* Desktop: 4 columns */
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* First item spans 2 columns */
+    .bento-item:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    /* Second item spans 2 columns */
+    .bento-item:nth-child(2) {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+
+    /* Remaining items: 1 column each */
+    .bento-item:nth-child(n+3) {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    .bento-large :global(img) {
+      height: 220px;
+    }
+
+    .bento-small :global(img) {
+      height: 160px;
+    }
+  }
+
+  /* Tablet: 2 columns */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .bento-item:nth-child(1),
+    .bento-item:nth-child(2) {
+      grid-column: span 1;
+    }
+  }
+
+  /* 5 columns for remaining 5 items on large screens */
+  @media (min-width: 1280px) {
+    .bento-grid {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .bento-item:nth-child(1) {
+      grid-column: span 3;
+    }
+
+    .bento-item:nth-child(2) {
+      grid-column: span 2;
+    }
+
+    .bento-item:nth-child(n+3) {
+      grid-column: span 1;
+    }
+
+    .bento-large :global(img) {
+      height: 240px;
+    }
+  }
+</style>

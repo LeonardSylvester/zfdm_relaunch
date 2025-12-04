@@ -1,6 +1,5 @@
 ---
 import { markdownify } from "@/lib/utils/textConverter";
-import ImageMod from "@/components/ImageMod.astro";
 import { getListPage } from "@/lib/contentParser.astro";
 import { FaStar } from "react-icons/fa6";
 
@@ -35,15 +34,10 @@ const { title, subtitle, reviews } = testimonial.data;
                 <div class="bg-body rounded-2xl p-5 border border-border/10">
                   <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center">
-                      <div class="rounded-full overflow-hidden mr-4">
-                        <ImageMod
-                          class="object-cover"
-                          src={s.customerAvatar}
-                          alt="customer image"
-                          height={64}
-                          width={64}
-                          format="webp"
-                        />
+                      <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="text-primary font-semibold text-lg">
+                          {s.customerName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
+                        </span>
                       </div>
                       <div>
                         <div class="flex items-center gap-2">
@@ -100,15 +94,10 @@ const { title, subtitle, reviews } = testimonial.data;
                 <div class="bg-body rounded-2xl p-5 border border-border/10">
                   <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center">
-                      <div class="rounded-full overflow-hidden mr-4">
-                        <ImageMod
-                          class="object-cover"
-                          src={s.customerAvatar}
-                          alt="customer image"
-                          height={64}
-                          width={64}
-                          format="webp"
-                        />
+                      <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
+                        <span class="text-primary font-semibold text-lg">
+                          {s.customerName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
+                        </span>
                       </div>
                       <div>
                         <div class="flex items-center gap-2">

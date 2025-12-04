@@ -166,6 +166,44 @@ const homepageCollection = defineCollection({
         logos: z.array(z.string()),
       })
       .optional(),
+    target_audiences: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            subtitle: z.string(),
+            description: z.string(),
+            image: z.string(),
+            link: z.string(),
+            stats: z
+              .array(
+                z.object({
+                  label: z.string(),
+                  value: z.string(),
+                }),
+              )
+              .optional(),
+          }),
+        ),
+      })
+      .optional(),
+    industries: z
+      .object({
+        enable: z.boolean().optional(),
+        title: z.string(),
+        subtitle: z.string().optional(),
+        items: z.array(
+          z.object({
+            title: z.string(),
+            description: z.string().optional(),
+            image: z.string(),
+            link: z.string(),
+          }),
+        ),
+      })
+      .optional(),
   }),
 });
 
@@ -238,6 +276,7 @@ const sectionsCollection = defineCollection({
     enable: z.boolean(),
     title: z.string().optional(),
     subtitle: z.string().optional(),
+    content: z.string().optional(),
     testimonials: z
       .array(
         z.object({
@@ -281,6 +320,44 @@ const sectionsCollection = defineCollection({
       .optional(),
     // YouTube embed field
     youtube_embed: z.string().optional(),
+    // Referenzen Bento fields
+    video: z
+      .object({
+        url: z.string(),
+        poster: z.string().optional(),
+        testimonial: z.object({
+          name: z.string(),
+          designation: z.string(),
+          company: z.string(),
+          quote: z.string().optional(),
+        }),
+      })
+      .optional(),
+    image_card: z
+      .object({
+        image: z.string(),
+        quote: z.string(),
+        author: z.string(),
+        company: z.string(),
+        link: z.string().optional(),
+      })
+      .optional(),
+    cta_card: z
+      .object({
+        title: z.string(),
+        description: z.string().optional(),
+        link: z.string(),
+        label: z.string(),
+      })
+      .optional(),
+    // Blog Preview Section fields
+    source: z
+      .object({
+        label: z.string(),
+        url: z.string().optional(),
+      })
+      .optional(),
+    blog_id: z.string().optional(),
   }),
 });
 

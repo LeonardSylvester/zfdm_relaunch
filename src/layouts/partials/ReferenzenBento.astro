@@ -1,0 +1,245 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "@/components/ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import { FaPlay, FaStar, FaCircleInfo } from "react-icons/fa6";
+
+const referenzen = await getListPage("sections", "referenzen-bento");
+if (!referenzen?.data.enable) return null;
+
+const { title, subtitle, video, image_card, cta_card } = referenzen.data;
+---
+
+<section class="section bg-light">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="row mb-10">
+      <div class="col-12 text-center">
+        {subtitle && (
+          <p
+            set:html={markdownify(subtitle)}
+            class="mb-4 text-sm uppercase tracking-wider text-primary font-medium"
+            data-aos="fade-up-sm"
+          />
+        )}
+        {title && (
+          <h2
+            set:html={markdownify(title)}
+            class="h2"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          />
+        )}
+      </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="bento-grid" data-aos="fade-up-sm" data-aos-delay="150">
+
+      <!-- Video Card (Large - Left) -->
+      {video && (
+        <div class="bento-video group relative overflow-hidden rounded-2xl bg-dark">
+          <!-- Video Element -->
+          <video
+            id="testimonial-video"
+            class="w-full h-full object-cover"
+            preload="metadata"
+          >
+            <source src={video.url} type="video/mp4" />
+          </video>
+
+          <!-- Play Button Overlay - Always visible until video plays -->
+          <div id="video-overlay" class="absolute inset-0 flex items-center justify-center bg-gradient-to-b from-dark/60 via-dark/40 to-dark/80 cursor-pointer transition-opacity duration-300">
+            <!-- Large centered play button -->
+            <button
+              id="play-button"
+              class="w-24 h-24 rounded-full bg-primary flex items-center justify-center shadow-2xl hover:bg-primary/90 hover:scale-110 transition-all duration-300 ring-4 ring-white/20"
+              aria-label="Video abspielen"
+            >
+              <FaPlay className="text-white ml-1" size="2.5rem" />
+            </button>
+            <!-- Video label -->
+            <span class="absolute top-6 left-6 bg-primary/90 text-white text-sm font-medium px-3 py-1 rounded-full">
+              Video-Testimonial
+            </span>
+          </div>
+
+          <!-- Testimonial Info - stronger gradient for readability -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dark via-dark/90 to-transparent" style="text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+            {video.testimonial.quote && (
+              <p class="text-white text-lg mb-4 italic font-medium">
+                "{video.testimonial.quote}"
+              </p>
+            )}
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 rounded-full bg-primary/30 flex items-center justify-center flex-shrink-0 ring-2 ring-white/20">
+                <span class="text-white font-semibold">
+                  {video.testimonial.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
+                </span>
+              </div>
+              <div>
+                <p class="text-white font-semibold">{video.testimonial.name}</p>
+                <p class="text-white/80 text-sm">{video.testimonial.designation}, {video.testimonial.company}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <!-- Right Column -->
+      <div class="bento-right flex flex-col gap-4 lg:gap-6">
+
+        <!-- Image Card (Top Right) -->
+        {image_card && (
+          <a
+            href={image_card.link || "#"}
+            class="bento-image group relative overflow-hidden rounded-2xl flex-1"
+          >
+            <ImageMod
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              src={image_card.image}
+              alt={image_card.author}
+              width={600}
+              height={400}
+              format="webp"
+            />
+            <!-- Stronger gradient overlay for text readability -->
+            <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/70 to-dark/20" />
+            <div class="absolute bottom-0 left-0 right-0 p-5" style="text-shadow: 0 2px 4px rgba(0,0,0,0.6);">
+              <p class="text-white text-base mb-3 italic font-medium line-clamp-2">
+                "{image_card.quote}"
+              </p>
+              <p class="text-white/90 text-sm">
+                <span class="font-semibold text-white">{image_card.author}</span>, {image_card.company}
+              </p>
+            </div>
+            {image_card.link && (
+              <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="w-10 h-10 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center">
+                  <FaCircleInfo className="text-white" size="1.25rem" />
+                </div>
+              </div>
+            )}
+          </a>
+        )}
+
+        <!-- CTA Card (Bottom Right) - Display only, not clickable -->
+        {cta_card && (
+          <div class="bento-cta flex flex-col justify-center p-6 rounded-2xl bg-body border border-border/30">
+            <!-- Star Rating -->
+            <div class="flex items-center gap-2 mb-3">
+              <div class="flex items-center gap-0.5">
+                <FaStar className="text-yellow-500" size="1rem" />
+                <FaStar className="text-yellow-500" size="1rem" />
+                <FaStar className="text-yellow-500" size="1rem" />
+                <FaStar className="text-yellow-500" size="1rem" />
+                <FaStar className="text-yellow-500/50" size="1rem" />
+              </div>
+              <span class="text-dark font-semibold text-sm">4,7</span>
+            </div>
+            <h3 class="text-lg font-semibold text-dark mb-2">
+              {cta_card.title}
+            </h3>
+            {cta_card.description && (
+              <p class="text-text text-sm">
+                {cta_card.description}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .bento-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .bento-video {
+    min-height: 300px;
+  }
+
+  .bento-image {
+    min-height: 180px;
+  }
+
+  .bento-cta {
+    min-height: 120px;
+  }
+
+  /* Desktop Layout */
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: 3fr 2fr;
+      gap: 1.5rem;
+    }
+
+    .bento-video {
+      min-height: 450px;
+    }
+
+    .bento-right {
+      min-height: 450px;
+    }
+
+    .bento-image {
+      min-height: auto;
+    }
+
+    .bento-cta {
+      min-height: auto;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .bento-video {
+      grid-column: span 2;
+      min-height: 350px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const video = document.getElementById("testimonial-video") as HTMLVideoElement;
+    const overlay = document.getElementById("video-overlay");
+    const playButton = document.getElementById("play-button");
+
+    if (video && overlay && playButton) {
+      const togglePlay = () => {
+        if (video.paused) {
+          video.play();
+          overlay.style.opacity = "0";
+          overlay.style.pointerEvents = "none";
+        } else {
+          video.pause();
+          overlay.style.opacity = "1";
+          overlay.style.pointerEvents = "auto";
+        }
+      };
+
+      overlay.addEventListener("click", togglePlay);
+
+      video.addEventListener("ended", () => {
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "auto";
+      });
+
+      video.addEventListener("pause", () => {
+        overlay.style.opacity = "1";
+        overlay.style.pointerEvents = "auto";
+      });
+    }
+  });
+</script>

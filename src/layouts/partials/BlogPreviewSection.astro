@@ -1,0 +1,118 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import ImageMod from "@/components/ImageMod.astro";
+import Button from "@/shortcodes/Button";
+import dateFormat from "@/lib/utils/dateFormat";
+import { humanize, slugify } from "@/lib/utils/textConverter";
+
+interface Props {
+  title: string;
+  content: string;
+  source?: {
+    label: string;
+    url?: string;
+  };
+  button?: {
+    enable: boolean;
+    label: string;
+    link: string;
+  };
+  blog: {
+    id: string;
+    data: {
+      title: string;
+      image?: string;
+      date?: Date;
+      categories?: string[];
+    };
+  };
+  reversed?: boolean;
+}
+
+const { title, content, source, button, blog, reversed = false } = Astro.props;
+const { title: blogTitle, image, date, categories } = blog.data;
+---
+
+<section class="section">
+  <div class="container">
+    <div class={`flex xl:flex-row flex-col xl:justify-between justify-center max-xl:gap-9 ${reversed ? "xl:flex-row-reverse" : ""}`}>
+      <!-- Text Column -->
+      <div class="w-full lg:w-4/5 xl:w-[45%] min-h-full mx-auto">
+        <div class="flex flex-col justify-center h-full">
+          <h2
+            set:html={markdownify(title)}
+            class="mb-6 max-xl:text-center lg:h1"
+            data-aos="fade-up-sm"
+          />
+          <p
+            set:html={markdownify(content)}
+            class="mb-6 max-xl:text-center"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          />
+          {source && (
+            <p class="text-sm text-text-dark/60 mb-8 max-xl:text-center" data-aos="fade-up-sm" data-aos-delay="150">
+              Quelle: {source.url ? (
+                <a href={source.url} target="_blank" rel="noopener noreferrer" class="underline hover:text-primary transition">
+                  {source.label}
+                </a>
+              ) : source.label}
+            </p>
+          )}
+          {button?.enable && (
+            <div class="max-xl:text-center" data-aos="fade-up-sm" data-aos-delay="200">
+              <Button
+                link={button.link}
+                label={button.label}
+                style="primary"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+
+      <!-- Blog Preview Column -->
+      <div
+        class="w-full lg:w-4/5 xl:w-[48%] mx-auto"
+        data-aos="fade-up-sm"
+        data-aos-delay="200"
+      >
+        <div class="relative group rounded-2xl overflow-hidden bg-tertiary">
+          {categories && categories.length > 0 && (
+            <div class="backdrop-blur-lg bg-text-dark/40 absolute top-4 left-4 px-3 py-1.5 rounded-lg z-10">
+              {categories.map((category: string, i: number) => (
+                <a
+                  href={`/ressourcen/blog/kategorien/${slugify(category)}`}
+                  class="text-light text-sm"
+                >
+                  {humanize(category)}
+                  {i !== categories.length - 1 && ","}
+                </a>
+              ))}
+            </div>
+          )}
+          {image && (
+            <div class="overflow-hidden">
+              <ImageMod
+                class="w-full group-hover:scale-105 transition duration-500"
+                src={image}
+                alt={blogTitle}
+                width={600}
+                height={400}
+                format="webp"
+              />
+            </div>
+          )}
+          <div class="p-6">
+            {date && <p class="mb-2 text-text-dark/60">{dateFormat(date)}</p>}
+            <h4 class="mb-3 h5 font-medium leading-normal">
+              <a href={`/ressourcen/blog/${blog.id}`} class="stretched-link hover:text-primary transition">
+                {blogTitle}
+              </a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

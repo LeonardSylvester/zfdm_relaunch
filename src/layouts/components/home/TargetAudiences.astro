@@ -1,0 +1,107 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import type { CollectionEntry } from "astro:content";
+import ImageMod from "../ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+
+type Props = {
+  target_audiences: NonNullable<CollectionEntry<"homepage">["data"]["target_audiences"]>;
+};
+
+const { target_audiences } = Astro.props;
+---
+
+<section class="section bg-gradient-to-b from-light/50 to-white dark:from-darkmode-body/50 dark:to-darkmode-body">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="row mb-12">
+      <div class="col-12 text-center">
+        <h2
+          set:html={markdownify(target_audiences.title)}
+          class="h2 mb-4"
+          data-aos="fade-up-sm"
+        />
+        <p
+          set:html={markdownify(target_audiences.subtitle)}
+          class="text-lg text-text-dark dark:text-darkmode-text-dark max-w-3xl mx-auto"
+          data-aos="fade-up-sm"
+          data-aos-delay="100"
+        />
+      </div>
+    </div>
+
+    <!-- Target Audience Cards -->
+    <div class="row gy-6 justify-center">
+      {
+        target_audiences.items.map((item, index) => (
+          <div
+            class="col-12 md:col-6"
+            data-aos="fade-up-sm"
+            data-aos-delay={index * 150}
+          >
+            <div class="bg-gradient-to-br from-primary/5 to-secondary/5 dark:from-darkmode-primary/10 dark:to-darkmode-secondary/10 rounded-2xl overflow-hidden h-full flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 border border-border dark:border-darkmode-border group">
+              {/* Image */}
+              <div class="relative overflow-hidden">
+                <ImageMod
+                  src={item.image}
+                  alt={item.title}
+                  width={600}
+                  height={300}
+                  class="w-full object-cover aspect-[2/1] group-hover:scale-105 transition-transform duration-500"
+                />
+                {/* Subtitle Badge */}
+                <div class="absolute bottom-4 left-4">
+                  <span class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold shadow-lg">
+                    {item.subtitle}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div class="p-6 flex flex-col flex-grow">
+                {/* Title */}
+                <h3 set:html={markdownify(item.title)} class="h4 mb-4" />
+
+                {/* Description */}
+                <p
+                  set:html={markdownify(item.description)}
+                  class="text-text-dark dark:text-darkmode-text-dark mb-6 flex-grow"
+                />
+
+                {/* Stats */}
+                {item.stats && item.stats.length > 0 && (
+                  <div class="grid grid-cols-2 gap-4 mb-6">
+                    {item.stats.map((stat) => (
+                      <div class="bg-white dark:bg-darkmode-body rounded-xl p-4 text-center shadow-sm">
+                        <div class="text-xl font-bold text-primary dark:text-darkmode-primary mb-1">
+                          {stat.value}
+                        </div>
+                        <div class="text-xs text-text-dark dark:text-darkmode-text-dark">
+                          {stat.label}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* CTA Button */}
+                <a
+                  href={item.link}
+                  class="btn btn-primary w-full flex items-center justify-center gap-2 group/btn"
+                >
+                  Mehr erfahren
+                  <IconMapper
+                    icon="→"
+                    size="1rem"
+                    className="group-hover/btn:translate-x-1 transition-transform duration-300"
+                    ariaHidden={true}
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
