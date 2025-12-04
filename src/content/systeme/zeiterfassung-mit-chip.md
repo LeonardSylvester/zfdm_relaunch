@@ -90,6 +90,20 @@ pricing:
   starting_from: "Ab 299 € einmalig"
   link: "/kontakt"
   note: "Keine monatlichen Kosten. Keine versteckten Gebühren."
+  price_chip: "299"
+  price_finger: "399"
+  price_geschicht: "499"
+
+  price_prefix: "€"
+
+  price_suffix:
+    one: "Chip"
+    two: "Fingerabdruck"
+    three: "Gesicht"
+
+  price_description_chip: "RFID Chip System"
+  price_description_finger: "Fingerabdruck System"
+  price_description_geschicht: "Gesichtserkennung System"
 
 faq_section: "chip"
 
@@ -115,7 +129,7 @@ Datenschutz hat bei uns höchste Priorität. Alle erfassten Daten werden verschl
 ### Flexible Einsatzmöglichkeiten
 
 - **Baustellen**: Robuste Chips für den Outdoor-Einsatz
-- **Produktion**: Schnelle Erfassung auch mit Handschuhen
-- **Werkstätten**: Wasserfest und schmutzresistent
-- **Außendienst**: Mobile Terminals für unterwegs
-- **Mehrere Standorte**: Zentrale Verwaltung aller Standorte
+  - **Produktion**: Schnelle Erfassung auch mit Handschuhen
+  - **Werkstätten**: Wasserfest und schmutzresistent
+  - **Außendienst**: Mobile Terminals für unterwegs
+  - **Mehrere Standorte**: Zentrale Verwaltung aller Standorte
