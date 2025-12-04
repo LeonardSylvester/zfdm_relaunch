@@ -13,32 +13,43 @@ if (videosIndex.data.draft) {
 
 const { title, meta_title, description } = videosIndex.data;
 
-// Get all videos and sort by order field
-const allVideos = await getSinglePage("videos");
-const sortedVideos = allVideos.sort((a, b) => {
-  const orderA = a.data.order ?? 999;
-  const orderB = b.data.order ?? 999;
-  return orderA - orderB;
-});
-
-// Group videos by category
-const videosByCategory: Record<string, typeof sortedVideos> = {};
-sortedVideos.forEach((video) => {
-  const category = video.data.category || "Sonstiges";
-  if (!videosByCategory[category]) {
-    videosByCategory[category] = [];
+const videoTabs = [
+  {
+    id: "video-1",
+    label: "Funktionalität",
+    youtube_id: "rG2ExH2qFrs",
+    title: "Videoanleitung 1",
+    description: "Das Gerät und die Funktionalität"
+  },
+  {
+    id: "video-2",
+    label: "Administrator",
+    youtube_id: "y1yR1zPj5DU",
+    title: "Videoanleitung 2",
+    description: "Administrator "
+  },
+  {
+    id: "video-3",
+    label: "Vorgesetzter",
+    youtube_id: "g2AzbCv-buo",
+    title: "Videoanleitung 3",
+    description: "Vorgesetzter"
+  },
+  {
+    id: "Mitarbeiter",
+    label: "Mitarbeiter",
+    youtube_id: "9fpDGi0PUTM",
+    title: "Videoanleitung 4",
+    description: "Mitarbeiter"
+  },
+  {
+    id: "Android App",
+    label: "Android App",
+    youtube_id: "dqtJWFszdJg",
+    title: "Videoanleitung 5",
+    description: "Android App"
   }
-  videosByCategory[category].push(video);
-});
-
-// Helper function to create URL-safe anchor
-const createAnchor = (str: string) =>
-  str
-    .toLowerCase()
-    .replace(/[äöü]/g, (c) => ({ ä: "ae", ö: "oe", ü: "ue" }[c] || c))
-    .replace(/ß/g, "ss")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
+];
 ---
 
 <Base title={title} meta_title={meta_title} description={description}>
@@ -46,155 +57,101 @@ const createAnchor = (str: string) =>
 
   <section class="section pt-0">
     <div class="container">
-      <!-- Category Navigation (Optional) -->
-      {
-        Object.keys(videosByCategory).length > 1 && (
-          <div class="row mb-12">
-            <div class="col-12">
-              <nav
-                class="flex flex-wrap justify-center gap-3 mb-8"
-                aria-label="Video-Kategorien"
-                data-aos="fade-up-sm"
-              >
-                {Object.keys(videosByCategory).map((category) => (
-                  <a
-                    href={`#kategorie-${createAnchor(category)}`}
-                    class="px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary hover:text-white transition-all duration-300 text-sm font-medium text-primary dark:bg-darkmode-primary/10 dark:text-darkmode-primary dark:hover:bg-darkmode-primary dark:hover:text-white"
+      <div class="row justify-center">
+        <div class="col-12 lg:col-10">
+          {/* Video Tabs Navigation */}
+          <div class="mb-8" data-aos="fade-up-sm">
+            <div class="flex flex-wrap justify-center gap-3 border-b border-border dark:border-darkmode-border">
+              {videoTabs.map((tab, index) => (
+                <button
+                  class={`video-tab-btn px-6 py-4 font-medium transition-all duration-300 hover:bg-light dark:hover:bg-darkmode-light inline-flex items-center justify-center gap-2 ${
+                    index === 0
+                      ? "bg-light dark:bg-darkmode-light border-b-2 border-primary text-primary dark:text-darkmode-primary"
+                      : "text-text-dark dark:text-darkmode-text-dark"
+                  }`}
+                  data-tab={tab.id}
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {category}
-                  </a>
-                ))}
-              </nav>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
-        )
-      }
 
-      <!-- Videos by Category -->
-      {
-        Object.entries(videosByCategory).map(
-          ([category, videos], categoryIndex) => (
-            <div
-              id={`kategorie-${createAnchor(category)}`}
-              class="mb-16 scroll-mt-24"
-            >
-              {/* Category Title */}
-              <div class="row mb-8">
-                <div class="col-12">
-                  <h2
-                    class="h3 mb-2 text-center lg:text-left"
-                    data-aos="fade-up-sm"
-                  >
-                    {category}
-                  </h2>
-                  <div
-                    class="w-20 h-1 bg-primary mx-auto lg:mx-0 rounded-full"
-                    data-aos="fade-up-sm"
-                    data-aos-delay="100"
-                  />
+          {/* Video Content */}
+          <div class="max-w-4xl mx-auto">
+            {videoTabs.map((tab, index) => (
+              <div
+                class={`video-content ${index === 0 ? "" : "hidden"}`}
+                data-content={tab.id}
+                data-aos="fade-up-sm"
+              >
+                {/* Video Header */}
+                <div class="mb-6">
+                  <h3 class="h4 mb-2">{tab.title}</h3>
+                  {tab.description && (
+                    <p class="text-text-dark dark:text-darkmode-text-dark">
+                      {tab.description}
+                    </p>
+                  )}
                 </div>
+
+                {/* YouTube Video Embed */}
+                {tab.youtube_id ? (
+                  <div class="relative rounded-2xl overflow-hidden shadow-lg">
+                    <Youtube
+                      id={tab.youtube_id}
+                      title={tab.title}
+                      client:visible
+                    />
+                  </div>
+                ) : (
+                  <div class="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 aspect-video flex items-center justify-center">
+                    <p class="text-text-dark dark:text-darkmode-text-dark">
+                      Video wird in Kürze verfügbar sein
+                    </p>
+                  </div>
+                )}
+
+                {/* Video Schema.org Markup for SEO */}
+                {tab.youtube_id && (
+                  <script
+                    type="application/ld+json"
+                    set:html={JSON.stringify({
+                      "@context": "https://schema.org",
+                      "@type": "VideoObject",
+                      name: tab.title,
+                      description: tab.description || tab.title,
+                      thumbnailUrl: `https://img.youtube.com/vi/${tab.youtube_id}/maxresdefault.jpg`,
+                      uploadDate: new Date().toISOString(),
+                      contentUrl: `https://www.youtube.com/watch?v=${tab.youtube_id}`,
+                      embedUrl: `https://www.youtube.com/embed/${tab.youtube_id}`,
+                    })}
+                  />
+                )}
               </div>
-
-              {/* Video List */}
-              <div class="row gy-12">
-                {videos.map((video, index) => {
-                  const {
-                    title: videoTitle,
-                    description: videoDescription,
-                    youtube_id,
-                    duration,
-                  } = video.data;
-                  const videoAnchor = createAnchor(videoTitle);
-
-                  return (
-                    <div
-                      id={videoAnchor}
-                      class="col-12 scroll-mt-24"
-                      data-aos="fade-up-sm"
-                      data-aos-delay={index * 50}
-                    >
-                      <div class="max-w-4xl mx-auto">
-                        {/* Video Header */}
-                        <div class="mb-4 flex items-start justify-between gap-4 flex-wrap">
-                          <div class="flex-grow">
-                            <h3 class="h4 mb-2">{videoTitle}</h3>
-                            {videoDescription && (
-                              <p class="text-text-dark dark:text-darkmode-text-dark">
-                                {videoDescription}
-                              </p>
-                            )}
-                          </div>
-                          <div class="flex gap-2 flex-shrink-0">
-                            {duration && (
-                              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-secondary/10 text-secondary dark:bg-darkmode-secondary/10 dark:text-darkmode-secondary">
-                                {duration}
-                              </span>
-                            )}
-                            <a
-                              href={`#${videoAnchor}`}
-                              class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-300 dark:bg-darkmode-primary/10 dark:text-darkmode-primary dark:hover:bg-darkmode-primary dark:hover:text-white"
-                              title="Link zu diesem Video kopieren"
-                            >
-                              <svg
-                                class="w-4 h-4"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-                                />
-                              </svg>
-                            </a>
-                          </div>
-                        </div>
-
-                        {/* YouTube Video Embed */}
-                        {youtube_id ? (
-                          <div class="relative rounded-2xl overflow-hidden shadow-lg">
-                            <Youtube
-                              id={youtube_id}
-                              title={videoTitle}
-                              client:visible
-                            />
-                          </div>
-                        ) : (
-                          <div class="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 aspect-video flex items-center justify-center">
-                            <p class="text-text-dark dark:text-darkmode-text-dark">
-                              Video wird in Kürze verfügbar sein
-                            </p>
-                          </div>
-                        )}
-
-                        {/* Video Schema.org Markup for SEO */}
-                        {youtube_id && (
-                          <script
-                            type="application/ld+json"
-                            set:html={JSON.stringify({
-                              "@context": "https://schema.org",
-                              "@type": "VideoObject",
-                              name: videoTitle,
-                              description: videoDescription || videoTitle,
-                              thumbnailUrl: `https://img.youtube.com/vi/${youtube_id}/maxresdefault.jpg`,
-                              uploadDate: new Date().toISOString(),
-                              contentUrl: `https://www.youtube.com/watch?v=${youtube_id}`,
-                              embedUrl: `https://www.youtube.com/embed/${youtube_id}`,
-                              duration: duration,
-                            })}
-                          />
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ),
-        )
-      }
+            ))}
+          </div>
+        </div>
+      </div>
 
       <!-- Help Text -->
       <div class="row mt-16">
@@ -250,3 +207,59 @@ const createAnchor = (str: string) =>
 
   <CallToAction />
 </Base>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const tabButtons = document.querySelectorAll(".video-tab-btn");
+    const videoContents = document.querySelectorAll(".video-content");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetTab = button.getAttribute("data-tab");
+
+        // Remove active classes from all buttons
+        tabButtons.forEach((btn) => {
+          btn.classList.remove(
+            "bg-light",
+            "dark:bg-darkmode-light",
+            "border-b-2",
+            "border-primary",
+            "text-primary",
+            "dark:text-darkmode-primary"
+          );
+          btn.classList.add(
+            "text-text-dark",
+            "dark:text-darkmode-text-dark"
+          );
+        });
+
+        // Hide all video contents
+        videoContents.forEach((content) => {
+          content.classList.add("hidden");
+        });
+
+        // Add active classes to clicked button
+        button.classList.add(
+          "bg-light",
+          "dark:bg-darkmode-light",
+          "border-b-2",
+          "border-primary",
+          "text-primary",
+          "dark:text-darkmode-primary"
+        );
+        button.classList.remove(
+          "text-text-dark",
+          "dark:text-darkmode-text-dark"
+        );
+
+        // Show target video content
+        const targetContent = document.querySelector(
+          `[data-content="${targetTab}"]`
+        );
+        if (targetContent) {
+          targetContent.classList.remove("hidden");
+        }
+      });
+    });
+  });
+</script>

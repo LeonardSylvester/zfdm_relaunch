@@ -1,6 +1,7 @@
 ---
 title: "FAQs Chip"
 meta_title: "FAQs Zeiterfassung mit Chip | ZFDM"
+faq_section: "chip"
 description: "Häufig gestellte Fragen zur Zeiterfassung mit RFID-Chip: Ersatz bei Verlust, Außenbereich, Homeoffice, Kompatibilität, Upgrade und Kosten."
 draft: false
 faqs:

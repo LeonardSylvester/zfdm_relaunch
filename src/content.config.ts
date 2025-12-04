@@ -212,7 +212,69 @@ const pricingCollection = defineCollection({
           link: z.string(),
         }),
       }),
-    ),
+    ).optional(),
+    pricing_products: z.object({
+      chip: z.object({
+        plans: z.array(
+          z.object({
+            title: z.string(),
+            badge: z.string().optional(),
+            price: z.string().optional(),
+            price_note: z.string().optional(),
+            price_custom: z.string().optional(),
+            description: z.string(),
+            features: z.array(z.string()),
+            buttons: z.array(
+              z.object({
+                label: z.string(),
+                link: z.string(),
+                style: z.string(),
+              })
+            ),
+          })
+        ),
+      }),
+      fingerabdruck: z.object({
+        plans: z.array(
+          z.object({
+            title: z.string(),
+            badge: z.string().optional(),
+            price: z.string().optional(),
+            price_note: z.string().optional(),
+            price_custom: z.string().optional(),
+            description: z.string(),
+            features: z.array(z.string()),
+            buttons: z.array(
+              z.object({
+                label: z.string(),
+                link: z.string(),
+                style: z.string(),
+              })
+            ),
+          })
+        ),
+      }),
+      gesichtserkennung: z.object({
+        plans: z.array(
+          z.object({
+            title: z.string(),
+            badge: z.string().optional(),
+            price: z.string().optional(),
+            price_note: z.string().optional(),
+            price_custom: z.string().optional(),
+            description: z.string(),
+            features: z.array(z.string()),
+            buttons: z.array(
+              z.object({
+                label: z.string(),
+                link: z.string(),
+                style: z.string(),
+              })
+            ),
+          })
+        ),
+      }),
+    }).optional(),
     compare: z.object({
       title: z.string().optional(),
       subtitle: z.string(),

@@ -102,6 +102,8 @@ pricing:
 
 faq_section: "gesichtserkennung"
 
+gallery:
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
 
 draft: false
 ---

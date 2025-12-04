@@ -102,6 +102,9 @@ pricing:
 
 faq_section: "fingerabdruck"
 
+gallery:
+  - "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
+
 draft: false
 ---
 

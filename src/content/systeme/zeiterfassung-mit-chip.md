@@ -107,6 +107,13 @@ pricing:
 
 faq_section: "chip"
 
+gallery:
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-back.webp"
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-front.webp"
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-side.webp"
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-with-accessories.webp"
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-screen.webp"
+
 draft: false
 ---
 

@@ -74,29 +74,72 @@ const { about } = Astro.props;
 
     <!-- Trusted Partners -->
     {about.trusted && (
-      <div>
+      <div class="mt-12">
         <h4
           set:html={markdownify(about.trusted.title)}
-          class="text-center text-2xl mb-6 max-lg:[&>br]:hidden"
+          class="text-center text-2xl mb-8 max-lg:[&>br]:hidden"
           data-aos="fade-up-sm"
           data-aos-delay="200"
         />
         <div
-          class="flex flex-wrap justify-center gap-4"
+          class="swiper trusted-partners-slider"
           data-aos="fade-up-sm"
-          data-aos-delay="200"
+          data-aos-delay="300"
         >
-          {about.trusted.partners.map((partner) => (
-            <ImageMod
-              src={partner}
-              alt={partner}
-              width={174}
-              height={0}
-              class="object-contain mx-auto w-[174px] opacity-100 cursor-pointer transition duration-300"
-            />
-          ))}
+          <div class="swiper-wrapper items-center">
+            {about.trusted.partners.map((partner) => (
+              <div class="swiper-slide">
+                <div class="flex items-center justify-center h-24">
+                  <ImageMod
+                    src={partner}
+                    alt={partner}
+                    width={174}
+                    height={75}
+                    class="object-contain w-auto h-auto max-h-[75px] max-w-full grayscale hover:grayscale-0 transition-all duration-300"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     )}
   </div>
 </section>
+
+<script>
+  import { Swiper } from "swiper";
+  import "swiper/css";
+  import { Autoplay } from "swiper/modules";
+
+  document.addEventListener("astro:page-load", () => {
+    const trustedPartnersSlider = document.querySelector(".trusted-partners-slider");
+    if (trustedPartnersSlider) {
+      new Swiper(".trusted-partners-slider", {
+        modules: [Autoplay],
+        slidesPerView: 2,
+        spaceBetween: 30,
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 50,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 60,
+          },
+        },
+      });
+    }
+  });
+</script>
