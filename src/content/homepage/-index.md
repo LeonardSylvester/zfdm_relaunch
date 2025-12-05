@@ -30,7 +30,7 @@ feature:
       button:
         enable: true
         label: "Mehr erfahren"
-        link: "/zeiterfassungssysteme/zeiterfassung-mit-chip"
+        link: "/zeiterfassungssysteme/chip"
     - title: "Fingerabdruck"
       badge: "Sicher"
       content: "Maximale Sicherheit durch Fingerabdruck am Terminal"
@@ -39,7 +39,7 @@ feature:
       button:
         enable: true
         label: "Mehr erfahren"
-        link: "/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck"
+        link: "/zeiterfassungssysteme/fingerabdruck"
     - title: "Gesichtserkennung"
       badge: "Hygienisch"
       content: "Hygienische Zeiterfassung per Gesichtserkennung am Terminal"
@@ -48,7 +48,7 @@ feature:
       button:
         enable: true
         label: "Mehr erfahren"
-        link: "/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung"
+        link: "/zeiterfassungssysteme/gesichtserkennung"
     
 
 offering:

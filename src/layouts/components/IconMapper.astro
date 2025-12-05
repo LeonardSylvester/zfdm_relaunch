@@ -24,6 +24,10 @@ const iconMap: Record<string, string> = {
   // Security & Trust
   "🔒": "FaLock",
   "🇩🇪": "FaFlag",
+  "shield": "FaShield",
+  "clock": "FaClock",
+  "flag": "FaFlag",
+  "ban": "FaBan",
 
   // Speed & Performance
   "⚡": "FaBolt",
@@ -32,6 +36,7 @@ const iconMap: Record<string, string> = {
   // Features
   "💧": "FaDroplet",
   "🌍": "FaGlobe",
+  "🌐": "FaGlobe",
   "🔧": "FaWrench",
   "⚙️": "FaGear",
   "💬": "FaComments",
@@ -41,6 +46,8 @@ const iconMap: Record<string, string> = {
   "📱": "FaMobileScreen",
   "🎯": "FaBullseye",
   "👥": "FaUsers",
+  "🛡️": "FaShield",
+  "🖐️": "FaHandPointUp",
 
   // UI elements
   "✓": "FaCheck",
@@ -76,8 +83,19 @@ const iconMap: Record<string, string> = {
   "🔽": "FaArrowDown",
 };
 
-// Fallback für unbekannte Icons
-const reactIcon = iconMap[icon] || "FaCircleQuestion";
+// Special mappings for icon name variations
+const iconNameMap: Record<string, string> = {
+  "FaShieldCheck": "FaShield", // Map FaShieldCheck to FaShield if it doesn't exist
+};
+
+// Check if icon is already a React Icon name (starts with "Fa")
+// First check if there's a name mapping, then use directly or map from emoji/text
+let reactIcon: string;
+if (icon.startsWith("Fa")) {
+  reactIcon = iconNameMap[icon] || icon;
+} else {
+  reactIcon = iconMap[icon] || "FaCircleQuestion";
+}
 
 // Accessibility props
 const accessibilityProps = ariaHidden

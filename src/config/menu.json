@@ -8,15 +8,15 @@
       "children": [
         {
           "name": "Chip-Zeiterfassung",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-chip"
+          "url": "/zeiterfassungssysteme/chip"
         },
         {
           "name": "Fingerabdruck",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck"
+          "url": "/zeiterfassungssysteme/fingerabdruck"
         },
         {
           "name": "Gesichtserkennung",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung"
+          "url": "/zeiterfassungssysteme/gesichtserkennung"
         }
       ]
     },
@@ -115,7 +115,7 @@
         },
         {
           "name": "Kontakt",
-          "url": "/kontakt"
+          "url": "/contact"
         },
         {
           "name": "Impressum",

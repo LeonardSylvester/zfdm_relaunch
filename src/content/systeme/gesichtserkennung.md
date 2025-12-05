@@ -12,42 +12,42 @@ badges:
   - "Biometrisch"
 
 feature_grid:
-  - icon: "⚡"
+  - icon: "FaBolt"
     label: "Sekundenschnell"
-  - icon: "🔒"
+  - icon: "FaLock"
     label: "Sicher"
-  - icon: "📱"
+  - icon: "FaMobileScreen"
     label: "App verfügbar"
-  - icon: "🌍"
+  - icon: "FaGlobe"
     label: "Webbasiert"
 
 trust_badges:
-  - icon: "🔒"
+  - icon: "FaShield"
     title: "DSGVO-konform"
     description: "100% Datenschutz"
-  - icon: "✓"
+  - icon: "FaClock"
     title: "14 Tage testen"
     description: "Kostenlos & unverbindlich"
-  - icon: "🇩🇪"
+  - icon: "FaFlag"
     title: "Made in Germany"
     description: "Deutscher Support"
-  - icon: "❌"
+  - icon: "FaBan"
     title: "Kein Abo"
     description: "Einmalige Zahlung"
 
 features:
   - title: "Berührungslose Zeiterfassung"
     description: "Einfach in die Kamera schauen – die Arbeitszeit wird automatisch erfasst."
-    icon: "🖐️"
+    icon: "FaHandPointUp"
   - title: "Webbasierte Verwaltung"
     description: "Zentrale Verwaltung aller Arbeitszeiten über die Web-Oberfläche – jederzeit und von überall."
-    icon: "🌐"
+    icon: "FaGlobe"
   - title: "Flexible Nutzung"
     description: "Für Außendienst, Home-Office und mehrere Standorte einsetzbar. App für Android & iOS verfügbar."
-    icon: "📱"
+    icon: "FaMobileScreen"
   - title: "Einfache Integration"
     description: "Nahtlose Integration in bestehende Softwareprozesse, inklusive Export als Excel oder PDF."
-    icon: "⚙️"
+    icon: "FaGear"
 
 specifications:
   technical:
@@ -104,6 +104,7 @@ faq_section: "gesichtserkennung"
 
 gallery:
   - "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
+  - "/images/face_id-removebg-preview.png.webp"
 
 draft: false
 ---

@@ -13,42 +13,42 @@ badges:
   - "Biometrisch"
 
 feature_grid:
-  - icon: "⚡"
+  - icon: "FaBolt"
     label: "Sekundenschnell"
-  - icon: "🔒"
+  - icon: "FaLock"
     label: "Sicher"
-  - icon: "📱"
+  - icon: "FaMobileScreen"
     label: "App verfügbar"
-  - icon: "🌍"
+  - icon: "FaGlobe"
     label: "Webbasiert"
 
 trust_badges:
-  - icon: "🔒"
+  - icon: "FaShield"
     title: "DSGVO-konform"
     description: "100% Datenschutz"
-  - icon: "✓"
+  - icon: "FaClock"
     title: "14 Tage testen"
     description: "Kostenlos & unverbindlich"
-  - icon: "🇩🇪"
+  - icon: "FaFlag"
     title: "Made in Germany"
     description: "Deutscher Support"
-  - icon: "❌"
+  - icon: "FaBan"
     title: "Kein Abo"
     description: "Einmalige Zahlung"
 
 features:
   - title: "Maximale Sicherheit"
     description: "Dank biometrischer Authentifizierung wird die Zeiterfassung fälschungssicher und manipulationsfrei. Die Fingerabdrücke werden direkt am Sensor unseres Terminals eingescannt."
-    icon: "🛡️"
+    icon: "FaShield"
   - title: "Webbasierte Verwaltung"
     description: "Alle Arbeitszeiten, Abwesenheiten und Auswertungen lassen sich zentral über die Web-Oberfläche verwalten – jederzeit und von überall."
-    icon: "🌐"
+    icon: "FaGlobe"
   - title: "Flexible Nutzung"
     description: "Die Fingerabdruck-Terminals lassen sich für Außendienst, Home-Office und mehrere Standorte einsetzen. Mitarbeiter können über App oder Terminal ein- und ausstempeln."
-    icon: "📱"
+    icon: "FaMobileScreen"
   - title: "Einfache Integration"
     description: "Nahtlose Integration in bestehende Softwareprozesse, inklusive Export als Excel oder PDF für Abrechnungen und Controlling."
-    icon: "⚙️"
+    icon: "FaGear"
 
 specifications:
   technical:
@@ -104,6 +104,8 @@ faq_section: "fingerabdruck"
 
 gallery:
   - "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
+  - "/images/Zeiterfassung-mit-Fingerabrdruck-02.jpg.webp"
+  - "/images/Zeiterfassung-mit-Fingerabrdruck-03.jpg.webp"
 
 draft: false
 ---

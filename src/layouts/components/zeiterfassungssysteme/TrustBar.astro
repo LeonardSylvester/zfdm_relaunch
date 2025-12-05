@@ -1,4 +1,6 @@
 ---
+import IconMapper from "@/components/IconMapper.astro";
+
 interface Props {
   trust_badges?: { icon: string; title: string; description?: string }[];
   showVideo?: boolean;
@@ -10,22 +12,22 @@ const { trust_badges,showVideo = false, video_url} = Astro.props;
 // Default trust badges if none provided
 const defaultBadges = [
   {
-    icon: "🔒",
+    icon: "FaShield",
     title: "DSGVO-konform",
     description: "100% Datenschutz"
   },
   {
-    icon: "✓",
+    icon: "FaClock",
     title: "14 Tage testen",
     description: "Kostenlos & unverbindlich"
   },
   {
-    icon: "🇩🇪",
+    icon: "FaFlag",
     title: "Made in Germany",
     description: "Deutscher Support"
   },
   {
-    icon: "❌",
+    icon: "FaBan",
     title: "Kein Abo",
     description: "Einmalige Zahlung"
   }
@@ -50,7 +52,9 @@ const badges = trust_badges || defaultBadges;
                   data-aos="fade-up-sm"
                   data-aos-delay={100 + index * 50}
                 >
-                  <div class="text-5xl mb-3">{badge.icon}</div>
+                  <div class="mb-3 flex justify-center">
+                    <IconMapper icon={badge.icon} size="3rem" ariaHidden={true} />
+                  </div>
                   <h3 class="h6 mb-2">{badge.title}</h3>
                   {badge.description && (
                     <p class="text-sm text-text-dark dark:text-darkmode-text-dark">

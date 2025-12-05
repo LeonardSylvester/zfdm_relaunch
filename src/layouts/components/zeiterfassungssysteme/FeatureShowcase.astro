@@ -1,5 +1,6 @@
 ---
 import ImageMod from "@/components/ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
 import { markdownify } from "@/lib/utils/textConverter";
 
 interface Props {
@@ -42,9 +43,9 @@ const { features } = Astro.props;
                     />
                   ) : (
                     <div class="bg-light dark:bg-darkmode-light aspect-[3/2] flex items-center justify-center">
-                      <span class="text-8xl opacity-20">
-                        {feature.icon || "🔧"}
-                      </span>
+                      <div class="opacity-20">
+                        <IconMapper icon={feature.icon || "🔧"} size="5rem" ariaHidden={true} />
+                      </div>
                     </div>
                   )}
                 </div>
@@ -59,7 +60,9 @@ const { features } = Astro.props;
                   data-aos-delay="200"
                 >
                   {feature.icon && (
-                    <div class="text-5xl mb-4">{feature.icon}</div>
+                    <div class="mb-4">
+                      <IconMapper icon={feature.icon} size="3rem" ariaHidden={true} />
+                    </div>
                   )}
                   <h2
                     set:html={markdownify(feature.title)}
