@@ -22,16 +22,16 @@ feature_grid:
     label: "Outdoor geeignet"
 
 trust_badges:
-  - icon: "🔒"
+  - icon: "FaShield"
     title: "DSGVO-konform"
     description: "100% Datenschutz"
-  - icon: "✓"
+  - icon: "FaClock"
     title: "14 Tage testen"
     description: "Kostenlos & unverbindlich"
-  - icon: "🇩🇪"
+  - icon: "FaFlag"
     title: "Made in Germany"
     description: "Deutscher Support"
-  - icon: "❌"
+  - icon: "FaBan"
     title: "Kein Abo"
     description: "Einmalige Zahlung"
 
@@ -108,11 +108,8 @@ pricing:
 faq_section: "chip"
 
 gallery:
-  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-back.webp"
-  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-front.webp"
-  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-side.webp"
-  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-with-accessories.webp"
-  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/chip-device-screen.webp"
+  - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp"
+  - "/images/Zeiterfassung-mit-Chip-02.jpg (1).webp"
 
 draft: false
 ---

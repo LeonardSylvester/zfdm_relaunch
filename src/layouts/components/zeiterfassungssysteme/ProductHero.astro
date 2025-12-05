@@ -7,36 +7,74 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  images?: string[];
   icon?: string;
   badges?: string[];
   feature_grid?: { icon: string; label: string }[];
 }
 
-const { title, description, image, icon, badges, feature_grid,  } = Astro.props;
+const { title, description, image, images, icon, badges, feature_grid,  } = Astro.props;
 
 // Default icon if none provided
 const displayIcon = icon || "🔒";
+
+// Use images array if provided, otherwise fallback to single image
+const productImages = images && images.length > 0 ? images : (image ? [image] : []);
+const sliderId = `product-slider-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <section class="section relative overflow-hidden pt-16 pb-0">
   <div class="container">
-    <div class="row items-center flex-col-reverse lg:flex-row">
-      <!-- Left Column: Product Image -->
+    <div class="row items-center">
+      <!-- Left Column: Product Image Slider -->
       <div class="col-12 lg:col-6 mb-10 lg:mb-0">
         <div
           class="relative rounded-2xl overflow-hidden shadow-lg border border-gray-200"
           data-aos="zoom-in-sm"
           data-aos-delay="150"
         >
-          {image && (
-            <ImageMod
-              src={image}
-              width={0}
-              height={0}
-              alt={title}
-              class="w-full h-full object-cover"
-              format="webp"
-            />
+          {productImages.length > 0 && (
+            <div class="product-hero-slider relative">
+              <div class="slider-container relative">
+                {productImages.map((img, index) => (
+                  <div
+                    class={`slider-slide ${index === 0 ? 'active' : 'hidden'}`}
+                    data-slide-index={index}
+                  >
+                    <ImageMod
+                      src={img}
+                      width={0}
+                      height={0}
+                      alt={`${title} - Image ${index + 1}`}
+                      class="w-full h-full object-cover"
+                      format="webp"
+                    />
+                  </div>
+                ))}
+              </div>
+              
+              {/* Navigation Buttons */}
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    class="slider-btn slider-btn-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 z-10"
+                    aria-label="Previous image"
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    class="slider-btn slider-btn-next absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 z-10"
+                    aria-label="Next image"
+                  >
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -92,4 +130,98 @@ const displayIcon = icon || "🔒";
     </div>
   </div>
 </section>
+
+<style>
+  .product-hero-slider {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+  }
+  
+  .slider-container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .slider-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  .slider-slide.active {
+    opacity: 1;
+    position: relative;
+  }
+  
+  .slider-slide.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .slider-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .slider-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .slider-btn:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const sliderContainer = document.querySelector(".product-hero-slider");
+    if (!sliderContainer) return;
+    
+    const slides = sliderContainer.querySelectorAll(".slider-slide");
+    const prevBtn = sliderContainer.querySelector(".slider-btn-prev");
+    const nextBtn = sliderContainer.querySelector(".slider-btn-next");
+    
+    if (slides.length <= 1) return;
+    
+    let currentIndex = 0;
+    
+    const showSlide = (index) => {
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.add("active");
+          slide.classList.remove("hidden");
+        } else {
+          slide.classList.remove("active");
+          slide.classList.add("hidden");
+        }
+      });
+    };
+    
+    const nextSlide = () => {
+      currentIndex = (currentIndex + 1) % slides.length;
+      showSlide(currentIndex);
+    };
+    
+    const prevSlide = () => {
+      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+      showSlide(currentIndex);
+    };
+    
+    if (nextBtn) {
+      nextBtn.addEventListener("click", nextSlide);
+    }
+    
+    if (prevBtn) {
+      prevBtn.addEventListener("click", prevSlide);
+    }
+  });
+</script>
 

@@ -77,6 +77,7 @@ if (faq_section) {
     title={title}
     description={description}
     image={image}
+    images={gallery && gallery.length > 0 ? gallery : (image ? [image, image] : [])}
     icon={icon}
     badges={badges}
     feature_grid={feature_grid}
