@@ -1,0 +1,10 @@
+Grund,Quelle,Validierung,Seiten
+Seite mit Weiterleitung,Website,Nicht gestartet,45
+Alternative Seite mit richtigem kanonischen Tag,Website,Nicht gestartet,23
+Nicht gefunden (404),Website,Nicht gestartet,17
+Duplikat – vom Nutzer nicht als kanonisch festgelegt,Website,Nicht gestartet,17
+"Durch ""noindex""-Tag ausgeschlossen",Website,Nicht gestartet,8
+Soft 404,Website,Nicht gestartet,5
+Gecrawlt – zurzeit nicht indexiert,Google-Systeme,Nicht gestartet,62
+Duplikat – Google hat eine andere Seite als der Nutzer als kanonische Seite bestimmt,Google-Systeme,Nicht gestartet,2
+Gefunden – zurzeit nicht indexiert,Google-Systeme,Nicht gestartet,1

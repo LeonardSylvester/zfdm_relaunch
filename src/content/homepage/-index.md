@@ -1,15 +1,18 @@
 ---
+meta_title: "Zeiterfassungssysteme für Kleinbetriebe ohne monatliche Kosten | ZFDM"
+description: "Zeiterfassungssysteme für kleine und mittlere Unternehmen - einmal kaufen, ohne Abo. Terminal mit Chip, Fingerabdruck oder Gesichtserkennung ab 521€. DSGVO-konform."
+
 hero:
-  title: "Zeiterfassung für KMU <br> wie Sie sein sollte"
-  content: "Sofort rechtskonforme, stressfreie Zeiterfassung - ohne Zettel-Chaos und ohne monatliche Kosten. In wenigen Minuten eingerichtet: Zeiterfassung mit Terminal, App & Software."
+  title: "<span class='text-dark'>Zeiterfassungssysteme</span> <span class='text-primary'>für Kleinbetriebe</span> <br><span class='text-dark'>ohne</span> <span class='text-primary'>monatliche Kosten</span>"
+  content: "Digitale Zeiterfassung mit Terminal, App & Software für <span class='text-primary'>kleine</span> und <span class='text-primary'> mittlere Unternehmen</span> - einmal kaufen, ohne Abo. <br> In wenigen Minuten eingerichtet, sofort stressfrei & rechtskonform"
   image: "/images/home/zfdm-zeiterfassungssystem-terminal-mit-chip-und-software.webp"
   button:
     - enable: true
-      label: "Jetzt bestellen"
-      link: "/preise"
-    - enable: true
       label: "Beratung buchen"
-      link: "/contact"
+      link: "/kontakt"
+    - enable: true
+      label: "Videorundgang"
+      link: "/ressourcen/videoanleitungen"
   customer:
     image:
       - "/images/home/1.png"
@@ -49,7 +52,6 @@ feature:
         enable: true
         label: "Mehr erfahren"
         link: "/zeiterfassungssysteme/gesichtserkennung"
-    
 
 offering:
   - title: "Zeit, Geld & Nerven sparen"
@@ -162,7 +164,7 @@ plan:
       button:
         enable: true
         label: "Start Free Trial"
-        link: "/contact"
+        link: "/kontakt"
     - title: "Pro Plan"
       description: "Perfect for trying out the core features"
       price_prefix: "$"
@@ -180,7 +182,7 @@ plan:
       button:
         enable: true
         label: "Start Free Trial"
-        link: "/contact"
+        link: "/kontakt"
 
 customer_references:
   enable: true

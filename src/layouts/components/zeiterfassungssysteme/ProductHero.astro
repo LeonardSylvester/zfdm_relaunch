@@ -11,217 +11,264 @@ interface Props {
   icon?: string;
   badges?: string[];
   feature_grid?: { icon: string; label: string }[];
+  systemId?: string;
 }
 
-const { title, description, image, images, icon, badges, feature_grid,  } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  images,
+  icon,
+  badges,
+  feature_grid,
+  systemId,
+} = Astro.props;
 
-// Default icon if none provided
-const displayIcon = icon || "🔒";
+// System-spezifische Daten (identisch mit index.astro)
+const systemData: Record<
+  string,
+  {
+    badge: string;
+    price: string;
+    color: string;
+    bgColor: string;
+    textColor: string;
+    features: Record<string, { label: string; rating: number }>;
+    idealFor: string[];
+    highlights: string[];
+  }
+> = {
+  chip: {
+    badge: "Preis-Leistungs-Sieger",
+    price: "ab 579",
+    color: "from-emerald-500 to-teal-600",
+    bgColor: "bg-emerald-50",
+    textColor: "text-emerald-600",
+    features: {
+      kosten: { label: "Niedrig", rating: 3 },
+      bedienung: { label: "Sehr einfach", rating: 3 },
+      sicherheit: { label: "Hoch", rating: 2 },
+      hygiene: { label: "Mit Kontakt", rating: 1 },
+    },
+    idealFor: ["Kleinbetriebe", "Handwerk", "Einzelhandel"],
+    highlights: [
+      "Guenstigste Option",
+      "Einfache Bedienung",
+      "Schnelle Einrichtung",
+    ],
+  },
+  fingerabdruck: {
+    badge: "Sicherheits-Sieger",
+    price: "ab 659",
+    color: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-600",
+    features: {
+      kosten: { label: "Mittel", rating: 2 },
+      bedienung: { label: "Einfach", rating: 2 },
+      sicherheit: { label: "Sehr hoch", rating: 3 },
+      hygiene: { label: "Mit Kontakt", rating: 1 },
+    },
+    idealFor: ["Mittelstand", "Sicherheitsbereiche", "Produktion"],
+    highlights: [
+      "Biometrische Sicherheit",
+      "Kein Chip verlierbar",
+      "Manipulationssicher",
+    ],
+  },
+  gesichtserkennung: {
+    badge: "Hygiene-Sieger",
+    price: "ab 624",
+    color: "from-purple-500 to-pink-600",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-600",
+    features: {
+      kosten: { label: "Hoeher", rating: 1 },
+      bedienung: { label: "Sehr einfach", rating: 3 },
+      sicherheit: { label: "Sehr hoch", rating: 3 },
+      hygiene: { label: "Kontaktlos", rating: 3 },
+    },
+    idealFor: ["Gastronomie", "Gesundheitswesen", "Lebensmittel"],
+    highlights: [
+      "100% kontaktlos",
+      "Schnellste Erfassung",
+      "Modernste Technologie",
+    ],
+  },
+};
 
-// Use images array if provided, otherwise fallback to single image
-const productImages = images && images.length > 0 ? images : (image ? [image] : []);
-const sliderId = `product-slider-${Math.random().toString(36).substr(2, 9)}`;
+// Fallback auf chip wenn systemId nicht gefunden
+const system = systemData[systemId || "chip"] || systemData.chip;
+const displayIcon = icon || "chip";
+const productImage = image || (images && images.length > 0 ? images[0] : "");
 ---
 
-<section class="section relative overflow-hidden pt-16 pb-0">
+<section class="section relative overflow-hidden pt-[76px] pb-12">
   <div class="container">
-    <div class="row items-center">
-      <!-- Left Column: Product Image Slider -->
-      <div class="col-12 lg:col-6 mb-10 lg:mb-0">
+    <div class="row items-stretch">
+      <!-- Left Column: Product Image with Badge -->
+      <div class="col-12 lg:col-6 mb-8 lg:mb-0">
         <div
-          class="relative rounded-2xl overflow-hidden shadow-lg border border-gray-200"
-          data-aos="zoom-in-sm"
-          data-aos-delay="150"
+          class={`relative h-full rounded-3xl overflow-hidden ${system.bgColor} p-8 lg:p-12 flex items-center justify-center`}
+          data-aos="fade-right"
+          data-aos-delay="100"
         >
-          {productImages.length > 0 && (
-            <div class="product-hero-slider relative">
-              <div class="slider-container relative">
-                {productImages.map((img, index) => (
-                  <div
-                    class={`slider-slide ${index === 0 ? 'active' : 'hidden'}`}
-                    data-slide-index={index}
-                  >
-                    <ImageMod
-                      src={img}
-                      width={0}
-                      height={0}
-                      alt={`${title} - Image ${index + 1}`}
-                      class="w-full h-full object-cover"
-                      format="webp"
-                    />
-                  </div>
-                ))}
-              </div>
-              
-              {/* Navigation Buttons */}
-              {productImages.length > 1 && (
-                <>
-                  <button
-                    class="slider-btn slider-btn-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 z-10"
-                    aria-label="Previous image"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  <button
-                    class="slider-btn slider-btn-next absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-2 shadow-lg transition-all duration-300 z-10"
-                    aria-label="Next image"
-                  >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </>
-              )}
-            </div>
-          )}
+          <!-- Badge -->
+          <div
+            class={`absolute top-4 right-4 px-4 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r ${system.color} z-10 shadow-lg`}
+          >
+            {system.badge}
+          </div>
+
+          <!-- Product Image -->
+          {
+            productImage && (
+              <ImageMod
+                src={productImage}
+                width={400}
+                height={400}
+                alt={title}
+                class="object-contain max-h-[350px] w-auto drop-shadow-xl"
+                format="webp"
+              />
+            )
+          }
         </div>
       </div>
 
       <!-- Right Column: Content -->
       <div class="col-12 lg:col-6">
-        <div data-aos="fade-left" data-aos-delay="200">
-
-          <!-- Title -->
-          <h1
-            set:html={markdownify(title)}
-            class="mb-4 text-[2rem] md:text-[2.5rem] lg:text-[3rem] leading-tight font-semibold"
-          />
-
-          <!-- Description -->
-          {description && (
-            <p class="text-lg text-text-dark dark:text-darkmode-text-dark mb-6">
-              {description}
-            </p>
-          )}
-
-
-          <!-- Feature Grid -->
-          {feature_grid && feature_grid.length > 0 && (
-            <div class="grid grid-cols-2 gap-3 mb-6">
-              {feature_grid.map((feature) => (
-                <div class="flex items-center gap-2">
-                  <IconMapper icon={feature.icon} size="1.4rem" ariaHidden={true} />
-                  <span class="text-sm font-medium">{feature.label}</span>
-                </div>
-              ))}
+        <div
+          class="h-full flex flex-col"
+          data-aos="fade-left"
+          data-aos-delay="200"
+        >
+          <!-- Header: Icon + Name + Price -->
+          <div class="flex items-center gap-4 mb-4">
+            <div
+              class={`w-14 h-14 rounded-xl ${system.bgColor} flex items-center justify-center shrink-0`}
+            >
+              <IconMapper
+                icon={displayIcon}
+                size="1.75rem"
+                className={system.textColor}
+                ariaLabel={title}
+              />
             </div>
-          )}
+            <div>
+              <h1
+                set:html={markdownify(title)}
+                class="text-2xl md:text-3xl lg:text-4xl font-bold mb-1"
+              />
+              <div class="flex items-baseline gap-2">
+                <span class={`text-2xl font-bold ${system.textColor}`}
+                  >{system.price}</span
+                >
+                <span class="text-text-dark text-sm">EUR</span>
+              </div>
+            </div>
+          </div>
 
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4 mt-6">
+          <!-- Short Description -->
+          {
+            description && (
+              <p class="text-lg text-text-dark mb-6">{description}</p>
+            )
+          }
+
+          <!-- Features with Ratings -->
+          <div class="space-y-3 mb-6">
+            {
+              Object.entries(system.features).map(([key, feature]) => (
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-text-dark capitalize">
+                    {key === "kosten" ? "Anschaffung" : key}
+                  </span>
+                  <div class="flex items-center gap-3">
+                    <span
+                      class={`text-xs font-medium ${feature.rating === 3 ? "text-green-600" : feature.rating === 2 ? "text-yellow-600" : "text-orange-500"}`}
+                    >
+                      {feature.label}
+                    </span>
+                    <div class="flex gap-1">
+                      {[1, 2, 3].map((dot) => (
+                        <div
+                          class={`w-2 h-2 rounded-full ${dot <= feature.rating ? `bg-gradient-to-r ${system.color}` : "bg-gray-200"}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-border/30 my-4"></div>
+
+          <!-- Ideal For Tags -->
+          <div class="mb-4">
+            <p
+              class="text-xs text-text-dark mb-2 uppercase tracking-wider font-medium"
+            >
+              Ideal fuer
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {
+                system.idealFor.map((item) => (
+                  <span
+                    class={`px-3 py-1 rounded-full text-xs ${system.bgColor} ${system.textColor} font-medium`}
+                  >
+                    {item}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- Highlights -->
+          <div class="mb-6">
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+              {
+                system.highlights.map((highlight) => (
+                  <div class="flex items-center gap-2 text-sm">
+                    <IconMapper
+                      icon="check"
+                      size="0.875rem"
+                      className={`${system.textColor} shrink-0`}
+                      ariaHidden={true}
+                    />
+                    <span>{highlight}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="flex flex-col sm:flex-row gap-4 mt-auto">
+            <a
+              href="/kontakt"
+              class="btn flex-1 flex items-center justify-center gap-2 text-white bg-secondary hover:bg-secondary/90 transition-opacity px-6 py-3 rounded-xl font-semibold shadow-lg"
+            >
+              Beratung buchen
+            </a>
             <a
               href="/preise"
-              class="btn bg-primary text-white px-6 py-3 rounded-xl text-base font-semibold shadow-md hover:opacity-90"
+              class="btn flex-1 flex items-center justify-center gap-2 text-white bg-primary hover:bg-primary/90 transition-colors px-6 py-3 rounded-xl font-semibold shadow-lg"
             >
-              Jetzt kaufen
-            </a>
-
-            <a
-              href="#features"
-              class="btn border border-primary text-primary px-6 py-3 rounded-xl text-base font-semibold hover:bg-primary/10"
-            >
-              Details ansehen
+              Preise & Pakete
             </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Grid Background -->
+  <div
+    class="absolute bottom-0 left-0 w-full h-full -z-10 bg-repeat bg-size-[1439px] bg-[url('/images/home/grid.svg')] opacity-50"
+  >
+  </div>
 </section>
-
-<style>
-  .product-hero-slider {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4/3;
-  }
-  
-  .slider-container {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .slider-slide {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-  
-  .slider-slide.active {
-    opacity: 1;
-    position: relative;
-  }
-  
-  .slider-slide.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .slider-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-  }
-  
-  .slider-btn:hover {
-    transform: scale(1.1);
-  }
-  
-  .slider-btn:active {
-    transform: scale(0.95);
-  }
-</style>
-
-<script>
-  document.addEventListener("astro:page-load", () => {
-    const sliderContainer = document.querySelector(".product-hero-slider");
-    if (!sliderContainer) return;
-    
-    const slides = sliderContainer.querySelectorAll(".slider-slide");
-    const prevBtn = sliderContainer.querySelector(".slider-btn-prev");
-    const nextBtn = sliderContainer.querySelector(".slider-btn-next");
-    
-    if (slides.length <= 1) return;
-    
-    let currentIndex = 0;
-    
-    const showSlide = (index) => {
-      slides.forEach((slide, i) => {
-        if (i === index) {
-          slide.classList.add("active");
-          slide.classList.remove("hidden");
-        } else {
-          slide.classList.remove("active");
-          slide.classList.add("hidden");
-        }
-      });
-    };
-    
-    const nextSlide = () => {
-      currentIndex = (currentIndex + 1) % slides.length;
-      showSlide(currentIndex);
-    };
-    
-    const prevSlide = () => {
-      currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-      showSlide(currentIndex);
-    };
-    
-    if (nextBtn) {
-      nextBtn.addEventListener("click", nextSlide);
-    }
-    
-    if (prevBtn) {
-      prevBtn.addEventListener("click", prevSlide);
-    }
-  });
-</script>
-

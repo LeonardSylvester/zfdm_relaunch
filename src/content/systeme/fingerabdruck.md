@@ -1,15 +1,14 @@
 ---
 title: "Zeiterfassung mit Fingerabdruck"
 meta_title: "Fingerabdruck-Zeiterfassung | Biometrische Zeiterfassung | ZFDM"
-description: "Biometrische Zeiterfassung per Fingerabdruck. Höchste Sicherheit und Manipulationssicherheit für Ihr Unternehmen."
+description: "Zeiterfassung mit Fingerabdruck kaufen - ab 593€ netto, ohne Abo. Biometrisch & manipulationssicher. Lokale Datenspeicherung, 100% DSGVO-konform. Made in Germany."
 image: "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
 icon: "fingerprint"
 video: false
 
-
 badges:
   - "DSGVO-konform"
-  - "Made in Germany" 
+  - "Made in Germany"
   - "Biometrisch"
 
 feature_grid:
@@ -23,18 +22,18 @@ feature_grid:
     label: "Webbasiert"
 
 trust_badges:
-  - icon: "FaShield"
-    title: "DSGVO-konform"
-    description: "100% Datenschutz"
-  - icon: "FaClock"
-    title: "14 Tage testen"
-    description: "Kostenlos & unverbindlich"
-  - icon: "FaFlag"
-    title: "Made in Germany"
-    description: "Deutscher Support"
+  - icon: "FaHeadset"
+    title: "24/7 Support"
+    description: "Kostenloser Support"
+  - icon: "FaServer"
+    title: "Lokale Daten"
+    description: "Keine Cloud"
+  - icon: "FaHouse"
+    title: "Homeoffice"
+    description: "Flexibel einsetzbar"
   - icon: "FaBan"
     title: "Kein Abo"
-    description: "Einmalige Zahlung"
+    description: "Einmal zahlen"
 
 features:
   - title: "Maximale Sicherheit"
@@ -72,9 +71,7 @@ specifications:
     - "Deutsches Handbuch"
     - "Kostenloser Support per E-Mail und Telefon"
   requirements:
-    - "Stromversorgung 230V oder Power over Ethernet (PoE)"
-    - "Internetverbindung (LAN oder WLAN)"
-    - "Web-Browser für Administration (Chrome, Firefox, Safari, Edge)"
+    - "Du brauchst nur einen Web-Browser (Chrome, Firefox, Safari, Edge)"
 
 testimonial:
   author: "Hannes Küspert"
@@ -128,5 +125,4 @@ Dank unserer innovativen **biometrischen Zeiterfassung** lassen sich Arbeitszeit
 - Reduzierter Verwaltungsaufwand
 - Hohe Fälschungssicherheit
 - Einfache Integration in bestehende Systeme
-- Flexible Arbeitszeiterfassung für mehrere Standorte  
-
+- Flexible Arbeitszeiterfassung für mehrere Standorte

@@ -1,0 +1,31 @@
+{
+  "version": "0.1.20251208",
+  "status_code": 20000,
+  "status_message": "Ok.",
+  "time": "0.0733 sec.",
+  "cost": 0.025,
+  "tasks_count": 1,
+  "tasks_error": 0,
+  "tasks": [
+    {
+      "id": "12091043-1142-0216-0000-c6267ae328d8",
+      "status_code": 20100,
+      "status_message": "Task Created.",
+      "time": "0.0043 sec.",
+      "cost": 0.025,
+      "result_count": 0,
+      "path": ["v3", "on_page", "task_post"],
+      "data": {
+        "api": "on_page",
+        "function": "task_post",
+        "target": "zeiterfassung-fdm.de",
+        "max_crawl_pages": 200,
+        "max_crawl_depth": 10,
+        "robots_txt_merge_mode": "merge",
+        "allow_subdomains": false,
+        "tag": "relaunch_zfdm_2025-12"
+      },
+      "result": null
+    }
+  ]
+}

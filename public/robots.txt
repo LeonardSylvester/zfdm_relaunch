@@ -1,4 +1,8 @@
+# robots.txt fuer zeiterfassung-fdm.de
+# Letzte Aktualisierung: 2025-12-09
+
 User-agent: *
 Allow: /
 
-Disallow: /api/*
+# Sitemap fuer Suchmaschinen
+Sitemap: https://www.zeiterfassung-fdm.de/sitemap-index.xml

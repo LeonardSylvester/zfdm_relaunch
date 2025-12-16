@@ -4,11 +4,11 @@
     "base_url": "https://www.zeiterfassung-fdm.de/",
     "base_path": "/",
     "trailing_slash": false,
-    "favicon": "",
-    "logo": "/images/ZFDM-Logo-optimized.webp",
-    "logo_darkmode": "/images/ZFDM-Logo-optimized.webp",
-    "logo_width": "44",
-    "logo_height": "44",
+    "favicon": "/images/ZFDM-Logo-optimized.webp",
+    "logo": "/images/ZFDM-Logo-blau-small.webp",
+    "logo_darkmode": "/images/ZFDM-Logo-blau-small.webp",
+    "logo_width": "85",
+    "logo_height": "36",
     "logo_text": "ZFDM"
   },
 
@@ -49,6 +49,22 @@
   "google_tag_manager": {
     "enable": false,
     "gtm_id": "GTM-XXXXXX"
+  },
+
+  "google_analytics": {
+    "enable": true,
+    "measurement_id": "G-XSTF4MZD4G"
+  },
+
+  "facebook_pixel": {
+    "enable": true,
+    "pixel_id": "895970598849867"
+  },
+
+  "tawk_to": {
+    "enable": true,
+    "property_id": "64872a9394cf5d49dc5d355a",
+    "widget_id": "1h2nvsk9g"
   },
 
   "metadata": {

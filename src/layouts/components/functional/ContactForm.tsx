@@ -5,10 +5,20 @@ const SUBMIT_ENDPOINT = "https://www.g2wcrm.b-24.de/receiveContact.php";
 const IS_DEVELOPMENT = import.meta.env.DEV;
 
 const INTEREST_OPTIONS = [
-  { value: "FreeTest", label: "Kostenlos und unverbindlich zwei Wochen testen" },
-  { value: "Order", label: "Per Rechnung bestellen und Rabatt erhalten" },
-  { value: "Offer", label: "Individuelles Angebot erstellen" },
-  { value: "TestCustomer", label: "Testkunde für Gesichtserkennung werden." },
+  { value: "Offer", label: "Beratung für individuelles Angebot" },
+  { value: "FreeTest", label: "14 Tage kostenlos testen" },
+] as const;
+
+const DEVICE_OPTIONS = [
+  { value: "Zeiterfassung mit RFID", label: "Zeiterfassung mit Chip" },
+  {
+    value: "Zeiterfassung mit Fingerabdruck",
+    label: "Zeiterfassung mit Fingerabdruck",
+  },
+  {
+    value: "Zeiterfassung mit Gesichtserkennung",
+    label: "Zeiterfassung mit Gesichtserkennung",
+  },
 ] as const;
 
 type InterestValue = (typeof INTEREST_OPTIONS)[number]["value"];
@@ -122,7 +132,6 @@ export function ContactForm() {
       if (interestParam) {
         const map: Record<string, InterestValue | undefined> = {
           freetest: "FreeTest",
-          order: "Order",
           offer: "Offer",
         };
         const interestValue = map[interestParam];
@@ -157,10 +166,6 @@ export function ContactForm() {
       if (freeTestBanner === "true") {
         updated.interest = "FreeTest";
         updated.message = "Kostenloses Gerät wie aus der Werbung";
-      }
-
-      if (updated.interest === "TestCustomer") {
-        updated.device = "Zeiterfassung mit Gesichtserkennung";
       }
 
       if (employeesParam) {
@@ -224,45 +229,24 @@ export function ContactForm() {
     };
   }, [isSending]);
 
-  const showPacketField = useMemo(() => {
-    return (
-      formState.interest === "FreeTest" ||
-      formState.interest === "Order" ||
-      formState.interest === "TestCustomer"
-    );
-  }, [formState.interest]);
-
+  const showPacketField = formState.interest === "FreeTest";
   const showOptionField = formState.interest === "Offer";
-  const showOptionCall =
-    formState.interest === "FreeTest" || formState.interest === "Order";
-  const showFreeTestButton =
-    formState.interest !== "Offer" || IS_DEVELOPMENT;
+  const showOptionCall = formState.interest === "FreeTest";
+  const showFreeTestButton = formState.interest === "FreeTest";
   const showOfferButton = formState.interest === "Offer";
-  const showSourceSelection = formState.interest !== "TestCustomer";
-  const showRecommender =
-    showSourceSelection && formState.source === "Weiterempfehlung";
+  const showSourceSelection = true;
+  const showRecommender = formState.source === "Weiterempfehlung";
 
-  const packageOptions: PackageOption[] = useMemo(() => {
-    if (formState.interest === "Order") {
-      return [
-        { value: "Starter", label: "Starter (10% Rabatt)" },
-        { value: "Medium", label: "Medium (10% Rabatt)" },
-      ];
-    }
-    return [
-      { value: "Starter", label: "Starter" },
-      { value: "Medium", label: "Medium" },
-    ];
-  }, [formState.interest]);
+  const packageOptions: PackageOption[] = [
+    { value: "Starter", label: "Starter" },
+    { value: "Medium", label: "Medium" },
+  ];
 
   const submitButtonLabel = useMemo(() => {
-    if (
-      formState.interest === "Order" ||
-      formState.interest === "TestCustomer"
-    ) {
-      return "Jetzt bestellen und Rabatt sichern";
+    if (formState.interest === "FreeTest") {
+      return "14 Tage kostenlos testen";
     }
-    return "Kostenlos zwei Wochen testen";
+    return "Jetzt Beratung anfragen";
   }, [formState.interest]);
 
   const currentModalMessage =
@@ -294,10 +278,7 @@ export function ContactForm() {
     setProgressValue(0);
   };
 
-  const trackEvent = (
-    eventName: string,
-    params?: Record<string, unknown>,
-  ) => {
+  const trackEvent = (eventName: string, params?: Record<string, unknown>) => {
     const currentWindow = window as WindowWithTracking;
     currentWindow.gtag?.("event", eventName, params);
   };
@@ -456,8 +437,8 @@ export function ContactForm() {
     const employeesValue = state.noEmployee;
 
     const selectedPacket = showPacketField
-      ? packageOptions.find((option) => option.value === state.packet)?.label ??
-        state.packet
+      ? (packageOptions.find((option) => option.value === state.packet)
+          ?.label ?? state.packet)
       : "-";
 
     let callbackValue = "Angebot";
@@ -657,7 +638,7 @@ export function ContactForm() {
   };
 
   const handleFreeTestClick = () => {
-    setModalVariant(formState.interest === "Order" ? "order" : "test");
+    setModalVariant("test");
     setIsModalOpen(true);
   };
 
@@ -691,13 +672,41 @@ export function ContactForm() {
                 <h3 className="text-xl md:text-2xl font-semibold text-text-dark mb-3">
                   Hallo, ich bin Simon Zipf!
                 </h3>
-                <p className="text-base md:text-lg text-text leading-relaxed">
+                <p className="text-base md:text-lg text-text leading-relaxed mb-4">
                   Als Ihr persönlicher Ansprechpartner freue ich mich darauf,
-                  Sie kennenzulernen. Füllen Sie einfach das untenstehende
-                  Formular aus, und ich melde mich zeitnah bei Ihnen. Gemeinsam
-                  finden wir die perfekte Zeiterfassungslösung für Ihr
+                  Sie kennenzulernen. Füllen Sie das untenstehende Formular aus
+                  oder kontaktieren Sie mich direkt per Telefon oder E-Mail.
+                  Gemeinsam finden wir die perfekte Zeiterfassungslösung für Ihr
                   Unternehmen!
                 </p>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center md:justify-start">
+                  <a
+                    href="tel:+4961839210941"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                      className="w-4 h-4 fill-current"
+                    >
+                      <path d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 334.7 177.3 277.7 144 207.3L193.3 167c13.7-11.2 18.4-30 11.6-46.3l-40-96z" />
+                    </svg>
+                    +49 6183 921 0941
+                  </a>
+                  <a
+                    href="mailto:anfrage@get2world.com"
+                    className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors font-medium"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 512 512"
+                      className="w-4 h-4 fill-current"
+                    >
+                      <path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48L48 64zM0 176L0 384c0 35.3 28.7 64 64 64l384 0c35.3 0 64-28.7 64-64l0-208L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z" />
+                    </svg>
+                    anfrage@get2world.com
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -835,6 +844,51 @@ export function ContactForm() {
                     />
                   </label>
 
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <label className="form-label">
+                      Interesse*
+                      <select
+                        name="interest"
+                        id="idInterest"
+                        className="form-input custom-select"
+                        value={formState.interest}
+                        onChange={(event) =>
+                          updateField(
+                            "interest",
+                            event.target.value as InterestValue,
+                          )
+                        }
+                      >
+                        {INTEREST_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="form-label">
+                      Zeiterfassungssystem*
+                      <select
+                        name="device"
+                        id="idDevice"
+                        className="form-input custom-select"
+                        value={formState.device}
+                        onChange={(event) =>
+                          updateField(
+                            "device",
+                            event.target.value as FormState["device"],
+                          )
+                        }
+                      >
+                        {DEVICE_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+
                   <label className="form-label">
                     Ihre Nachricht (optional)
                     <textarea
@@ -859,11 +913,10 @@ export function ContactForm() {
                   )}
 
                   <div id="divOffer" className="mt-6">
-                    <button
-                      type="submit"
-                      className="btn btn-primary w-full"
-                    >
-                      {showOfferButton ? "Jetzt Demo buchen" : submitButtonLabel}
+                    <button type="submit" className="btn btn-primary w-full">
+                      {showOfferButton
+                        ? "Jetzt Demo buchen"
+                        : submitButtonLabel}
                     </button>
                   </div>
 

@@ -1,7 +1,7 @@
 ---
 title: "Zeiterfassung mit Gesichtserkennung"
 meta_title: "Gesichtserkennung-Zeiterfassung | KI-basierte Zeiterfassung | ZFDM"
-description: "Modernste KI-basierte Zeiterfassung per Gesichtserkennung. Berührungslos, schnell und äußerst benutzerfreundlich."
+description: "Zeiterfassung mit Gesichtserkennung kaufen - ab 562€ netto, ohne Abo. 100% berührungslos & hygienisch. KI-basiert, DSGVO-konform. Ideal für Arztpraxen & Gastronomie."
 image: "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
 icon: "face"
 video: false
@@ -22,18 +22,18 @@ feature_grid:
     label: "Webbasiert"
 
 trust_badges:
-  - icon: "FaShield"
-    title: "DSGVO-konform"
-    description: "100% Datenschutz"
-  - icon: "FaClock"
-    title: "14 Tage testen"
-    description: "Kostenlos & unverbindlich"
-  - icon: "FaFlag"
-    title: "Made in Germany"
-    description: "Deutscher Support"
+  - icon: "FaHeadset"
+    title: "24/7 Support"
+    description: "Kostenloser Support"
+  - icon: "FaServer"
+    title: "Lokale Daten"
+    description: "Keine Cloud"
+  - icon: "FaHouse"
+    title: "Homeoffice"
+    description: "Flexibel einsetzbar"
   - icon: "FaBan"
     title: "Kein Abo"
-    description: "Einmalige Zahlung"
+    description: "Einmal zahlen"
 
 features:
   - title: "Berührungslose Zeiterfassung"
@@ -71,9 +71,7 @@ specifications:
     - "Deutsches Handbuch"
     - "Kostenloser Support per E-Mail und Telefon"
   requirements:
-    - "Stromversorgung 230V oder Power over Ethernet (PoE)"
-    - "Internetverbindung (LAN oder WLAN)"
-    - "Web-Browser für Administration (Chrome, Firefox, Safari, Edge)"
+    - "Du brauchst nur einen Web-Browser (Chrome, Firefox, Safari, Edge)"
 
 testimonial:
   author: "A.M."
@@ -99,7 +97,6 @@ pricing:
   price_description_finger: "Fingerabdruck System"
   price_description_geschicht: "Gesichtserkennung System"
 
-
 faq_section: "gesichtserkennung"
 
 gallery:
@@ -108,3 +105,31 @@ gallery:
 
 draft: false
 ---
+
+## Zeiterfassung mit Gesichtserkennung - Die modernste Loesung fuer Ihr Unternehmen
+
+Die **Zeiterfassung mit Gesichtserkennung** ist die innovativste und hygienischste Methode der Arbeitszeiterfassung. Ihre Mitarbeiter stellen sich einfach vor das Terminal - die KI-basierte Kamera erkennt das Gesicht in Sekundenbruchteilen und erfasst die Arbeitszeit vollautomatisch. Kein Chip, kein Fingerabdruck, keine Beruehrung notwendig.
+
+### 100% kontaktlos und hygienisch
+
+Gerade in Zeiten erhoehter Hygieneanforderungen bietet die Gesichtserkennung entscheidende Vorteile. Niemand muss einen Chip beruehren oder den Finger auf einen Scanner legen. Die Erfassung erfolgt komplett beruehrungslos - ideal fuer Arztpraxen, Pflegeeinrichtungen, Gastronomie und alle Bereiche mit hohen Hygienestandards.
+
+### KI-basierte Praezision
+
+Unser Terminal nutzt modernste kuenstliche Intelligenz zur Gesichtserkennung. Das System erkennt Mitarbeiter zuverlaessig - auch mit Brille, veraenderter Frisur oder bei unterschiedlichen Lichtverhaeltnissen. Die Erkennungsrate liegt bei ueber 99,9%.
+
+### DSGVO-konform und sicher
+
+Datenschutz hat bei uns hoechste Prioritaet. Die biometrischen Daten werden verschluesselt gespeichert und verlassen niemals Ihr Unternehmen. Die Gesichtserkennung erfolgt lokal am Geraet - keine Cloud, keine externen Server. Alle Daten bleiben unter Ihrer Kontrolle und entsprechen vollstaendig der DSGVO.
+
+### Einfache Einrichtung
+
+Die Registrierung neuer Mitarbeiter dauert nur wenige Sekunden: Einmal vor die Kamera stellen, Gesicht erfassen - fertig. Ueber die intuitive Web-Oberflaeche verwalten Sie alle Mitarbeiter, Arbeitszeiten und Auswertungen zentral.
+
+### Ideale Einsatzbereiche
+
+- **Arztpraxen & Kliniken**: Maximale Hygiene ohne Beruehrung
+- **Gastronomie & Lebensmittel**: Haende bleiben sauber
+- **Pflegeeinrichtungen**: Schnelle Erfassung im hektischen Alltag
+- **Bueros & Verwaltung**: Moderne und elegante Loesung
+- **Einzelhandel**: Diskretes Stempeln ohne Aufwand

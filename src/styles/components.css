@@ -161,7 +161,7 @@
   @apply prose-pre:rounded-2xl prose-pre:bg-light;
   @apply prose-code:px-1 prose-code:text-text-dark;
   @apply prose-strong:font-bold;
-  @apply prose-a:text-text prose-a:underline prose-a:hover:text-text-dark;
+  @apply prose-a:text-primary prose-a:underline prose-a:hover:text-secondary;
   @apply prose-li:text-border prose-li:my-0 marker:text-border;
   li p {
     @apply my-0;

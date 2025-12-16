@@ -1,0 +1,861 @@
+{
+  "meta": {
+    "erstellt": "2025-12-09",
+    "alte_seite": "zeiterfassung-fdm.de (WordPress)",
+    "neue_seite": "zeiterfassung-fdm.de (Astro)",
+    "gesamt_urls": 88,
+    "zusammenfassung": {
+      "kritisch": 1,
+      "hoch": 5,
+      "mittel": 25,
+      "niedrig": 53,
+      "unchanged": 4
+    }
+  },
+  "legende": {
+    "prioritaet": {
+      "KRITISCH": "Top-Ranking mit hohem Traffic - kein Fehler erlaubt",
+      "HOCH": "Hat Rankings oder wichtige Produktseite",
+      "MITTEL": "Relevante Inhaltsseite",
+      "NIEDRIG": "Wenig Traffic, EN-Seiten, Legacy-Inhalte"
+    },
+    "aktion": {
+      "301": "Permanente Weiterleitung zur neuen URL",
+      "unchanged": "URL bleibt identisch",
+      "gone": "Seite wird entfernt (410 Gone)"
+    }
+  },
+  "urls": [
+    {
+      "alte_url": "/",
+      "neue_url": "/",
+      "aktion": "unchanged",
+      "prioritaet": "HOCH",
+      "kategorie": "Homepage",
+      "ranking_data": {
+        "keyword": "zeiterfassungssysteme",
+        "position": 8,
+        "suchvolumen": 1900,
+        "etv": 64.2
+      },
+      "begruendung": "Homepage behaelt ihre URL. Ranking fuer 'zeiterfassungssysteme' bleibt erhalten."
+    },
+    {
+      "alte_url": "/zeiterfassungssystem-mit-chip/",
+      "neue_url": "/zeiterfassungssysteme/chip",
+      "aktion": "301",
+      "prioritaet": "KRITISCH",
+      "kategorie": "Produkt",
+      "ranking_data": {
+        "keyword": "zeiterfassung mit chip",
+        "position": 3,
+        "suchvolumen": 480,
+        "etv": 224.0
+      },
+      "begruendung": "WICHTIGSTE SEITE! Hoechster Traffic (224 ETV). URL-Struktur wird vereinheitlicht zu /zeiterfassungssysteme/{typ}. 301 zwingend erforderlich."
+    },
+    {
+      "alte_url": "/zeiterfassungssystem-mit-fingerabdruck/",
+      "neue_url": "/zeiterfassungssysteme/fingerabdruck",
+      "aktion": "301",
+      "prioritaet": "HOCH",
+      "kategorie": "Produkt",
+      "ranking_data": {
+        "keyword": "zeiterfassung fingerprint",
+        "position": 8,
+        "suchvolumen": 70,
+        "etv": 14.6
+      },
+      "begruendung": "Produkt-Hauptseite mit Rankings. URL-Struktur wird vereinheitlicht."
+    },
+    {
+      "alte_url": "/zeiterfassungssystem-mit-gesichtserkennung/",
+      "neue_url": "/zeiterfassungssysteme/gesichtserkennung",
+      "aktion": "301",
+      "prioritaet": "HOCH",
+      "kategorie": "Produkt",
+      "ranking_data": null,
+      "begruendung": "Produkt-Hauptseite. URL-Struktur wird vereinheitlicht zu /zeiterfassungssysteme/{typ}."
+    },
+    {
+      "alte_url": "/rfid/",
+      "neue_url": "/zeiterfassungssysteme/chip",
+      "aktion": "301",
+      "prioritaet": "HOCH",
+      "kategorie": "Produkt",
+      "ranking_data": {
+        "keyword": "zeiterfassungsgeraete mit chip",
+        "position": 4,
+        "suchvolumen": 70,
+        "etv": 6.8
+      },
+      "begruendung": "RFID = Chip-System. Redirect auf Chip-Produktseite. Hat Rankings!"
+    },
+    {
+      "alte_url": "/zeiterfassung-ohne-monatliche-kosten/",
+      "neue_url": "/ressourcen/blog/zeiterfassung-ohne-monatliche-kosten",
+      "aktion": "301",
+      "prioritaet": "HOCH",
+      "kategorie": "Blog",
+      "ranking_data": {
+        "keyword": "zeiterfassung ohne monatliche kosten",
+        "position": 4,
+        "suchvolumen": 70,
+        "etv": 10.1
+      },
+      "begruendung": "Blog-Artikel mit gutem Ranking. Wird in Blog-Bereich verschoben. SLUG MUSS IM NEUEN PROJEKT EXISTIEREN!"
+    },
+    {
+      "alte_url": "/preise-mitarbeiter-zeiterfassung/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Preise",
+      "ranking_data": null,
+      "begruendung": "Alte Preise-Hauptseite. Wird auf zentrale /preise Seite zusammengefuehrt."
+    },
+    {
+      "alte_url": "/zeiterfassung-mit-chip-preise-ohne-abo-kosten/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Preise",
+      "ranking_data": null,
+      "begruendung": "Chip-Preisseite. Neue Seite hat alle Preise auf einer Seite - keine separaten Preisseiten mehr."
+    },
+    {
+      "alte_url": "/preise-fur-zeiterfassung-mit-fingerabdruck/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Preise",
+      "ranking_data": null,
+      "begruendung": "Fingerabdruck-Preisseite. Wird auf zentrale /preise Seite zusammengefuehrt."
+    },
+    {
+      "alte_url": "/preise-fur-zeiterfassung-mit-gesichtserkennung/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Preise",
+      "ranking_data": null,
+      "begruendung": "Gesichtserkennung-Preisseite. Wird auf zentrale /preise Seite zusammengefuehrt."
+    },
+    {
+      "alte_url": "/zeiterfassung-fur-den-mittelstand/",
+      "neue_url": "/ueber-uns",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Unternehmen",
+      "ranking_data": null,
+      "begruendung": "War die 'Ueber uns' Seite. Neue URL ist kuerzer und klarer."
+    },
+    {
+      "alte_url": "/referenzen-zeiterfassungsysteme/",
+      "neue_url": "/branchen",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Referenzen",
+      "ranking_data": null,
+      "begruendung": "Referenzen-Uebersicht wird zur Branchen-Uebersicht. Testimonials sind in Branchen-Seiten integriert."
+    },
+    {
+      "alte_url": "/kontakt/",
+      "neue_url": "/kontakt",
+      "aktion": "unchanged",
+      "prioritaet": "MITTEL",
+      "kategorie": "Kontakt",
+      "ranking_data": null,
+      "begruendung": "Kontakt-URL bleibt identisch."
+    },
+    {
+      "alte_url": "/datenschutz/",
+      "neue_url": "/datenschutz",
+      "aktion": "unchanged",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "Datenschutz-URL bleibt identisch."
+    },
+    {
+      "alte_url": "/impressum/",
+      "neue_url": "/impressum",
+      "aktion": "unchanged",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "Impressum-URL bleibt identisch."
+    },
+    {
+      "alte_url": "/agb-gunstige-zeiterfassung-fur-kleinbetriebe/",
+      "neue_url": "/agb",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "AGB-URL wird gekuerzt. Alte URL war unnoetig lang."
+    },
+    {
+      "alte_url": "/faqs-digitale-zeiterfassungssysteme/",
+      "neue_url": "/ressourcen/faqs",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Ressourcen",
+      "ranking_data": null,
+      "begruendung": "FAQs werden in Ressourcen-Bereich verschoben."
+    },
+    {
+      "alte_url": "/videos-zeiterfassung-fur-kleine-unternehmen/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Ressourcen",
+      "ranking_data": null,
+      "begruendung": "Video-Anleitungen werden in Ressourcen-Bereich verschoben."
+    },
+    {
+      "alte_url": "/blog-rund-um-das-thema-zeiterfassung-von-zfdm/",
+      "neue_url": "/ressourcen/blog",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Index wird in Ressourcen-Bereich verschoben. Kuerzere URL."
+    },
+    {
+      "alte_url": "/blog-rund-um-das-thema-zeiterfassung-von-zfdm/page/2/",
+      "neue_url": "/ressourcen/blog",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Pagination. Redirect auf Blog-Index - Pagination wird neu aufgebaut."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fur-die-arztpraxis/",
+      "neue_url": "/branchen/arztpraxen",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Arztpraxis-Referenzseite wird zur Branchen-Seite. Testimonials dort integriert."
+    },
+    {
+      "alte_url": "/zeiterfassung-fur-speditionen/",
+      "neue_url": "/branchen/logistik",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Speditions-Referenz wird zur Logistik-Branchenseite."
+    },
+    {
+      "alte_url": "/zeiterfassung-im-kindergarten/",
+      "neue_url": "/branchen/kindergarten",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Kindergarten-Seite wird zur Branchen-Seite."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fuer-hotels/",
+      "neue_url": "/branchen/gastronomie",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Hotels werden unter Gastronomie zusammengefasst."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fur-cafes/",
+      "neue_url": "/branchen/gastronomie",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Cafes werden unter Gastronomie zusammengefasst."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fur-schulen/",
+      "neue_url": "/branchen/schulen",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Schulen-Seite wird zur Branchen-Seite."
+    },
+    {
+      "alte_url": "/mobile-zeiterfassung-handwerk-digital/",
+      "neue_url": "/branchen/handwerk",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Handwerk-Seite wird zur Branchen-Seite."
+    },
+    {
+      "alte_url": "/arbeitszeiterfassung-fur-kleinbetriebe/",
+      "neue_url": "/branchen/kleinbetriebe",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Kleinbetriebe-Seite wird zur Branchen-Seite."
+    },
+    {
+      "alte_url": "/webbasierte-zeiterfassung-fur-den-mittelstand/",
+      "neue_url": "/branchen/mittelstand",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Branchen",
+      "ranking_data": null,
+      "begruendung": "Mittelstand-Seite wird zur Branchen-Seite."
+    },
+    {
+      "alte_url": "/7-grunde-gegen-zeiterfassung-mit-excel/",
+      "neue_url": "/ressourcen/blog/zeiterfassung-mit-excel",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/7-vorteile-digitale-zeiterfassung/",
+      "neue_url": "/ressourcen/blog/vorteile-digitale-zeiterfassung",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/arbeitszeiterfassung-pflicht-in-deutschland/",
+      "neue_url": "/ressourcen/blog/arbeitszeiterfassung-pflicht",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel ueber Zeiterfassungspflicht. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fuer-kleinbetriebe/",
+      "neue_url": "/ressourcen/blog/digitale-zeiterfassung-kleinbetriebe",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/digitale-zeiterfassung-fur-kleine-betriebe/",
+      "neue_url": "/ressourcen/blog/digitale-zeiterfassung-kleinbetriebe",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Duplikat des vorherigen Artikels (andere Schreibweise). Beide auf gleichen neuen Slug."
+    },
+    {
+      "alte_url": "/effiziente-zeiterfassung-fur-unternehmen/",
+      "neue_url": "/ressourcen/blog/effiziente-zeiterfassung",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/elektronische-zeiterfassungssysteme/",
+      "neue_url": "/ressourcen/blog/elektronische-zeiterfassungssysteme",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/mobile-zeiterfassung-fur-unterwegs-vor-ort/",
+      "neue_url": "/ressourcen/blog/mobile-zeiterfassung",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel ueber mobile Zeiterfassung. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/personal-zeiterfassung-fur-ihren-betrieb/",
+      "neue_url": "/ressourcen/blog/personal-zeiterfassung",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/digitale-stechuhr-ohne-monatliche-kosten/",
+      "neue_url": "/ressourcen/blog/digitale-stechuhr",
+      "aktion": "301",
+      "prioritaet": "MITTEL",
+      "kategorie": "Blog",
+      "ranking_data": null,
+      "begruendung": "Blog-Artikel. Neuer Slug muss im Astro-Projekt angelegt werden."
+    },
+    {
+      "alte_url": "/cookie-policy-eu/",
+      "neue_url": "/datenschutz",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "Cookie-Policy wird in Datenschutz integriert. Keine separate Seite mehr noetig."
+    },
+    {
+      "alte_url": "/fragebogen-zeiterfassung-zfdm/",
+      "neue_url": "/kontakt",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Kontakt",
+      "ranking_data": null,
+      "begruendung": "Fragebogen-Seite wird auf Kontakt weitergeleitet. Formular dort integriert."
+    },
+    {
+      "alte_url": "/module-intern/",
+      "neue_url": "/zeiterfassungssysteme",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Produkt",
+      "ranking_data": null,
+      "begruendung": "Interne Modul-Uebersicht wird auf Systeme-Uebersicht weitergeleitet."
+    },
+    {
+      "alte_url": "/pop-up/",
+      "neue_url": "/",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Sonstige",
+      "ranking_data": null,
+      "begruendung": "Pop-up Seite hat keinen eigenen Inhalt. Redirect auf Homepage."
+    },
+    {
+      "alte_url": "/step-by-step-instruction-with-chip/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Ressourcen",
+      "ranking_data": null,
+      "begruendung": "Anleitung Chip (DE-URL aber EN-Inhalt) wird auf Video-Anleitungen weitergeleitet."
+    },
+    {
+      "alte_url": "/step-by-step-instruction-with-fingerprint/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Ressourcen",
+      "ranking_data": null,
+      "begruendung": "Anleitung Fingerprint (DE-URL aber EN-Inhalt) wird auf Video-Anleitungen weitergeleitet."
+    },
+    {
+      "alte_url": "/step-by-step-instruction-with-facial-recognition/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Ressourcen",
+      "ranking_data": null,
+      "begruendung": "Anleitung Gesicht (DE-URL aber EN-Inhalt) wird auf Video-Anleitungen weitergeleitet."
+    },
+    {
+      "alte_url": "/privacy-policy/",
+      "neue_url": "/datenschutz",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "Englische Privacy Policy wird auf deutsche Datenschutz-Seite weitergeleitet."
+    },
+    {
+      "alte_url": "/privacy-policy-2/",
+      "neue_url": "/datenschutz",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Legal",
+      "ranking_data": null,
+      "begruendung": "Duplikat der englischen Privacy Policy."
+    },
+    {
+      "alte_url": "/kundenrezension-digitale-zeiterfassung-augenarzt-dr-kulmbach/",
+      "neue_url": "/branchen/arztpraxen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Referenzen",
+      "ranking_data": null,
+      "begruendung": "Einzelne Kundenstimme wird in Branchen-Seite integriert."
+    },
+    {
+      "alte_url": "/kundenstimme-zu-unserer-digitalen-mitarbeiter-zeiterfassung-in-der-zahnarztpraxis-nadjar/",
+      "neue_url": "/branchen/arztpraxen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Referenzen",
+      "ranking_data": null,
+      "begruendung": "Einzelne Kundenstimme Zahnarzt wird in Arztpraxen-Seite integriert."
+    },
+    {
+      "alte_url": "/elementor-410/",
+      "neue_url": "/branchen/arztpraxen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Referenzen",
+      "ranking_data": null,
+      "begruendung": "Kundenstimme Dr. Gehlmann-Menke (Elementor-generierte URL) wird in Arztpraxen-Seite integriert."
+    },
+    {
+      "alte_url": "/ms-bernatz-accounting-and-controlling/",
+      "neue_url": "/branchen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "Referenzen",
+      "ranking_data": null,
+      "begruendung": "Englische Kundenstimme wird auf Branchen-Uebersicht weitergeleitet."
+    },
+    {
+      "alte_url": "/in/",
+      "neue_url": "/",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englischer Bereich existiert nicht mehr. Redirect auf deutsche Homepage."
+    },
+    {
+      "alte_url": "/in/home-2/",
+      "neue_url": "/",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Homepage. Redirect auf deutsche Homepage."
+    },
+    {
+      "alte_url": "/in/about-us/",
+      "neue_url": "/ueber-uns",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische About-Seite. Redirect auf deutsche Ueber-uns-Seite."
+    },
+    {
+      "alte_url": "/in/time-recording-system-with-chip/",
+      "neue_url": "/zeiterfassungssysteme/chip",
+      "aktion": "301",
+      "prioritaet": "HOCH",
+      "kategorie": "EN-Seiten",
+      "ranking_data": {
+        "keyword": "time recording",
+        "position": 10,
+        "suchvolumen": 720,
+        "etv": 18.4
+      },
+      "begruendung": "ACHTUNG: Diese EN-Seite hat Rankings! 'time recording' Pos 10 mit 18.4 ETV. 301 auf deutsche Chip-Seite zwingend erforderlich."
+    },
+    {
+      "alte_url": "/in/time-recording-with-fingerprint/",
+      "neue_url": "/zeiterfassungssysteme/fingerabdruck",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Fingerprint-Seite. Redirect auf deutsche Produktseite."
+    },
+    {
+      "alte_url": "/in/time-recording-system-with-facial-recognition/",
+      "neue_url": "/zeiterfassungssysteme/gesichtserkennung",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Gesichtserkennung-Seite. Redirect auf deutsche Produktseite."
+    },
+    {
+      "alte_url": "/in/prices-2/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Preisseite. Redirect auf deutsche Preisseite."
+    },
+    {
+      "alte_url": "/in/prices-for-time-recording-systems-with-chip/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Chip-Preisseite. Redirect auf deutsche Preisseite."
+    },
+    {
+      "alte_url": "/in/prices-for-fingerprint-time-recording-systems-2/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Fingerprint-Preisseite. Redirect auf deutsche Preisseite."
+    },
+    {
+      "alte_url": "/in/prices-for-time-tracking-with-facial-recognition/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Gesichtserkennung-Preisseite. Redirect auf deutsche Preisseite."
+    },
+    {
+      "alte_url": "/in/references-2/",
+      "neue_url": "/branchen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Referenzen-Seite. Redirect auf deutsche Branchen-Uebersicht."
+    },
+    {
+      "alte_url": "/in/contact-us/",
+      "neue_url": "/kontakt",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Kontakt-Seite. Redirect auf deutsche Kontakt-Seite."
+    },
+    {
+      "alte_url": "/in/data-protection/",
+      "neue_url": "/datenschutz",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Datenschutz-Seite. Redirect auf deutsche Datenschutz-Seite."
+    },
+    {
+      "alte_url": "/in/imprint/",
+      "neue_url": "/impressum",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englisches Impressum. Redirect auf deutsches Impressum."
+    },
+    {
+      "alte_url": "/in/terms-and-conditions/",
+      "neue_url": "/agb",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische AGB. Redirect auf deutsche AGB."
+    },
+    {
+      "alte_url": "/in/blog-2/",
+      "neue_url": "/ressourcen/blog",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englischer Blog-Index. Redirect auf deutschen Blog."
+    },
+    {
+      "alte_url": "/in/blog-2/page/2/",
+      "neue_url": "/ressourcen/blog",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Blog-Pagination. Redirect auf deutschen Blog-Index."
+    },
+    {
+      "alte_url": "/in/questionnaire/",
+      "neue_url": "/kontakt",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englischer Fragebogen. Redirect auf deutsche Kontakt-Seite."
+    },
+    {
+      "alte_url": "/in/video-tutorial/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Video-Tutorials. Redirect auf deutsche Video-Anleitungen."
+    },
+    {
+      "alte_url": "/in/step-by-step-instruction-with-chip/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Chip-Anleitung. Redirect auf deutsche Video-Anleitungen."
+    },
+    {
+      "alte_url": "/in/step-by-step-instruction-with-fingerprint/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Fingerprint-Anleitung. Redirect auf deutsche Video-Anleitungen."
+    },
+    {
+      "alte_url": "/in/step-by-step-instruction-with-facial-recognition/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Gesichtserkennung-Anleitung. Redirect auf deutsche Video-Anleitungen."
+    },
+    {
+      "alte_url": "/in/step-by-step-instructions-with-fingerprint/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Duplikat der englischen Fingerprint-Anleitung (andere URL)."
+    },
+    {
+      "alte_url": "/in/step-by-step-instructions-with-facial-recognition/",
+      "neue_url": "/ressourcen/videoanleitungen",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Duplikat der englischen Gesichtserkennung-Anleitung (andere URL)."
+    },
+    {
+      "alte_url": "/in/time-recording-for-small-businesses/",
+      "neue_url": "/branchen/kleinbetriebe",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Kleinbetriebe-Seite. Redirect auf deutsche Branchen-Seite."
+    },
+    {
+      "alte_url": "/in/time-recording-in-kindergarten/",
+      "neue_url": "/branchen/kindergarten",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Seiten",
+      "ranking_data": null,
+      "begruendung": "Englische Kindergarten-Seite. Redirect auf deutsche Branchen-Seite."
+    },
+    {
+      "alte_url": "/affordable-simple-and-web-based-time-recording-for-medium-sized-businesses/",
+      "neue_url": "/branchen/mittelstand",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Artikel ueber Mittelstand. Redirect auf deutsche Branchen-Seite."
+    },
+    {
+      "alte_url": "/do-you-already-use-a-time-recording-system-in-your-small-business/",
+      "neue_url": "/branchen/kleinbetriebe",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Artikel ueber Kleinbetriebe. Redirect auf deutsche Branchen-Seite."
+    },
+    {
+      "alte_url": "/employee-time-recording-for-your-company/",
+      "neue_url": "/",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer allgemeiner Artikel. Redirect auf deutsche Homepage."
+    },
+    {
+      "alte_url": "/employee-time-recording-system-with-no-monthly-costs/",
+      "neue_url": "/zeiterfassungssysteme",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Artikel ueber Systeme ohne Kosten. Redirect auf Systeme-Uebersicht."
+    },
+    {
+      "alte_url": "/employee-time-tracking-the-key-to-business-success/",
+      "neue_url": "/",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer allgemeiner Artikel. Redirect auf deutsche Homepage."
+    },
+    {
+      "alte_url": "/employee-time-tracking-without-monthly-costs/",
+      "neue_url": "/zeiterfassungssysteme",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Artikel ueber Systeme ohne Kosten. Redirect auf Systeme-Uebersicht."
+    },
+    {
+      "alte_url": "/how-much-does-a-time-recording-system-cost-for-small-businesses/",
+      "neue_url": "/preise",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Preis-Artikel. Redirect auf deutsche Preisseite."
+    },
+    {
+      "alte_url": "/is-time-recording-now-mandatory-for-small-businesses/",
+      "neue_url": "/ressourcen/blog/arbeitszeiterfassung-pflicht",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Pflicht-Artikel. Redirect auf entsprechenden deutschen Blog-Post."
+    },
+    {
+      "alte_url": "/mobile-and-affordable-employee-time-recording-with-wi-fi/",
+      "neue_url": "/ressourcen/blog/mobile-zeiterfassung",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Mobile-Artikel. Redirect auf entsprechenden deutschen Blog-Post."
+    },
+    {
+      "alte_url": "/time-recording-system-guide-working-time-recording-for-small-and-medium-sized-businesses/",
+      "neue_url": "/ressourcen/blog",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Guide-Artikel. Redirect auf deutschen Blog-Index."
+    },
+    {
+      "alte_url": "/time-recording-with-excel-or-digital-time-recording/",
+      "neue_url": "/ressourcen/blog/zeiterfassung-mit-excel",
+      "aktion": "301",
+      "prioritaet": "NIEDRIG",
+      "kategorie": "EN-Artikel",
+      "ranking_data": null,
+      "begruendung": "Englischer Excel-Artikel. Redirect auf entsprechenden deutschen Blog-Post."
+    }
+  ]
+}

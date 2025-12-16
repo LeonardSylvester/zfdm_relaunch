@@ -1,6 +1,5 @@
 {
   "main": [
-
     {
       "name": "Zeiterfassungssysteme",
       "url": "/zeiterfassungssysteme",
@@ -115,7 +114,7 @@
         },
         {
           "name": "Kontakt",
-          "url": "/contact"
+          "url": "/kontakt"
         },
         {
           "name": "Impressum",
@@ -145,6 +144,10 @@
         {
           "name": "Preise",
           "url": "/preise"
+        },
+        {
+          "name": "Blog",
+          "url": "/ressourcen/blog"
         }
       ]
     },
@@ -152,16 +155,16 @@
       "name": "SUPPORT",
       "menu": [
         {
-          "name": "FAQs",
-          "url": "/ressourcen/faqs"
+          "name": "Service",
+          "url": "/service"
         },
         {
           "name": "Videoanleitungen",
           "url": "/ressourcen/videoanleitungen"
         },
         {
-          "name": "Blog",
-          "url": "/ressourcen/blog"
+          "name": "FAQs",
+          "url": "/ressourcen/faqs"
         },
         {
           "name": "Kostenrechner",

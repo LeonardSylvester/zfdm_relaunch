@@ -1,7 +1,7 @@
 ---
 title: "Zeiterfassung mit Chip"
 meta_title: "Zeiterfassung mit RFID Chip | Kontaktlos & Hygienisch | ZFDM"
-description: "Zeiterfassung mit RFID-Chip: Schnell, hygienisch und kontaktlos. Jeder Mitarbeiter erhält einen persönlichen Chip. DSGVO-konform, Made in Germany."
+description: "Zeiterfassung mit RFID-Chip kaufen - ab 521€ netto, ohne Abo. Kontaktlos in unter 1 Sekunde stempeln. Robust, wasserfest (IP68). Inkl. 10 Chips. DSGVO-konform."
 image: "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp"
 icon: "chip"
 video: true
@@ -22,18 +22,18 @@ feature_grid:
     label: "Outdoor geeignet"
 
 trust_badges:
-  - icon: "FaShield"
-    title: "DSGVO-konform"
-    description: "100% Datenschutz"
-  - icon: "FaClock"
-    title: "14 Tage testen"
-    description: "Kostenlos & unverbindlich"
-  - icon: "FaFlag"
-    title: "Made in Germany"
-    description: "Deutscher Support"
+  - icon: "FaHeadset"
+    title: "24/7 Support"
+    description: "Kostenloser Support"
+  - icon: "FaServer"
+    title: "Lokale Daten"
+    description: "Keine Cloud"
+  - icon: "FaHouse"
+    title: "Homeoffice"
+    description: "Flexibel einsetzbar"
   - icon: "FaBan"
     title: "Kein Abo"
-    description: "Einmalige Zahlung"
+    description: "Einmal zahlen"
 
 features:
   - title: "Kontaktlose Zeiterfassung"
@@ -76,10 +76,7 @@ specifications:
     - "Kostenloser Support per E-Mail und Telefon"
 
   requirements:
-    - "Stromversorgung 230V oder Power over Ethernet (PoE)"
-    - "Internetverbindung (LAN oder WLAN)"
-    - "Kein Server oder zusätzliche Hardware erforderlich"
-    - "Web-Browser für Administration (Chrome, Firefox, Safari, Edge)"
+    - "Du brauchst nur einen Web-Browser (Chrome, Firefox, Safari, Edge)"
 
 testimonial:
   author: "Thomas M."
