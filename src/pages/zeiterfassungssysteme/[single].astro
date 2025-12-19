@@ -15,7 +15,6 @@ import { getEntry, render } from "astro:content";
 export async function getStaticPaths() {
   const systeme = await getSinglePage("systeme");
 
-
   const paths = systeme.map((system) => ({
     params: {
       single: system.id,
@@ -41,15 +40,12 @@ const {
   testimonial,
   pricing,
   faq_section,
-
-} = system.data  as any;
+} = system.data as any;
 
 const { Content } = await render(system);
 
 const allSysteme = await getSinglePage("systeme");
-const relatedSysteme = allSysteme
-  .filter((s) => s.id !== system.id)
-  .slice(0, 3);
+const relatedSysteme = allSysteme.filter((s) => s.id !== system.id).slice(0, 3);
 
 let faqs = null;
 if (faq_section) {
@@ -62,8 +58,6 @@ if (faq_section) {
     console.warn(`No FAQ found for section '${faq_section}'`);
   }
 }
-
-
 ---
 
 <Base
@@ -77,14 +71,22 @@ if (faq_section) {
     title={title}
     description={description}
     image={image}
-    images={gallery && gallery.length > 0 ? gallery : (image ? [image, image] : [])}
+    images={gallery && gallery.length > 0
+      ? gallery
+      : image
+        ? [image, image]
+        : []}
     icon={icon}
     badges={badges}
     feature_grid={feature_grid}
+    systemId={system.id}
   />
 
   <!-- Trust Bar -->
   <TrustBar trust_badges={trust_badges} />
+
+  <!-- Specifications Tabs -->
+  <SpecificationTabs specifications={specifications} />
 
   <!-- Video Tabs Section -->
   <VideoTabs />
@@ -108,10 +110,6 @@ if (faq_section) {
 
   <!-- Feature Showcase -->
   <FeatureShowcase features={features} />
-
-
-  <!-- Specifications Tabs -->
-  <SpecificationTabs specifications={specifications} />
 
   <!-- Testimonial Section -->
   {
@@ -143,42 +141,6 @@ if (faq_section) {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Pricing CTA Section -->
-  {
-    pricing && (
-      <section class="section pt-0">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div
-                class="bg-primary/5 dark:bg-darkmode-primary/5 rounded-2xl p-8 lg:p-12 text-center"
-                data-aos="fade-up-sm"
-              >
-                <h2 class="h3 mb-4">Jetzt kostenlos testen</h2>
-                {pricing.starting_from && (
-                  <p class="text-2xl font-bold text-primary mb-4">
-                    {pricing.starting_from}
-                  </p>
-                )}
-                {pricing.note && (
-                  <p class="text-sm text-text-dark dark:text-darkmode-text-dark mb-6">
-                    {pricing.note}
-                  </p>
-                )}
-                <a
-                  href={pricing.link || "/kontakt"}
-                  class="btn btn-primary"
-                >
-                  Jetzt anfragen
-                </a>
               </div>
             </div>
           </div>

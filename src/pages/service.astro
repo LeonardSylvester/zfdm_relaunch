@@ -1,0 +1,123 @@
+---
+import Base from "@/layouts/Base.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import IconMapper from "@/components/IconMapper.astro";
+---
+
+<Base
+  title="Service & Support"
+  meta_title="Service & Support | 24/7 Hilfe durch Chroni | ZFDM"
+  description="24/7 Support durch Chroni - Ihr vertrauenswürdiger KI-Assistent von ZfdM. Sofortige Hilfe bei Fragen und Störmeldungen."
+>
+  <PageHeader title="Service & Support" />
+
+  <section class="section -mt-32">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <!-- Roy Service Box -->
+          <div
+            class="mb-12 flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start bg-light border border-border/20 rounded-xl p-6 md:p-8 shadow-sm"
+          >
+            <img
+              src="/images/avatar/gruender-zfdm-roy.webp"
+              alt="Roy - Gründer ZFDM"
+              class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-md flex-shrink-0"
+            />
+            <div class="flex-1 text-center md:text-left">
+              <h2 class="h3 mb-4">
+                Unser Support erweitert seine Erreichbarkeit auf 100%!
+              </h2>
+              <p class="mb-4">
+                Das Service- & Supportteam von ZfdM bekommt tatkräftigen
+                Neuzugang von <strong>"Chroni"</strong> und ermöglicht Ihnen jetzt
+                eine Unterstützung rund um die Uhr!
+              </p>
+              <p class="mb-4">
+                Sie können sich jederzeit mit Fragen oder Störmeldungen an
+                "Chroni" wenden und erhalten sofort Hilfestellung!
+              </p>
+              <p class="mb-6 font-medium">
+                Support ohne Hürden - keine Frage ist zu klein - "Chroni" ist
+                Ihr vertrauenswürdiger Assistent von ZfdM
+              </p>
+
+              <!-- Benefits Liste -->
+              <ul class="space-y-2 mb-6">
+                <li class="flex items-center gap-2">
+                  <IconMapper
+                    icon="check"
+                    className="text-primary"
+                    size="1.25rem"
+                    ariaHidden={true}
+                  />
+                  <span>Jetzt 24/7 Erreichbarkeit</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <IconMapper
+                    icon="check"
+                    className="text-primary"
+                    size="1.25rem"
+                    ariaHidden={true}
+                  />
+                  <span>Unabhängig von Öffnungszeiten</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <IconMapper
+                    icon="check"
+                    className="text-primary"
+                    size="1.25rem"
+                    ariaHidden={true}
+                  />
+                  <span>Sofortige Reaktion</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <IconMapper
+                    icon="check"
+                    className="text-primary"
+                    size="1.25rem"
+                    ariaHidden={true}
+                  />
+                  <span>Keine Wartezeiten</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <IconMapper
+                    icon="check"
+                    className="text-primary"
+                    size="1.25rem"
+                    ariaHidden={true}
+                  />
+                  <span>Schriftliche Antworten zur Dokumentation</span>
+                </li>
+              </ul>
+
+              <!-- Call to Action -->
+              <p class="mb-6 text-lg">
+                <strong
+                  >Fragen Sie was Sie möchten! - "Chroni" antwortet sofort,
+                  verständlich und unkompliziert.</strong
+                >
+              </p>
+
+              <!-- E-Mail Kontakt -->
+              <div class="flex items-center gap-3 justify-center md:justify-start">
+                <IconMapper
+                  icon="envelope"
+                  className="text-primary"
+                  size="1.5rem"
+                  ariaHidden={true}
+                />
+                <a
+                  href="mailto:service@get2world.com"
+                  class="text-primary hover:underline font-medium text-lg"
+                >
+                  service@get2world.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

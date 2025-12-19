@@ -1,0 +1,57 @@
+# ZFDM - Zeiterfassung für den Mittelstand
+
+> ZFDM bietet Zeiterfassungssysteme für kleine und mittlere Unternehmen - einmal kaufen, ohne Abo. Terminals mit RFID-Chip, Fingerabdruck oder Gesichtserkennung ab 521€ netto. DSGVO-konform, Made in Germany. Über 1600 KMU vertrauen bereits auf unsere Lösungen.
+
+## Unternehmen
+
+ZFDM ist ein deutscher Anbieter von Zeiterfassungssystemen speziell für Kleinbetriebe und den Mittelstand. Das Geschäftsmodell basiert auf Einmalkauf ohne monatliche Abogebühren. Alle Systeme sind webbasiert, DSGVO-konform und speichern Daten lokal ohne Cloud-Zwang.
+
+### Kernvorteile
+
+- Einmalzahlung ohne monatliche Kosten
+- Lokale Datenspeicherung (keine Cloud)
+- DSGVO-konform
+- Made in Germany
+- Kostenloser Support
+- Webbasierte Verwaltung
+- App für iOS und Android
+
+## Zeiterfassungssysteme
+
+Drei verschiedene Erfassungsmethoden zur Auswahl:
+
+- [Zeiterfassung mit RFID-Chip](https://www.zeiterfassung-fdm.de/zeiterfassungssysteme/chip): Kontaktlose Zeiterfassung per RFID-Chip. Ab 521€ netto. Robust, wasserfest (IP68), ideal für Baustellen und Outdoor-Einsatz. Inkl. 10 Chips.
+- [Zeiterfassung mit Fingerabdruck](https://www.zeiterfassung-fdm.de/zeiterfassungssysteme/fingerabdruck): Biometrische Zeiterfassung per Fingerabdruck. Ab 593€ netto. Manipulationssicher, eindeutige Identifizierung. Ideal für Unternehmen mit hohen Sicherheitsanforderungen.
+- [Zeiterfassung mit Gesichtserkennung](https://www.zeiterfassung-fdm.de/zeiterfassungssysteme/gesichtserkennung): KI-basierte Gesichtserkennung. Ab 562€ netto. 100% berührungslos und hygienisch. Ideal für Arztpraxen, Gastronomie und Pflegeeinrichtungen.
+
+## Preise
+
+- [Preisübersicht](https://www.zeiterfassung-fdm.de/preise): Alle Pakete im Vergleich. Starter-Pakete ab 521€ netto. Business- und Professional-Pakete für größere Teams verfügbar.
+
+## Branchen
+
+ZFDM-Zeiterfassung ist für verschiedene Branchen optimiert:
+
+- [Zeiterfassung für Arztpraxen](https://www.zeiterfassung-fdm.de/branchen/arztpraxen): DSGVO-konforme Lösung für medizinisches Personal
+- [Zeiterfassung für Handwerk](https://www.zeiterfassung-fdm.de/branchen/handwerk): Mobile Zeiterfassung für Baustellen
+- [Zeiterfassung für Gastronomie](https://www.zeiterfassung-fdm.de/branchen/gastronomie): Schichtplanung und flexible Arbeitszeiten
+- [Zeiterfassung für Logistik](https://www.zeiterfassung-fdm.de/branchen/logistik): Lösung für mobile Teams und Lager
+- [Zeiterfassung für Agenturen](https://www.zeiterfassung-fdm.de/branchen/agenturen): Projektbasierte Zeiterfassung
+- [Zeiterfassung für Schulen](https://www.zeiterfassung-fdm.de/branchen/schulen): Für Lehrpersonal und Verwaltung
+- [Zeiterfassung für Kindergärten](https://www.zeiterfassung-fdm.de/branchen/kindergarten): Einfache Erfassung für Erzieher
+
+## Ressourcen
+
+- [Videoanleitungen](https://www.zeiterfassung-fdm.de/ressourcen/videoanleitungen): Schritt-für-Schritt Anleitungen zur Einrichtung und Nutzung
+- [Kostenrechner](https://www.zeiterfassung-fdm.de/ressourcen/kostenrechner): ROI-Berechnung für Ihre Zeiterfassung
+- [Blog](https://www.zeiterfassung-fdm.de/blog): Ratgeber und Fachartikel zur Zeiterfassung
+
+## Kontakt
+
+- [Kontakt & Beratung](https://www.zeiterfassung-fdm.de/kontakt): Kostenlose Beratung und Anfragen
+
+## Optional
+
+- [Über uns](https://www.zeiterfassung-fdm.de/ueber-uns): Informationen über das Unternehmen
+- [Impressum](https://www.zeiterfassung-fdm.de/impressum): Rechtliche Angaben
+- [Datenschutz](https://www.zeiterfassung-fdm.de/datenschutz): Datenschutzerklärung

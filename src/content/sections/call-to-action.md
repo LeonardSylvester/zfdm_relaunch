@@ -6,5 +6,5 @@ description: "Fordern Sie jetzt Ihre kostenlose Beratung an und erfahren Sie, wi
 button:
   enable: true
   label: "Jetzt Beratung buchen"
-  link: "/contact"
+  link: "/kontakt"
 ---

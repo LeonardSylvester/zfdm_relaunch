@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "erstellt": "2025-12-09",
+    "beschreibung": "Analyse bestehender 301 Redirects auf der alten WordPress-Seite",
+    "gesamt_redirects": 26,
+    "problematisch": 8
+  },
+  "redirect_chains_risiko": [
+    {
+      "ursprung": "/agb",
+      "aktuelles_ziel": "/agb-gunstige-zeiterfassung-fur-kleinbetriebe/",
+      "geplantes_ziel_relaunch": "/agb",
+      "problem": "CHAIN! /agb -> /agb-gunstige-.../ -> /agb",
+      "loesung": "Neuer Redirect muss direkt /agb -> /agb sein (Astro-Seite). Alter Redirect wird obsolet.",
+      "aktion": "Im neuen .htaccess: Nur /agb-gunstige-zeiterfassung-fur-kleinbetriebe/ -> /agb redirecten"
+    },
+    {
+      "ursprung": "/rfid/",
+      "aktuelles_ziel": "/zeiterfassungssystem-mit-chip/",
+      "geplantes_ziel_relaunch": "/zeiterfassungssysteme/chip",
+      "problem": "CHAIN! /rfid/ -> /zeiterfassungssystem-mit-chip/ -> /zeiterfassungssysteme/chip",
+      "loesung": "Neuer Redirect: /rfid/ direkt auf /zeiterfassungssysteme/chip",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/fingerabdruck/",
+      "aktuelles_ziel": "/zeiterfassungssystem-mit-fingerabdruck/",
+      "geplantes_ziel_relaunch": "/zeiterfassungssysteme/fingerabdruck",
+      "problem": "CHAIN! /fingerabdruck/ -> /zeiterfassungssystem-mit-fingerabdruck/ -> /zeiterfassungssysteme/fingerabdruck",
+      "loesung": "Neuer Redirect: /fingerabdruck/ direkt auf /zeiterfassungssysteme/fingerabdruck",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/about-us/",
+      "aktuelles_ziel": "/in/about-us/",
+      "geplantes_ziel_relaunch": "/ueber-uns",
+      "problem": "CHAIN! /about-us/ -> /in/about-us/ -> /ueber-uns",
+      "loesung": "Neuer Redirect: /about-us/ direkt auf /ueber-uns",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/blog",
+      "aktuelles_ziel": "/in/blog-2/",
+      "geplantes_ziel_relaunch": "/ressourcen/blog",
+      "problem": "CHAIN! /blog -> /in/blog-2/ -> /ressourcen/blog",
+      "loesung": "Neuer Redirect: /blog direkt auf /ressourcen/blog",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/arbeitszeiterfassung-pflicht/",
+      "aktuelles_ziel": "/arbeitszeiterfassung-pflicht-in-deutschland/",
+      "geplantes_ziel_relaunch": "/ressourcen/blog/arbeitszeiterfassung-pflicht",
+      "problem": "CHAIN! /arbeitszeiterfassung-pflicht/ -> /...-in-deutschland/ -> /ressourcen/blog/...",
+      "loesung": "Neuer Redirect: /arbeitszeiterfassung-pflicht/ direkt auf Blog-URL",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/zeiterfassung-in-kleinbetrieben/",
+      "aktuelles_ziel": "/digitale-zeiterfassung-fur-kleine-betriebe/",
+      "geplantes_ziel_relaunch": "/ressourcen/blog/digitale-zeiterfassung-kleinbetriebe",
+      "problem": "CHAIN! Beide alten URLs -> neuer Blog",
+      "loesung": "Beide direkt auf finale Blog-URL redirecten",
+      "aktion": "Beide alten URLs direkt auf finale URL redirecten"
+    },
+    {
+      "ursprung": "/schritt-fur-schritt-anleitung-mit-chip/",
+      "aktuelles_ziel": "/zeiterfassungssystem-mit-chip/",
+      "geplantes_ziel_relaunch": "/zeiterfassungssysteme/chip",
+      "problem": "CHAIN! Anleitung -> Produkt -> Neues Produkt",
+      "loesung": "Direkt auf finale URL redirecten",
+      "aktion": "Anleitung direkt auf /zeiterfassungssysteme/chip"
+    }
+  ],
+  "unkritische_redirects": [
+    {
+      "ursprung": "http://www.zeiterfassung-fdm.de/fingerabdruck/price.php",
+      "ziel": "https://www.zeiterfassung-fdm.de/fingerabdruck/price.php",
+      "typ": "HTTP->HTTPS Redirect",
+      "aktion": "Wird automatisch durch HTTPS-Redirect abgedeckt"
+    },
+    {
+      "ursprung": "/2025/04/07/",
+      "ziel": "/",
+      "typ": "Datum-URL auf Homepage",
+      "aktion": "Neuer Redirect behaelt Ziel /"
+    },
+    {
+      "ursprung": "/contact.php",
+      "ziel": "/contact/",
+      "typ": "Legacy PHP URL",
+      "aktion": "Neuer Redirect: /contact.php -> /kontakt"
+    },
+    {
+      "ursprung": "/datenchutz",
+      "ziel": "/datenschutz/",
+      "typ": "Typo-Korrektur",
+      "aktion": "Neuer Redirect: /datenchutz -> /datenschutz"
+    },
+    {
+      "ursprung": "/datenschutz-zeiterfassung-kmu/",
+      "ziel": "/datenschutz/",
+      "typ": "Alte Datenschutz-URL",
+      "aktion": "Behaelt Ziel /datenschutz"
+    },
+    {
+      "ursprung": "/impressum",
+      "ziel": "/impressum/",
+      "typ": "Trailing Slash Redirect",
+      "aktion": "Neue Seite hat /impressum ohne Slash"
+    },
+    {
+      "ursprung": "/index",
+      "ziel": "/",
+      "typ": "Index-Variante",
+      "aktion": "Behaelt Ziel /"
+    },
+    {
+      "ursprung": "/index.html",
+      "ziel": "/",
+      "typ": "HTML-Variante",
+      "aktion": "Behaelt Ziel /"
+    },
+    {
+      "ursprung": "/fragebogen",
+      "ziel": "/fragebogen-zeiterfassung-zfdm/",
+      "typ": "Kurz-URL",
+      "aktion": "Neuer Redirect: /fragebogen -> /kontakt"
+    },
+    {
+      "ursprung": "/blog-rund-um-das-thema.../page/1/",
+      "ziel": "/blog-rund-um-das-thema.../",
+      "typ": "Pagination Page 1",
+      "aktion": "Behaelt Logik, Ziel wird /ressourcen/blog"
+    },
+    {
+      "ursprung": "/in/blog-2/page/1/",
+      "ziel": "/in/blog-2/",
+      "typ": "EN Pagination Page 1",
+      "aktion": "Behaelt Logik, Ziel wird /ressourcen/blog"
+    },
+    {
+      "ursprung": "/contact//",
+      "ziel": "/contact/",
+      "typ": "Doppel-Slash Korrektur",
+      "aktion": "Wird durch neue Redirect-Regel abgedeckt"
+    },
+    {
+      "ursprung": "/2025/04/06/einfache-und-gunstige-zeiterfassung/",
+      "ziel": "/digitale-zeiterfassung-fuer-kleinbetriebe/",
+      "typ": "Datum-basierte Blog-URL",
+      "aktion": "Wird auf finalen Blog-Slug redirected"
+    },
+    {
+      "ursprung": "/blog/mitarbeiter-zeiterfassung-fuer-ihre-Betrieb.html",
+      "ziel": "/digitale-zeiterfassung-fur-kleine-betriebe/",
+      "typ": "Legacy Blog HTML",
+      "aktion": "Wird auf finalen Blog-Slug redirected"
+    },
+    {
+      "ursprung": "/kundenstimme-...-nadja/?lang=de",
+      "ziel": "/kundenstimme-...-nadjar/?lang=de",
+      "typ": "Typo-Korrektur (nadja->nadjar)",
+      "aktion": "Beide auf /branchen/arztpraxen"
+    },
+    {
+      "ursprung": "/schritt-fur-schritt-anleitung-mit-gesichtserkennung/",
+      "ziel": "/zeiterfassungssystem-mit-gesichtserkennung/",
+      "typ": "Anleitung auf Produkt",
+      "aktion": "Direkt auf /zeiterfassungssysteme/gesichtserkennung"
+    }
+  ],
+  "problematisch_302": [
+    {
+      "ursprung": "/contact/",
+      "ziel": "/wp-content/themes/astra/zeiterfassung/contact.php",
+      "problem": "302 Redirect auf Theme-PHP-Datei - sehr ungewoehnlich!",
+      "aktion": "Ignorieren - neue Seite hat /kontakt als statische Seite"
+    }
+  ],
+  "zusammenfassung": {
+    "chain_risiko": 8,
+    "unkritisch": 17,
+    "problematisch_302": 1,
+    "empfehlung": "Alle bestehenden Redirect-Quellen muessen im neuen .htaccess direkt auf die FINALE neue URL zeigen, nicht auf Zwischen-URLs."
+  }
+}

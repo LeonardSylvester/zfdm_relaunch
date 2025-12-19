@@ -1,0 +1,360 @@
+# =============================================================================
+# SEO RELAUNCH REDIRECTS - zeiterfassung-fdm.de
+# =============================================================================
+# Erstellt: 2025-12-09
+# Zweck: 301 Redirects fuer Website-Relaunch (WordPress -> Astro)
+#
+# WICHTIG: Diese Datei muss VOR dem Relaunch auf dem Server aktiviert werden!
+# Alle Redirects zeigen direkt auf die FINALE Ziel-URL (keine Chains!)
+# =============================================================================
+
+# Aktiviere RewriteEngine
+RewriteEngine On
+RewriteBase /
+
+# =============================================================================
+# SECTION 1: KRITISCHE RANKINGS (Hoechste Prioritaet!)
+# Diese URLs haben aktive Google-Rankings und generieren Traffic
+# =============================================================================
+
+# KRITISCH: /zeiterfassungssystem-mit-chip/ -> /zeiterfassungssysteme/chip
+# Keyword: "zeiterfassung mit chip" | Position: 3 | ETV: 224.0 (HOECHSTER TRAFFIC!)
+RedirectMatch 301 ^/zeiterfassungssystem-mit-chip/?$ /zeiterfassungssysteme/chip
+
+# HOCH: /zeiterfassungssystem-mit-fingerabdruck/ -> /zeiterfassungssysteme/fingerabdruck
+# Keyword: "zeiterfassung fingerprint" | Position: 8 | ETV: 14.6
+RedirectMatch 301 ^/zeiterfassungssystem-mit-fingerabdruck/?$ /zeiterfassungssysteme/fingerabdruck
+
+# HOCH: /zeiterfassungssystem-mit-gesichtserkennung/ -> /zeiterfassungssysteme/gesichtserkennung
+RedirectMatch 301 ^/zeiterfassungssystem-mit-gesichtserkennung/?$ /zeiterfassungssysteme/gesichtserkennung
+
+# HOCH: /rfid/ -> /zeiterfassungssysteme/chip
+# Keyword: "zeiterfassungsgeraete mit chip" | Position: 4 | ETV: 6.8
+RedirectMatch 301 ^/rfid/?$ /zeiterfassungssysteme/chip
+
+# HOCH: /zeiterfassung-ohne-monatliche-kosten/ -> /ressourcen/blog/zeiterfassung-ohne-monatliche-kosten
+# Keyword: "zeiterfassung ohne monatliche kosten" | Position: 4 | ETV: 10.1
+RedirectMatch 301 ^/zeiterfassung-ohne-monatliche-kosten/?$ /ressourcen/blog/zeiterfassung-ohne-monatliche-kosten
+
+# HOCH: EN-Seite mit Rankings! /in/time-recording-system-with-chip/ -> /zeiterfassungssysteme/chip
+# Keyword: "time recording" | Position: 10 | ETV: 18.4
+RedirectMatch 301 ^/in/time-recording-system-with-chip/?$ /zeiterfassungssysteme/chip
+
+# =============================================================================
+# SECTION 2: BESTEHENDE REDIRECT-QUELLEN (Chain-Vermeidung!)
+# Diese URLs hatten bereits Redirects - muessen direkt auf FINALE URL zeigen
+# =============================================================================
+
+# /fingerabdruck/ wurde auf /zeiterfassungssystem-mit-fingerabdruck/ redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/fingerabdruck/?$ /zeiterfassungssysteme/fingerabdruck
+RedirectMatch 301 ^/fingerabdruck/price\.php$ /zeiterfassungssysteme/fingerabdruck
+
+# /about-us/ wurde auf /in/about-us/ redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/about-us/?$ /ueber-uns
+
+# /blog wurde auf /in/blog-2/ redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/blog/?$ /ressourcen/blog
+
+# /arbeitszeiterfassung-pflicht/ wurde auf /arbeitszeiterfassung-pflicht-in-deutschland/ redirected
+# Jetzt direkt auf finale URL (aktualisierter 2025-Guide):
+RedirectMatch 301 ^/arbeitszeiterfassung-pflicht/?$ /ressourcen/blog/zeiterfassung-pflicht-2025
+
+# /zeiterfassung-in-kleinbetrieben/ wurde auf /digitale-zeiterfassung-fur-kleine-betriebe/ redirected
+# Jetzt direkt auf finale URL (Kosten-Guide):
+RedirectMatch 301 ^/zeiterfassung-in-kleinbetrieben/?$ /ressourcen/blog/kosten-digitale-zeiterfassung
+
+# /schritt-fur-schritt-anleitung-mit-chip/ wurde auf /zeiterfassungssystem-mit-chip/ redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/schritt-fur-schritt-anleitung-mit-chip/?$ /zeiterfassungssysteme/chip
+
+# /schritt-fur-schritt-anleitung-mit-gesichtserkennung/ wurde auf Produktseite redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/schritt-fur-schritt-anleitung-mit-gesichtserkennung/?$ /zeiterfassungssysteme/gesichtserkennung
+
+# /agb wurde auf /agb-gunstige-zeiterfassung-fur-kleinbetriebe/ redirected
+# Neue Seite IST /agb - kein Redirect noetig fuer /agb
+# Nur die alte lange URL muss redirected werden (siehe Section 3)
+
+# /fragebogen wurde auf /fragebogen-zeiterfassung-zfdm/ redirected
+# Jetzt direkt auf finale URL:
+RedirectMatch 301 ^/fragebogen/?$ /kontakt
+
+# Legacy URLs aus alten Redirects
+RedirectMatch 301 ^/contact\.php$ /kontakt
+RedirectMatch 301 ^/contact/?$ /kontakt
+RedirectMatch 301 ^/contact//?$ /kontakt
+RedirectMatch 301 ^/datenchutz/?$ /datenschutz
+RedirectMatch 301 ^/datenschutz-zeiterfassung-kmu/?$ /datenschutz
+RedirectMatch 301 ^/index/?$ /
+RedirectMatch 301 ^/index\.html$ /
+
+# Datum-basierte Blog-URLs
+RedirectMatch 301 ^/2025/04/06/einfache-und-gunstige-zeiterfassung/?$ /ressourcen/blog/digitale-zeiterfassung-kleinbetriebe
+RedirectMatch 301 ^/2025/04/06/?$ /ressourcen/blog
+RedirectMatch 301 ^/2025/04/07/?$ /
+
+# Legacy Blog HTML
+RedirectMatch 301 ^/blog/mitarbeiter-zeiterfassung-fuer-ihre-Betrieb\.html$ /ressourcen/blog/digitale-zeiterfassung-kleinbetriebe
+
+# Kundenstimme Typo-Korrektur (nadja -> nadjar)
+RedirectMatch 301 ^/kundenstimme-zu-unserer-digitalen-mitarbeiter-zeiterfassung-in-der-zahnarztpraxis-nadja/?$ /branchen/arztpraxen
+
+# =============================================================================
+# SECTION 3: PRODUKT-SEITEN
+# =============================================================================
+
+# Preisseiten -> zentrale /preise Seite
+RedirectMatch 301 ^/preise-mitarbeiter-zeiterfassung/?$ /preise
+RedirectMatch 301 ^/zeiterfassung-mit-chip-preise-ohne-abo-kosten/?$ /preise
+RedirectMatch 301 ^/preise-fur-zeiterfassung-mit-fingerabdruck/?$ /preise
+RedirectMatch 301 ^/preise-fur-zeiterfassung-mit-gesichtserkennung/?$ /preise
+
+# Module/Systeme
+RedirectMatch 301 ^/module-intern/?$ /zeiterfassungssysteme
+
+# =============================================================================
+# SECTION 4: UNTERNEHMENSSEITEN
+# =============================================================================
+
+# Ueber uns
+RedirectMatch 301 ^/zeiterfassung-fur-den-mittelstand/?$ /ueber-uns
+
+# Referenzen -> Branchen
+RedirectMatch 301 ^/referenzen-zeiterfassungsysteme/?$ /branchen
+
+# =============================================================================
+# SECTION 5: BRANCHEN-SEITEN
+# =============================================================================
+
+# Arztpraxen
+RedirectMatch 301 ^/digitale-zeiterfassung-fur-die-arztpraxis/?$ /branchen/arztpraxen
+RedirectMatch 301 ^/kundenrezension-digitale-zeiterfassung-augenarzt-dr-kulmbach/?$ /branchen/arztpraxen
+RedirectMatch 301 ^/kundenstimme-zu-unserer-digitalen-mitarbeiter-zeiterfassung-in-der-zahnarztpraxis-nadjar/?$ /branchen/arztpraxen
+RedirectMatch 301 ^/elementor-410/?$ /branchen/arztpraxen
+
+# Logistik/Speditionen
+RedirectMatch 301 ^/zeiterfassung-fur-speditionen/?$ /branchen/logistik
+
+# Kindergarten
+RedirectMatch 301 ^/zeiterfassung-im-kindergarten/?$ /branchen/kindergarten
+
+# Gastronomie (Hotels + Cafes)
+RedirectMatch 301 ^/digitale-zeiterfassung-fuer-hotels/?$ /branchen/gastronomie
+RedirectMatch 301 ^/digitale-zeiterfassung-fur-cafes/?$ /branchen/gastronomie
+
+# Schulen
+RedirectMatch 301 ^/digitale-zeiterfassung-fur-schulen/?$ /branchen/schulen
+
+# Handwerk
+RedirectMatch 301 ^/mobile-zeiterfassung-handwerk-digital/?$ /branchen/handwerk
+
+# Kleinbetriebe
+RedirectMatch 301 ^/arbeitszeiterfassung-fur-kleinbetriebe/?$ /branchen/kleinbetriebe
+
+# Mittelstand
+RedirectMatch 301 ^/webbasierte-zeiterfassung-fur-den-mittelstand/?$ /branchen/mittelstand
+
+# =============================================================================
+# SECTION 6: RESSOURCEN (FAQs, Videos, Blog)
+# =============================================================================
+
+# FAQs
+RedirectMatch 301 ^/faqs-digitale-zeiterfassungssysteme/?$ /ressourcen/faqs
+
+# Video-Anleitungen
+RedirectMatch 301 ^/videos-zeiterfassung-fur-kleine-unternehmen/?$ /ressourcen/videoanleitungen
+
+# Blog-Index und Pagination
+RedirectMatch 301 ^/blog-rund-um-das-thema-zeiterfassung-von-zfdm/?$ /ressourcen/blog
+RedirectMatch 301 ^/blog-rund-um-das-thema-zeiterfassung-von-zfdm/page/[0-9]+/?$ /ressourcen/blog
+
+# =============================================================================
+# SECTION 7: BLOG-ARTIKEL
+# Alte Artikel wurden in neue umfassendere Blogs zusammengefasst
+# =============================================================================
+
+# Excel-Artikel -> zusammengefasster Excel-Guide
+RedirectMatch 301 ^/7-grunde-gegen-zeiterfassung-mit-excel/?$ /ressourcen/blog/excel-vs-digitale-zeiterfassung
+
+# Vorteile-Artikel -> exakt vorhanden
+RedirectMatch 301 ^/7-vorteile-digitale-zeiterfassung/?$ /ressourcen/blog/vorteile-digitale-zeiterfassung
+
+# Pflicht-Artikel -> aktualisierter 2025-Guide
+RedirectMatch 301 ^/arbeitszeiterfassung-pflicht-in-deutschland/?$ /ressourcen/blog/zeiterfassung-pflicht-2025
+
+# Kleinbetriebe-Artikel (2 alte URLs) -> Kosten-Guide
+RedirectMatch 301 ^/digitale-zeiterfassung-fuer-kleinbetriebe/?$ /ressourcen/blog/kosten-digitale-zeiterfassung
+RedirectMatch 301 ^/digitale-zeiterfassung-fur-kleine-betriebe/?$ /ressourcen/blog/kosten-digitale-zeiterfassung
+
+# Effizienz-Artikel -> in Vorteile-Artikel integriert
+RedirectMatch 301 ^/effiziente-zeiterfassung-fur-unternehmen/?$ /ressourcen/blog/vorteile-digitale-zeiterfassung
+
+# Elektronische Systeme -> umfassender Vergleichs-Guide
+RedirectMatch 301 ^/elektronische-zeiterfassungssysteme/?$ /ressourcen/blog/elektronische-zeiterfassung
+
+# Mobile Zeiterfassung -> Mobile Guide
+RedirectMatch 301 ^/mobile-zeiterfassung-fur-unterwegs-vor-ort/?$ /ressourcen/blog/mobile-zeiterfassung-guide
+
+# Personal-Zeiterfassung -> in Vorteile-Artikel integriert
+RedirectMatch 301 ^/personal-zeiterfassung-fur-ihren-betrieb/?$ /ressourcen/blog/vorteile-digitale-zeiterfassung
+
+# Digitale Stechuhr -> Kosten-freie Loesung = ohne monatliche Kosten
+RedirectMatch 301 ^/digitale-stechuhr-ohne-monatliche-kosten/?$ /ressourcen/blog/zeiterfassung-ohne-monatliche-kosten
+
+# =============================================================================
+# SECTION 8: RECHTLICHE SEITEN
+# =============================================================================
+
+# AGB (alte lange URL)
+RedirectMatch 301 ^/agb-gunstige-zeiterfassung-fur-kleinbetriebe/?$ /agb
+
+# Cookie-Policy -> Datenschutz
+RedirectMatch 301 ^/cookie-policy-eu/?$ /datenschutz
+
+# Fragebogen -> Kontakt
+RedirectMatch 301 ^/fragebogen-zeiterfassung-zfdm/?$ /kontakt
+
+# Privacy Policy Varianten
+RedirectMatch 301 ^/privacy-policy/?$ /datenschutz
+RedirectMatch 301 ^/privacy-policy-2/?$ /datenschutz
+
+# =============================================================================
+# SECTION 9: SONSTIGE SEITEN
+# =============================================================================
+
+# Pop-up Seite
+RedirectMatch 301 ^/pop-up/?$ /
+
+# Step-by-Step Anleitungen (DE-URLs mit EN-Inhalt)
+RedirectMatch 301 ^/step-by-step-instruction-with-chip/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/step-by-step-instruction-with-fingerprint/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/step-by-step-instruction-with-facial-recognition/?$ /ressourcen/videoanleitungen
+
+# =============================================================================
+# SECTION 10: ENGLISCHE /in/ SEITEN
+# Englischer Bereich wird komplett auf deutsche Seiten umgeleitet
+# =============================================================================
+
+# EN Homepage
+RedirectMatch 301 ^/in/?$ /
+RedirectMatch 301 ^/in/home-2/?$ /
+
+# EN About
+RedirectMatch 301 ^/in/about-us/?$ /ueber-uns
+
+# EN Produkte
+RedirectMatch 301 ^/in/time-recording-with-fingerprint/?$ /zeiterfassungssysteme/fingerabdruck
+RedirectMatch 301 ^/in/time-recording-system-with-facial-recognition/?$ /zeiterfassungssysteme/gesichtserkennung
+
+# EN Preise
+RedirectMatch 301 ^/in/prices-2/?$ /preise
+RedirectMatch 301 ^/in/prices-for-time-recording-systems-with-chip/?$ /preise
+RedirectMatch 301 ^/in/prices-for-fingerprint-time-recording-systems-2/?$ /preise
+RedirectMatch 301 ^/in/prices-for-time-tracking-with-facial-recognition/?$ /preise
+
+# EN Referenzen
+RedirectMatch 301 ^/in/references-2/?$ /branchen
+
+# EN Kontakt
+RedirectMatch 301 ^/in/contact-us/?$ /kontakt
+RedirectMatch 301 ^/in/questionnaire/?$ /kontakt
+
+# EN Legal
+RedirectMatch 301 ^/in/data-protection/?$ /datenschutz
+RedirectMatch 301 ^/in/imprint/?$ /impressum
+RedirectMatch 301 ^/in/terms-and-conditions/?$ /agb
+
+# EN Blog
+RedirectMatch 301 ^/in/blog-2/?$ /ressourcen/blog
+RedirectMatch 301 ^/in/blog-2/page/[0-9]+/?$ /ressourcen/blog
+
+# EN Video-Anleitungen
+RedirectMatch 301 ^/in/video-tutorial/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/in/step-by-step-instruction-with-chip/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/in/step-by-step-instruction-with-fingerprint/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/in/step-by-step-instruction-with-facial-recognition/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/in/step-by-step-instructions-with-fingerprint/?$ /ressourcen/videoanleitungen
+RedirectMatch 301 ^/in/step-by-step-instructions-with-facial-recognition/?$ /ressourcen/videoanleitungen
+
+# EN Branchen
+RedirectMatch 301 ^/in/time-recording-for-small-businesses/?$ /branchen/kleinbetriebe
+RedirectMatch 301 ^/in/time-recording-in-kindergarten/?$ /branchen/kindergarten
+
+# =============================================================================
+# SECTION 11: ENGLISCHE ARTIKEL (ohne /in/ Prefix)
+# =============================================================================
+
+RedirectMatch 301 ^/affordable-simple-and-web-based-time-recording-for-medium-sized-businesses/?$ /branchen/mittelstand
+RedirectMatch 301 ^/do-you-already-use-a-time-recording-system-in-your-small-business/?$ /branchen/kleinbetriebe
+RedirectMatch 301 ^/employee-time-recording-for-your-company/?$ /
+RedirectMatch 301 ^/employee-time-recording-system-with-no-monthly-costs/?$ /zeiterfassungssysteme
+RedirectMatch 301 ^/employee-time-tracking-the-key-to-business-success/?$ /
+RedirectMatch 301 ^/employee-time-tracking-without-monthly-costs/?$ /zeiterfassungssysteme
+RedirectMatch 301 ^/how-much-does-a-time-recording-system-cost-for-small-businesses/?$ /preise
+RedirectMatch 301 ^/is-time-recording-now-mandatory-for-small-businesses/?$ /ressourcen/blog/zeiterfassung-pflicht-2025
+RedirectMatch 301 ^/mobile-and-affordable-employee-time-recording-with-wi-fi/?$ /ressourcen/blog/mobile-zeiterfassung-guide
+RedirectMatch 301 ^/time-recording-system-guide-working-time-recording-for-small-and-medium-sized-businesses/?$ /ressourcen/blog
+RedirectMatch 301 ^/time-recording-with-excel-or-digital-time-recording/?$ /ressourcen/blog/excel-vs-digitale-zeiterfassung
+RedirectMatch 301 ^/ms-bernatz-accounting-and-controlling/?$ /branchen
+
+# =============================================================================
+# SECTION 12: TRAILING SLASH NORMALISIERUNG
+# Astro-Seiten haben KEINE trailing slashes
+# =============================================================================
+
+# Entferne trailing slash von allen URLs (ausser Root)
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [R=301,L]
+
+# =============================================================================
+# SECTION 13: HTTPS ERZWINGEN
+# =============================================================================
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# =============================================================================
+# SECTION 14: WWW ERZWINGEN (oder entfernen - je nach Praeferenz)
+# =============================================================================
+
+# Option A: www erzwingen (aktuell aktiv)
+RewriteCond %{HTTP_HOST} ^zeiterfassung-fdm\.de [NC]
+RewriteRule ^(.*)$ https://www.zeiterfassung-fdm.de/$1 [L,R=301]
+
+# Option B: www entfernen (auskommentiert)
+# RewriteCond %{HTTP_HOST} ^www\.zeiterfassung-fdm\.de [NC]
+# RewriteRule ^(.*)$ https://zeiterfassung-fdm.de/$1 [L,R=301]
+
+# =============================================================================
+# HINWEISE ZUR IMPLEMENTIERUNG
+# =============================================================================
+#
+# 1. VOR dem Relaunch:
+#    - Diese Datei als .htaccess im Root-Verzeichnis speichern
+#    - Backup der alten .htaccess erstellen
+#    - Testen mit: curl -I https://www.zeiterfassung-fdm.de/zeiterfassungssystem-mit-chip/
+#
+# 2. NACH dem Relaunch:
+#    - Google Search Console: URL-Pruefung fuer kritische URLs
+#    - Sitemap neu einreichen
+#    - Indexierung beantragen fuer neue URLs
+#
+# 3. BLOG-POSTS:
+#    Alle Redirects zeigen auf existierende Blog-Slugs:
+#    - zeiterfassung-ohne-monatliche-kosten  (VORHANDEN - SEO-kritisch!)
+#    - excel-vs-digitale-zeiterfassung       (VORHANDEN)
+#    - vorteile-digitale-zeiterfassung       (VORHANDEN)
+#    - zeiterfassung-pflicht-2025            (VORHANDEN)
+#    - kosten-digitale-zeiterfassung         (VORHANDEN)
+#    - elektronische-zeiterfassung           (VORHANDEN)
+#    - mobile-zeiterfassung-guide            (VORHANDEN)
+#
+# 4. MONITORING:
+#    - GSC woechentlich auf 404-Fehler pruefen
+#    - Ranking-Tracking fuer kritische Keywords einrichten
+#
+# =============================================================================

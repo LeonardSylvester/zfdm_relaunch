@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Digitale Mitarbeiter Zeiterfassung - Zeiterfassungssysteme günstig und webbasiert"
 meta_title: "Digitale Zeiterfassung günstig ohne Abo | ZfdM Zeiterfassungssysteme"
 description: "Digitale Zeiterfassung kinderleicht für jedes Unternehmen: ohne Schnickschnack Zeit sparen und Stress reduzieren. Keine monatlichen Kosten und ohne jährliche Service-Gebühren. Über 2000 Unternehmen vertrauen uns bereits."
@@ -9,7 +10,7 @@ hero:
   button:
     - enable: true
       label: "14 Tage kostenlos testen"
-      link: "/contact"
+      link: "/kontakt"
     - enable: true
       label: "Video-Anleitung anschauen"
       link: "/videos-zeiterfassung-fur-kleine-unternehmen"
@@ -155,7 +156,7 @@ plan:
       button:
         enable: true
         label: "Start Free Trial"
-        link: "/contact"
+        link: "/kontakt"
     - title: "Pro Plan"
       description: "Perfect for trying out the core features"
       price_prefix: "$"
@@ -173,5 +174,5 @@ plan:
       button:
         enable: true
         label: "Start Free Trial"
-        link: "/contact"
+        link: "/kontakt"
 ---

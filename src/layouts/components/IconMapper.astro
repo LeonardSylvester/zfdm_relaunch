@@ -9,25 +9,32 @@ interface Props {
   ariaHidden?: boolean;
 }
 
-const { icon, className = "", size = "1em", ariaLabel, ariaHidden = false } = Astro.props;
+const {
+  icon,
+  className = "",
+  size = "1em",
+  ariaLabel,
+  ariaHidden = false,
+} = Astro.props;
 
 // Zentrale Mapping-Logik: Emoji/Text → react-icons
 const iconMap: Record<string, string> = {
   // System identifiers (Zeiterfassungssysteme)
-  "chip": "FaCreditCard",
+  chip: "FaCreditCard",
   "💳": "FaCreditCard",
-  "fingerprint": "FaFingerprint",
+  fingerprint: "FaFingerprint",
   "👆": "FaFingerprint",
-  "face": "FaUserCircle",
-  "👤": "FaUserCircle",
+  face: "FaCircleUser",
+  "👤": "FaCircleUser",
 
   // Security & Trust
+  lock: "FaLock",
   "🔒": "FaLock",
   "🇩🇪": "FaFlag",
-  "shield": "FaShield",
-  "clock": "FaClock",
-  "flag": "FaFlag",
-  "ban": "FaBan",
+  shield: "FaShield",
+  clock: "FaClock",
+  flag: "FaFlag",
+  ban: "FaBan",
 
   // Speed & Performance
   "⚡": "FaBolt",
@@ -58,7 +65,7 @@ const iconMap: Record<string, string> = {
   "❓": "FaCircleQuestion",
   "📦": "FaBox",
   "❌": "FaXmark",
-  "ℹ️": "FaCircleInfo",
+  ℹ️: "FaCircleInfo",
   "⭐": "FaStar",
   "❤️": "FaHeart",
 
@@ -85,7 +92,7 @@ const iconMap: Record<string, string> = {
 
 // Special mappings for icon name variations
 const iconNameMap: Record<string, string> = {
-  "FaShieldCheck": "FaShield", // Map FaShieldCheck to FaShield if it doesn't exist
+  FaShieldCheck: "FaShield", // Map FaShieldCheck to FaShield if it doesn't exist
 };
 
 // Check if icon is already a React Icon name (starts with "Fa")
@@ -94,7 +101,7 @@ let reactIcon: string;
 if (icon.startsWith("Fa")) {
   reactIcon = iconNameMap[icon] || icon;
 } else {
-  reactIcon = iconMap[icon] || "FaCircleQuestion";
+  reactIcon = iconMap[icon] || "FaCircleInfo";
 }
 
 // Accessibility props

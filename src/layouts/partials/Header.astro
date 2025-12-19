@@ -32,33 +32,8 @@ const { customHeader } = Astro.props;
       <Logo {customHeader} />
     </div>
 
-    <!-- navbar toggler -->
+    <!-- navbar toggler checkbox -->
     <input id="nav-toggle" type="checkbox" class="hidden" />
-    <label
-      for="nav-toggle"
-      class="order-3 cursor-pointer flex items-center lg:hidden lg:order-1 relative"
-    >
-      <svg
-        id="show-button"
-        class="h-6 fill-current absolute right-0 transition-opacity duration-300 ease-in-out"
-        viewBox="0 0 20 20"
-      >
-        <title>Menu Open</title>
-        <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
-      </svg>
-      <svg
-        id="hide-button"
-        class="h-6 fill-current absolute right-0 opacity-0 transition-opacity duration-300 ease-in-out"
-        viewBox="0 0 20 20"
-      >
-        <title>Menu Close</title>
-        <polygon
-          points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
-          transform="rotate(45 10 10)"></polygon>
-      </svg>
-    </label>
-
-    <!-- /navbar toggler -->
 
     <ul id="nav-menu" class="navbar-nav">
       {
@@ -77,66 +52,66 @@ const { customHeader } = Astro.props;
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
                 </span>
-                <ul class={`nav-dropdown-list ${menu.name === "Branchen" ? "nav-dropdown-list-branchen" : ""}`}>
-                  {menu.name === "Branchen" ? (
-                    (() => {
-                      const groups: any[] = [];
-                      let currentGroup: any = null;
+                <ul
+                  class={`nav-dropdown-list ${menu.name === "Branchen" ? "nav-dropdown-list-branchen" : ""}`}
+                >
+                  {menu.name === "Branchen"
+                    ? (() => {
+                        const groups: any[] = [];
+                        let currentGroup: any = null;
 
-                      menu.children?.forEach((child: any) => {
-                        if (child.isLabel) {
-                          if (currentGroup) groups.push(currentGroup);
-                          currentGroup = { label: child.name, items: [] };
-                        } else if (currentGroup) {
-                          currentGroup.items.push(child);
-                        }
-                      });
-                      if (currentGroup) groups.push(currentGroup);
+                        menu.children?.forEach((child: any) => {
+                          if (child.isLabel) {
+                            if (currentGroup) groups.push(currentGroup);
+                            currentGroup = { label: child.name, items: [] };
+                          } else if (currentGroup) {
+                            currentGroup.items.push(child);
+                          }
+                        });
+                        if (currentGroup) groups.push(currentGroup);
 
-                      return groups.map((group) => (
-                        <div class="nav-dropdown-category">
-                          <span class="nav-dropdown-label block px-4 mb-2 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
-                            {group.label}
-                          </span>
-                          {group.items.map((item: any) => (
+                        return groups.map((group) => (
+                          <div class="nav-dropdown-category">
+                            <span class="nav-dropdown-label block px-4 mb-2 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
+                              {group.label}
+                            </span>
+                            {group.items.map((item: any) => (
+                              <a
+                                href={item.url}
+                                aria-label={item.name}
+                                class={`nav-dropdown-link block ${
+                                  (pathname === `${item.url}/` ||
+                                    pathname === item.url) &&
+                                  "active"
+                                }`}
+                              >
+                                {item.name}
+                              </a>
+                            ))}
+                          </div>
+                        ));
+                      })()
+                    : menu.children?.map((child: any) => (
+                        <li class="nav-dropdown-item">
+                          {child.isLabel ? (
+                            <span class="nav-dropdown-label block px-4 mt-3 mb-1 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
+                              {child.name}
+                            </span>
+                          ) : (
                             <a
-                              href={item.url}
-                              aria-label={item.name}
+                              href={child.url}
+                              aria-label={child.name}
                               class={`nav-dropdown-link block ${
-                                (pathname === `${item.url}/` ||
-                                  pathname === item.url) &&
+                                (pathname === `${child.url}/` ||
+                                  pathname === child.url) &&
                                 "active"
                               }`}
                             >
-                              {item.name}
+                              {child.name}
                             </a>
-                          ))}
-                        </div>
-                      ));
-                    })()
-                  ) : (
-                    menu.children?.map((child: any) => (
-                      <li class="nav-dropdown-item">
-                        {child.isLabel ? (
-                          <span class="nav-dropdown-label block px-4 mt-3 mb-1 text-xs uppercase font-semibold text-dark/50 dark:text-white/50 pointer-events-none">
-                            {child.name}
-                          </span>
-                        ) : (
-                          <a
-                            href={child.url}
-                            aria-label={child.name}
-                            class={`nav-dropdown-link block ${
-                              (pathname === `${child.url}/` ||
-                                pathname === child.url) &&
-                              "active"
-                            }`}
-                          >
-                            {child.name}
-                          </a>
-                        )}
-                      </li>
-                    ))
-                  )}
+                          )}
+                        </li>
+                      ))}
                 </ul>
               </li>
             ) : (
@@ -160,18 +135,9 @@ const { customHeader } = Astro.props;
         <Button
           className="btn-sm w-full mb-2"
           style="outline"
-          link="/contact"
+          link="/kontakt"
           label="Beratung buchen"
           icon="FaCalendarDays"
-        />
-      </li>
-      <li class="inline-block lg:hidden">
-        <Button
-          className="btn-sm w-full"
-          style="primary"
-          link="/preise"
-          label="Jetzt kaufen"
-          icon="FaCartShopping"
         />
       </li>
     </ul>
@@ -181,17 +147,24 @@ const { customHeader } = Astro.props;
       <Button
         className="hidden lg:inline-flex"
         style="outline"
-        link="/contact"
+        link="/kontakt"
         label="Beratung buchen"
         icon="FaCalendarDays"
       />
-      <Button
-        className="hidden lg:inline-flex"
-        style="primary"
-        link="/preise"
-        label="Jetzt kaufen"
-        icon="FaCartShopping"
-      />
+      <!-- navbar toggler (mobile) -->
+      <label
+        for="nav-toggle"
+        class="cursor-pointer flex items-center lg:hidden w-6 h-6"
+      >
+        <svg
+          id="show-button"
+          class="h-6 fill-current"
+          viewBox="0 0 20 20"
+        >
+          <title>Menu Open</title>
+          <path d="M0 3h20v2H0V3z m0 6h20v2H0V9z m0 6h20v2H0V0z"></path>
+        </svg>
+      </label>
     </div>
   </nav>
 </header>
@@ -199,7 +172,7 @@ const { customHeader } = Astro.props;
 <script>
   function setupMobileDropdowns() {
     const dropdownButtons = document.querySelectorAll(
-      ".nav-dropdown .nav-link"
+      ".nav-dropdown .nav-link",
     );
 
     dropdownButtons.forEach((button) => {
@@ -236,7 +209,7 @@ const { customHeader } = Astro.props;
 
       const target = e.target as HTMLElement;
       if (!target.closest(".nav-dropdown")) {
-        dropdownButtons.forEach(  (button) => {
+        dropdownButtons.forEach((button) => {
           const dropdown =
             button.parentElement?.querySelector(".nav-dropdown-list");
           const arrow = button.querySelector("svg");

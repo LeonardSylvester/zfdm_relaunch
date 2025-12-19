@@ -1,6 +1,5 @@
 {
   "main": [
-
     {
       "name": "Zeiterfassungssysteme",
       "url": "/zeiterfassungssysteme",
@@ -8,15 +7,15 @@
       "children": [
         {
           "name": "Chip-Zeiterfassung",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-chip"
+          "url": "/zeiterfassungssysteme/chip"
         },
         {
           "name": "Fingerabdruck",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck"
+          "url": "/zeiterfassungssysteme/fingerabdruck"
         },
         {
           "name": "Gesichtserkennung",
-          "url": "/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung"
+          "url": "/zeiterfassungssysteme/gesichtserkennung"
         }
       ]
     },
@@ -145,6 +144,10 @@
         {
           "name": "Preise",
           "url": "/preise"
+        },
+        {
+          "name": "Blog",
+          "url": "/ressourcen/blog"
         }
       ]
     },
@@ -152,16 +155,16 @@
       "name": "SUPPORT",
       "menu": [
         {
-          "name": "FAQs",
-          "url": "/ressourcen/faqs"
+          "name": "Service",
+          "url": "/service"
         },
         {
           "name": "Videoanleitungen",
           "url": "/ressourcen/videoanleitungen"
         },
         {
-          "name": "Blog",
-          "url": "/ressourcen/blog"
+          "name": "FAQs",
+          "url": "/ressourcen/faqs"
         },
         {
           "name": "Kostenrechner",

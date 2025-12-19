@@ -9,7 +9,6 @@ import FaqAccordion from "@/partials/FaqAccordion.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import TestimonialSlider from "@/partials/TestimonialSlider.astro";
 
-
 const pricingIndex = await getListPage("pricing", "-index");
 if (pricingIndex.data.draft) {
   return Astro.redirect("/404");
@@ -30,12 +29,17 @@ const {
 <Base title={title} meta_title={meta_title} description={description}>
   <PageHeader title={hero.title} content={hero.content} />
 
-  <Plan pricing_tab={pricing_tab} pricing_card={pricing_card} pricing_products={pricing_products} />
+  <Plan
+    pricing_tab={pricing_tab}
+    pricing_card={pricing_card}
+    pricing_products={pricing_products}
+  />
 
-  <Compare compare={compare} />
+  {/* <Compare compare={compare} /> */}
 
   <TestimonialSlider />
-
+  {
+    /*
   <section class="section pb-0">
     <div class="container">
       <div class="row justify-center">
@@ -59,11 +63,12 @@ const {
         </div>
 
         <div class="col-12 lg:col-6">
-          <FaqAccordion />
+           <FaqAccordion />
         </div>
       </div>
     </div>
-  </section>
+  </section> */
+  }
 
   <CallToAction />
 </Base>

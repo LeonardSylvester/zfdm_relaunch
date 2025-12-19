@@ -2,17 +2,121 @@
 import { markdownify } from "@/lib/utils/textConverter";
 import Button from "@/shortcodes/Button";
 import { Icon } from "astro-icon/components";
+import IconMapper from "@/components/IconMapper.astro";
 
 const { pricing_card, pricing_tab, pricing_products } = Astro.props;
 
 // Get the current product type (default to first tab - Chip)
 const currentProduct = pricing_products?.chip || null;
 const productKeys = Object.keys(pricing_products || {});
+
+// System-spezifische Daten fuer Preview Card (ohne Preise)
+const systemPreviewData: Record<string, {
+  badge: string;
+  color: string;
+  bgColor: string;
+  textColor: string;
+  title: string;
+  shortDescription: string;
+  icon: string;
+  image: string;
+}> = {
+  chip: {
+    badge: "Preis-Leistungs-Sieger",
+    color: "from-emerald-500 to-teal-600",
+    bgColor: "bg-emerald-50",
+    textColor: "text-emerald-600",
+    title: "RFID Chip Zeiterfassung",
+    shortDescription: "Schnell, hygienisch und kontaktlos. Jeder Mitarbeiter erhaelt einen persoenlichen Chip.",
+    icon: "chip",
+    image: "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp"
+  },
+  fingerabdruck: {
+    badge: "Sicherheits-Sieger",
+    color: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-600",
+    title: "Fingerabdruck Zeiterfassung",
+    shortDescription: "Biometrische Zeiterfassung mit hoechster Sicherheit und Manipulationssicherheit.",
+    icon: "fingerprint",
+    image: "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
+  },
+  gesichtserkennung: {
+    badge: "Hygiene-Sieger",
+    color: "from-purple-500 to-pink-600",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-600",
+    title: "Gesichtserkennung Zeiterfassung",
+    shortDescription: "KI-basierte Zeiterfassung - beruehrungslos, schnell und benutzerfreundlich.",
+    icon: "face",
+    image: "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
+  }
+};
+
+// Default to chip
+const defaultPreview = systemPreviewData.chip;
 ---
 
 <section class="section pt-0 -mt-12 lg:-mt-24">
   <div class="container">
     <div class="row g-4 justify-center">
+      {/* Product Preview Card */}
+      <div class="col-12 mb-4" data-aos="fade-up-sm">
+        <div id="product-preview-card" class="max-w-sm mx-auto rounded-2xl overflow-hidden bg-body shadow-lg">
+          {/* Badge */}
+          <div class="relative">
+            <span id="preview-badge" class={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${defaultPreview.color} z-10`}>
+              {defaultPreview.badge}
+            </span>
+            {/* Product Image Area - alle 3 Bilder gerendert, nur aktives sichtbar */}
+            <div id="preview-bg" class={`${defaultPreview.bgColor} p-4 flex items-center justify-center`}>
+              <img
+                id="preview-image-chip"
+                class="preview-image h-[140px] w-auto object-contain"
+                data-product="chip"
+                src="/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp"
+                alt="RFID Chip Zeiterfassung"
+              />
+              <img
+                id="preview-image-fingerabdruck"
+                class="preview-image hidden h-[140px] w-auto object-contain"
+                data-product="fingerabdruck"
+                src="/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
+                alt="Fingerabdruck Zeiterfassung"
+              />
+              <img
+                id="preview-image-gesichtserkennung"
+                class="preview-image hidden h-[140px] w-auto object-contain"
+                data-product="gesichtserkennung"
+                src="/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp"
+                alt="Gesichtserkennung Zeiterfassung"
+              />
+            </div>
+          </div>
+
+          {/* Header ohne Preis und ohne Button */}
+          <div class="p-4">
+            <div class="flex items-center gap-3 mb-2">
+              <div id="preview-icon-badge" class={`w-10 h-10 rounded-xl ${defaultPreview.bgColor} flex items-center justify-center`}>
+                <div id="preview-badge-icon-chip" class="preview-badge-icon" data-product="chip">
+                  <IconMapper icon="chip" size="1.25rem" className="text-emerald-600" ariaHidden={true} />
+                </div>
+                <div id="preview-badge-icon-fingerabdruck" class="preview-badge-icon hidden" data-product="fingerabdruck">
+                  <IconMapper icon="fingerprint" size="1.25rem" className="text-blue-600" ariaHidden={true} />
+                </div>
+                <div id="preview-badge-icon-gesichtserkennung" class="preview-badge-icon hidden" data-product="gesichtserkennung">
+                  <IconMapper icon="face" size="1.25rem" className="text-purple-600" ariaHidden={true} />
+                </div>
+              </div>
+              <h3 id="preview-title" class="h5 mb-0">{defaultPreview.title}</h3>
+            </div>
+            <p id="preview-description" class="text-sm text-text-dark">
+              {defaultPreview.shortDescription}
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Product Type Tabs */}
       <div class="col-12 pb-10" data-aos="fade-up-sm">
         <div class="flex flex-wrap items-center justify-center gap-3">
@@ -95,10 +199,19 @@ const productKeys = Object.keys(pricing_products || {});
                           isPopular ? "text-light" : "text-text-dark"
                         }`}
                       >
-                        {plan.price} €
+                        ab {plan.price} €
                       </p>
+                      {plan.discount_price && (
+                        <p
+                          class={`text-sm font-medium ${
+                            isPopular ? "text-tertiary" : "text-secondary"
+                          }`}
+                        >
+                          Sofort bestellen und 10% sparen: {plan.discount_price} €
+                        </p>
+                      )}
                       <p
-                        class={`text-sm ${
+                        class={`text-sm mt-1 ${
                           isPopular ? "text-light/70" : "text-text-dark/70"
                         }`}
                       >
@@ -185,17 +298,50 @@ const productKeys = Object.keys(pricing_products || {});
                       </div>
                     );
                   }
+
+                  {/* Special styling for "Sofort bestellen" with discount info */}
+                  if (btn.style === "light" && plan.discount_price) {
+                    const savings = Number(plan.price) - Number(plan.discount_price);
+                    return (
+                      <a
+                        href={btn.link}
+                        class={`block w-full text-center rounded-lg border-2 transition-all ${
+                          isPopular
+                            ? "bg-light border-light hover:bg-light/90"
+                            : "bg-white border-border hover:bg-tertiary"
+                        }`}
+                      >
+                        <div class="py-3 px-4">
+                          <span class={`font-semibold ${isPopular ? "text-text-dark" : "text-text-dark"}`}>
+                            {btn.label}
+                          </span>
+                          <div class={`text-xs mt-1 font-medium ${isPopular ? "text-secondary" : "text-secondary"}`}>
+                            10% Rabatt - Sie sparen {savings} €
+                          </div>
+                        </div>
+                      </a>
+                    );
+                  }
+
                   return (
                     <a
                       href={btn.link}
                       class={`btn w-full text-center ${
-                        btn.style === "primary"
+                        btn.style === "light"
                           ? isPopular
-                            ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
-                            : "btn-primary"
-                          : isPopular
-                            ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
-                            : "btn-secondary"
+                            ? "bg-light text-text-dark hover:bg-light/90 border border-light"
+                            : "bg-white text-text-dark hover:bg-tertiary border border-border"
+                          : btn.style === "primary"
+                            ? isPopular
+                              ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
+                              : "btn-primary"
+                            : btn.style === "secondary"
+                              ? isPopular
+                                ? "bg-secondary text-white hover:bg-secondary/90"
+                                : "btn-secondary"
+                              : isPopular
+                                ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
+                                : "btn-secondary"
                       }`}
                     >
                       {btn.label}
@@ -233,6 +379,95 @@ const productKeys = Object.keys(pricing_products || {});
 
     const tabButtons = document.querySelectorAll(".product-tab-btn");
     const pricingCards = document.querySelectorAll(".pricing-card-wrapper");
+
+    // System-spezifische Daten fuer Preview Card
+    const systemPreviewData: Record<string, {
+      badge: string;
+      color: string;
+      bgColor: string;
+      textColor: string;
+      title: string;
+      shortDescription: string;
+      link: string;
+    }> = {
+      chip: {
+        badge: "Preis-Leistungs-Sieger",
+        color: "from-emerald-500 to-teal-600",
+        bgColor: "bg-emerald-50",
+        textColor: "text-emerald-600",
+        title: "RFID Chip Zeiterfassung",
+        shortDescription: "Schnell, hygienisch und kontaktlos. Jeder Mitarbeiter erhaelt einen persoenlichen Chip.",
+        link: "/zeiterfassungssysteme/chip"
+      },
+      fingerabdruck: {
+        badge: "Sicherheits-Sieger",
+        color: "from-blue-500 to-indigo-600",
+        bgColor: "bg-blue-50",
+        textColor: "text-blue-600",
+        title: "Fingerabdruck Zeiterfassung",
+        shortDescription: "Biometrische Zeiterfassung mit hoechster Sicherheit und Manipulationssicherheit.",
+        link: "/zeiterfassungssysteme/fingerabdruck"
+      },
+      gesichtserkennung: {
+        badge: "Hygiene-Sieger",
+        color: "from-purple-500 to-pink-600",
+        bgColor: "bg-purple-50",
+        textColor: "text-purple-600",
+        title: "Gesichtserkennung Zeiterfassung",
+        shortDescription: "KI-basierte Zeiterfassung - beruehrungslos, schnell und benutzerfreundlich.",
+        link: "/zeiterfassungssysteme/gesichtserkennung"
+      }
+    };
+
+    function updatePreviewCard(productType: string) {
+      const data = systemPreviewData[productType];
+      if (!data) return;
+
+      // Badge aktualisieren
+      const badge = document.getElementById("preview-badge");
+      if (badge) {
+        badge.textContent = data.badge;
+        badge.className = `absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${data.color} z-10`;
+      }
+
+      // Hintergrund aktualisieren
+      const bg = document.getElementById("preview-bg");
+      if (bg) bg.className = `${data.bgColor} p-4 flex items-center justify-center`;
+
+      // Bilder ein-/ausblenden
+      const previewImages = document.querySelectorAll(".preview-image");
+      previewImages.forEach((img) => {
+        const imgProduct = img.getAttribute("data-product");
+        if (imgProduct === productType) {
+          img.classList.remove("hidden");
+        } else {
+          img.classList.add("hidden");
+        }
+      });
+
+      // Icons ein-/ausblenden (kleines Badge-Icon)
+      const badgeIcons = document.querySelectorAll(".preview-badge-icon");
+      badgeIcons.forEach((icon) => {
+        const iconProduct = icon.getAttribute("data-product");
+        if (iconProduct === productType) {
+          icon.classList.remove("hidden");
+        } else {
+          icon.classList.add("hidden");
+        }
+      });
+
+      // Titel aktualisieren
+      const title = document.getElementById("preview-title");
+      if (title) title.textContent = data.title;
+
+      // Beschreibung aktualisieren
+      const desc = document.getElementById("preview-description");
+      if (desc) desc.textContent = data.shortDescription;
+
+      // Icon-Badge Hintergrund aktualisieren
+      const iconBadge = document.getElementById("preview-icon-badge");
+      if (iconBadge) iconBadge.className = `w-10 h-10 rounded-xl ${data.bgColor} flex items-center justify-center`;
+    }
 
     function updatePricingCards(productType: string) {
       // Try different possible key formats
@@ -322,14 +557,24 @@ const productKeys = Object.keys(pricing_products || {});
           const priceContainer = card.querySelector(".mt-4");
           if (priceContainer) {
             if (plan.price) {
-              priceContainer.innerHTML = `
+              let priceHTML = `
                 <p class="text-[2.5rem] font-semibold mb-1 ${
                   isPopular ? "text-light" : "text-text-dark"
-                }">${plan.price} €</p>
-                <p class="text-sm ${
+                }">ab ${plan.price} €</p>
+              `;
+              if (plan.discount_price) {
+                priceHTML += `
+                  <p class="text-sm font-medium ${
+                    isPopular ? "text-tertiary" : "text-secondary"
+                  }">Sofort bestellen und 10% sparen: ${plan.discount_price} €</p>
+                `;
+              }
+              priceHTML += `
+                <p class="text-sm mt-1 ${
                   isPopular ? "text-light/70" : "text-text-dark/70"
                 }">${plan.price_note}</p>
               `;
+              priceContainer.innerHTML = priceHTML;
             } else {
               priceContainer.innerHTML = `
                 <p class="text-xl font-semibold mb-1 ${
@@ -383,16 +628,45 @@ const productKeys = Object.keys(pricing_products || {});
                     }">${btn.label}</div>
                   `;
                 }
+
+                // Special styling for "Sofort bestellen" with discount info
+                if (btn.style === "light" && plan.discount_price) {
+                  const savings = Number(plan.price) - Number(plan.discount_price);
+                  return `
+                    <a href="${btn.link}" class="block w-full text-center rounded-lg border-2 transition-all ${
+                      isPopular
+                        ? "bg-light border-light hover:bg-light/90"
+                        : "bg-white border-border hover:bg-tertiary"
+                    }">
+                      <div class="py-3 px-4">
+                        <span class="font-semibold text-text-dark">${btn.label}</span>
+                        <div class="text-xs mt-1 font-medium text-secondary">10% Rabatt - Sie sparen ${savings} €</div>
+                      </div>
+                    </a>
+                  `;
+                }
+
+                let btnClass = "";
+                if (btn.style === "light") {
+                  btnClass = isPopular
+                    ? "bg-light text-text-dark hover:bg-light/90 border border-light"
+                    : "bg-white text-text-dark hover:bg-tertiary border border-border";
+                } else if (btn.style === "primary") {
+                  btnClass = isPopular
+                    ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
+                    : "btn-primary";
+                } else if (btn.style === "secondary") {
+                  btnClass = isPopular
+                    ? "bg-secondary text-white hover:bg-secondary/90"
+                    : "btn-secondary";
+                } else {
+                  btnClass = isPopular
+                    ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
+                    : "btn-secondary";
+                }
+
                 return `
-                  <a href="${btn.link}" class="btn w-full text-center ${
-                    btn.style === "primary"
-                      ? isPopular
-                        ? "bg-tertiary text-text-dark hover:bg-tertiary/90"
-                        : "btn-primary"
-                      : isPopular
-                        ? "bg-light/20 text-light hover:bg-light/30 border-light/30"
-                        : "btn-secondary"
-                  }">${btn.label}</a>
+                  <a href="${btn.link}" class="btn w-full text-center ${btnClass}">${btn.label}</a>
                 `;
               })
               .join("");
@@ -487,9 +761,12 @@ const productKeys = Object.keys(pricing_products || {});
         // Update pricing cards
         console.log("Calling updatePricingCards with:", productType);
         updatePricingCards(productType);
+
+        // Update preview card
+        updatePreviewCard(productType);
       });
     });
-    
+
     // Initialize with first tab on page load
     if (tabButtons.length > 0) {
       const firstButton = tabButtons[0];
@@ -497,6 +774,7 @@ const productKeys = Object.keys(pricing_products || {});
       console.log("Initializing with product type:", firstProductType);
       if (firstProductType) {
         updatePricingCards(firstProductType);
+        updatePreviewCard(firstProductType);
       }
     }
   });

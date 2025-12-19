@@ -1,0 +1,378 @@
+---
+import Base from "@/layouts/Base.astro";
+import { getListPage } from "@/lib/contentParser.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import ImageMod from "@/components/ImageMod.astro";
+import IconMapper from "@/components/IconMapper.astro";
+import Button from "@/shortcodes/Button";
+import { render } from "astro:content";
+
+// Get the index page content
+const systemeIndex = await getListPage("systeme", "-index");
+const { Content } = systemeIndex ? await render(systemeIndex) : { Content: null };
+
+// System comparison data - enriched with product images and descriptions
+const systems = [
+  {
+    id: "chip",
+    name: "RFID-Chip",
+    icon: "chip",
+    color: "from-emerald-500 to-teal-600",
+    bgColor: "bg-emerald-50",
+    textColor: "text-emerald-600",
+    borderColor: "border-emerald-200",
+    badge: "Preis-Leistungs-Sieger",
+    price: "ab 579",
+    link: "/zeiterfassungssysteme/chip",
+    image: "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp",
+    shortDescription: "Schnell, hygienisch und kontaktlos. Jeder Mitarbeiter erhält einen persönlichen Chip.",
+    features: {
+      kosten: { label: "Niedrig", rating: 3, detail: "Günstigste Option" },
+      bedienung: { label: "Sehr einfach", rating: 3, detail: "Chip an Terminal halten" },
+      sicherheit: { label: "Hoch", rating: 2, detail: "Chipkarte erforderlich" },
+      hygiene: { label: "Mit Kontakt", rating: 1, detail: "Chip berührt Terminal" },
+    },
+    idealFor: ["Kleinbetriebe", "Handwerk", "Einzelhandel"],
+    highlights: ["Günstigste Option", "Einfache Bedienung", "Schnelle Einrichtung"],
+  },
+  {
+    id: "fingerabdruck",
+    name: "Fingerabdruck",
+    icon: "fingerprint",
+    color: "from-blue-500 to-indigo-600",
+    bgColor: "bg-blue-50",
+    textColor: "text-blue-600",
+    borderColor: "border-blue-200",
+    badge: "Sicherheits-Sieger",
+    price: "ab 659",
+    link: "/zeiterfassungssysteme/fingerabdruck",
+    image: "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp",
+    shortDescription: "Biometrische Zeiterfassung mit höchster Sicherheit und Manipulationssicherheit.",
+    features: {
+      kosten: { label: "Mittel", rating: 2, detail: "Mittleres Preissegment" },
+      bedienung: { label: "Einfach", rating: 2, detail: "Finger auflegen" },
+      sicherheit: { label: "Sehr hoch", rating: 3, detail: "Biometrisch, fälschungssicher" },
+      hygiene: { label: "Mit Kontakt", rating: 1, detail: "Finger berührt Sensor" },
+    },
+    idealFor: ["Mittelstand", "Sicherheitsbereiche", "Produktion"],
+    highlights: ["Biometrische Sicherheit", "Kein Chip verlierbar", "Manipulationssicher"],
+  },
+  {
+    id: "gesichtserkennung",
+    name: "Gesichtserkennung",
+    icon: "face",
+    color: "from-purple-500 to-pink-600",
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-600",
+    borderColor: "border-purple-200",
+    badge: "Hygiene-Sieger",
+    price: "ab 624",
+    link: "/zeiterfassungssysteme/gesichtserkennung",
+    image: "/images/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung/Zeiterfassung-ZFDM-mit-Gesichtserkennung.webp",
+    shortDescription: "KI-basierte Zeiterfassung - berührungslos, schnell und benutzerfreundlich.",
+    features: {
+      kosten: { label: "Höher", rating: 1, detail: "Premium-Segment" },
+      bedienung: { label: "Sehr einfach", rating: 3, detail: "Nur hinschauen" },
+      sicherheit: { label: "Sehr hoch", rating: 3, detail: "Biometrisch, berührungslos" },
+      hygiene: { label: "Kontaktlos", rating: 3, detail: "Keine Berührung nötig" },
+    },
+    idealFor: ["Gastronomie", "Gesundheitswesen", "Lebensmittel"],
+    highlights: ["100% kontaktlos", "Schnellste Erfassung", "Modernste Technologie"],
+  },
+];
+
+// Page metadata
+const title = systemeIndex?.data?.title || "Zeiterfassungssysteme im Vergleich 2025";
+const meta_title = systemeIndex?.data?.meta_title || "Zeiterfassungssysteme Vergleich: Chip vs. Fingerabdruck vs. Gesichtserkennung | ZFDM";
+const description = systemeIndex?.data?.description || "Welches Zeiterfassungssystem passt zu Ihrem Unternehmen? Vergleichen Sie RFID-Chip, Fingerabdruck und Gesichtserkennung - alle ohne monatliche Kosten.";
+const image = systemeIndex?.data?.image || "/images/home/zfdm-zeiterfassungssystem-terminal-mit-chip-und-software.webp";
+---
+
+<Base
+  title={title}
+  meta_title={meta_title}
+  description={description}
+  image={image}
+>
+  <!-- Hero Section with Grid Background -->
+  <section class="section pt-[76px] pb-0 relative overflow-hidden">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 sm:col-10 mb-8 text-center">
+          <p
+            class="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 w-fit mx-auto"
+            data-aos="fade-up-sm"
+          >
+            Vergleich 2025
+          </p>
+          <h1
+            class="hero-title max-md:[&>br]:hidden mb-5"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          >
+            Welches Zeiterfassungssystem <br />
+            <span class="text-primary">passt zu Ihrem Unternehmen?</span>
+          </h1>
+          <p
+            class="text-xl leading-9 text-text max-w-3xl mx-auto"
+            data-aos="fade-up-sm"
+            data-aos-delay="200"
+          >
+            Vergleichen Sie die drei beliebtesten Technologien zur Zeiterfassung -
+            alle ohne monatliche Kosten, DSGVO-konform und sofort einsatzbereit.
+          </p>
+        </div>
+
+        <div class="col-12 sm:col-10 lg:col-8 mb-8">
+          <div
+            class="flex flex-col lg:flex-row justify-center gap-4"
+            data-aos="fade-up-sm"
+            data-aos-delay="300"
+          >
+            <Button
+              label="Systeme vergleichen"
+              link="#vergleich"
+              style="primary"
+              className="w-fit max-lg:mx-auto"
+            />
+            <Button
+              label="Kostenlose Beratung"
+              link="/kontakt"
+              style="light"
+              icon="FaAngleRight"
+              className="w-fit max-lg:mx-auto"
+            />
+          </div>
+        </div>
+
+        <!-- Trust Indicators -->
+        <div class="col-12 sm:col-10 lg:col-8 mb-10">
+          <div
+            class="flex flex-wrap justify-center gap-6 text-sm text-text-dark"
+            data-aos="fade-up-sm"
+            data-aos-delay="400"
+          >
+            <div class="flex items-center gap-2">
+              <IconMapper icon="check" size="1rem" className="text-primary" ariaHidden={true} />
+              <span>Keine monatlichen Kosten</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <IconMapper icon="check" size="1rem" className="text-primary" ariaHidden={true} />
+              <span>DSGVO-konform</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <IconMapper icon="check" size="1rem" className="text-primary" ariaHidden={true} />
+              <span>Made in Germany</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- Grid Background -->
+    <div
+      class="absolute bottom-0 left-0 w-full h-full md:h-[115%] -z-10 bg-repeat bg-size-[1439px] bg-[url('/images/home/grid.svg')]"
+    />
+  </section>
+
+  <!-- System Cards Comparison - Combined Section with bg-tertiary -->
+  <section class="section bg-tertiary" id="vergleich">
+    <div class="container">
+      <div class="row justify-center mb-12">
+        <div class="col-12 lg:col-8 text-center">
+          <p
+            class="mb-4 text-sm"
+            data-aos="fade-up-sm"
+          >
+            Drei Technologien - ein Ziel: Rechtskonforme Zeiterfassung ohne Stress
+          </p>
+          <h2
+            class="lg:h1 mb-4"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          >
+            Zeiterfassungssysteme <span class="text-primary">im Vergleich</span>
+          </h2>
+          <p
+            class="text-text-dark text-lg max-w-2xl mx-auto"
+            data-aos="fade-up-sm"
+            data-aos-delay="200"
+          >
+            Alle drei Systeme nutzen dieselbe Software - Sie können später jederzeit erweitern oder wechseln.
+          </p>
+        </div>
+      </div>
+
+      <!-- System Cards with Product Images -->
+      <div class="row gy-6">
+        {systems.map((system, index) => (
+          <div
+            class="col-12 lg:col-4"
+            data-aos="fade-up-sm"
+            data-aos-delay={index * 100}
+          >
+            <div class="relative h-full rounded-3xl overflow-hidden bg-body shadow-lg hover:shadow-2xl transition-all duration-300">
+              <!-- Badge -->
+              <div class={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r ${system.color} z-10`}>
+                {system.badge}
+              </div>
+
+              <!-- Product Image -->
+              <div class={`${system.bgColor} p-6 flex items-center justify-center`}>
+                <ImageMod
+                  src={system.image}
+                  alt={system.name}
+                  width={200}
+                  height={200}
+                  format="webp"
+                  class="object-contain h-[180px] w-auto"
+                />
+              </div>
+
+              <!-- Header -->
+              <div class="p-6 pb-0">
+                <div class="flex items-center gap-3 mb-3">
+                  <div class={`w-12 h-12 rounded-xl ${system.bgColor} flex items-center justify-center`}>
+                    <IconMapper icon={system.icon} size="1.5rem" className={system.textColor} ariaLabel={system.name} />
+                  </div>
+                  <div>
+                    <h3 class="h4 mb-0">{system.name}</h3>
+                    <div class="flex items-baseline gap-1">
+                      <span class={`text-xl font-bold ${system.textColor}`}>{system.price}</span>
+                      <span class="text-text-dark text-xs">EUR</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-sm text-text-dark mb-4">{system.shortDescription}</p>
+              </div>
+
+              <!-- Features -->
+              <div class="px-6 py-3 space-y-2">
+                {Object.entries(system.features).map(([key, feature]) => (
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-text-dark capitalize">
+                      {key === "kosten" ? "Anschaffung" : key}
+                    </span>
+                    <div class="flex items-center gap-2">
+                      <span class={`text-xs font-medium ${feature.rating === 3 ? 'text-green-600' : feature.rating === 2 ? 'text-yellow-600' : 'text-orange-500'}`}>
+                        {feature.label}
+                      </span>
+                      <div class="flex gap-0.5">
+                        {[1, 2, 3].map((dot) => (
+                          <div class={`w-1.5 h-1.5 rounded-full ${dot <= feature.rating ? `bg-gradient-to-r ${system.color}` : 'bg-gray-200'}`} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Divider -->
+              <div class="mx-6 border-t border-border/20 my-3" />
+
+              <!-- Ideal For -->
+              <div class="px-6 pb-3">
+                <p class="text-xs text-text-dark mb-2 uppercase tracking-wider">Ideal für</p>
+                <div class="flex flex-wrap gap-1.5">
+                  {system.idealFor.map((item) => (
+                    <span class={`px-2.5 py-0.5 rounded-full text-xs ${system.bgColor} ${system.textColor} font-medium`}>
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Highlights -->
+              <div class="px-6 pb-4">
+                <ul class="space-y-1.5">
+                  {system.highlights.map((highlight) => (
+                    <li class="flex items-start gap-2 text-sm">
+                      <IconMapper icon="check" size="0.75rem" className={`${system.textColor} mt-1 shrink-0`} ariaHidden={true} />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <!-- CTA -->
+              <div class="p-6 pt-2">
+                <a
+                  href={system.link}
+                  class={`btn w-full flex items-center justify-center gap-2 text-white bg-gradient-to-r ${system.color} hover:opacity-90 transition-opacity`}
+                >
+                  Details ansehen
+                  <IconMapper icon="arrow" size="1rem" ariaHidden={true} />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content (from MDX) -->
+  {
+    Content && (
+      <section class="section">
+        <div class="container">
+          <div class="row justify-center">
+            <article class="lg:col-10">
+              <div class="content" data-aos="fade-up-sm">
+                <Content />
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- All Systems Share Section -->
+  <section class="section bg-primary">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="sm:col-8 text-center">
+          <p class="mb-4 text-sm text-light/70" data-aos="fade-up-sm">
+            Bei allen Systemen inklusive
+          </p>
+          <h2 class="mb-8 md:mb-16 lg:h1 text-light" data-aos="fade-up-sm" data-aos-delay="100">
+            Gleiche Software. <span class="text-secondary">Gleiche Vorteile.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="flex flex-wrap lg:flex-nowrap gap-6 justify-center" data-aos="fade-up-sm" data-aos-delay="200">
+            {[
+              { icon: "euro", title: "Keine monatlichen Kosten", content: "Einmalige Anschaffung, keine versteckten Gebühren" },
+              { icon: "lock", title: "DSGVO-konform", content: "Lokale Datenspeicherung, Ihre Daten bleiben bei Ihnen" },
+              { icon: "mobile", title: "Homeoffice-fähig", content: "Kostenlose App für mobile Zeiterfassung" },
+              { icon: "wifi", title: "Offline-fähig", content: "Funktioniert auch ohne Internetverbindung" },
+              { icon: "settings", title: "Einfache Einrichtung", content: "In unter 30 Minuten startklar" },
+              { icon: "support", title: "Deutscher Support", content: "Kostenloser Support im ersten Jahr" },
+            ].map((item, i) => (
+              <div
+                class="w-full md:w-[calc(50%-12px)] lg:w-1/3 rounded-2xl overflow-hidden"
+                data-aos="zoom-in-sm"
+                data-aos-delay={i * 50}
+              >
+                <div class="bg-light/15 p-6 h-full">
+                  <div class="text-light/90 mb-4">
+                    <IconMapper icon={item.icon} size="2rem" ariaHidden={true} />
+                  </div>
+                  <p class="text-xl mb-2 text-light">{item.title}</p>
+                  <p class="text-light/70 text-sm">{item.content}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <CallToAction />
+</Base>

@@ -39,7 +39,7 @@ Mit unserem Mitarbeiter Zeiterfassungssystem haben Sie **Urlaube, Überstunden, 
 ## Zeiterfassung im Kindergarten am Terminal
 
 
-[Zeiterfassung mit Chip](/zeiterfassungssysteme/zeiterfassung-mit-chip) [Zeiterfassung mit Fingerabdruck](/zeiterfassungssysteme/zeiterfassung-mit-fingerabdruck) [Zeiterfassung mit Gesichtserkennung](/zeiterfassungssysteme/zeiterfassung-mit-gesichtserkennung)
+[Zeiterfassung mit Chip](/zeiterfassungssysteme/chip) [Zeiterfassung mit Fingerabdruck](/zeiterfassungssysteme/fingerabdruck) [Zeiterfassung mit Gesichtserkennung](/zeiterfassungssysteme/gesichtserkennung)
 
 Arbeitszeiten und Pausen werden direkt am Zeiterfassungsterminal – oder im Homeoffice per Webanwendung - gebucht. Das Terminal lässt sich per RFID-Chip oder Fingerabdruck aktivieren. Dabei arbeitet das System browserbasiert und in Echtzeit – wobei sich bei vergessener Erfassung Korrekturen leicht durchführen lassen.
 

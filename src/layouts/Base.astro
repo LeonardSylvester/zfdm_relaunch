@@ -5,6 +5,7 @@ import theme from "@/config/theme.json";
 import { plainify } from "@/lib/utils/textConverter";
 import Footer from "@/partials/Footer.astro";
 import Header from "@/partials/Header.astro";
+import PostHog from "@/components/posthog.astro";
 import "@/styles/main.css";
 import { AstroFont } from "astro-font";
 import { ClientRouter } from "astro:transitions";
@@ -60,6 +61,59 @@ const {
     {
       config.google_tag_manager.enable && (
         <GoogleTagmanager id={config.google_tag_manager.gtm_id} />
+      )
+    }
+    <PostHog />
+    <!-- google analytics 4 -->
+    {
+      config.google_analytics?.enable && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${config.google_analytics.measurement_id}`}></script>
+          <script is:inline define:vars={{ measurementId: config.google_analytics.measurement_id }}>
+            setTimeout(function() {
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', measurementId);
+            }, 2000);
+          </script>
+        </>
+      )
+    }
+    <!-- facebook pixel -->
+    {
+      config.facebook_pixel?.enable && (
+        <script is:inline define:vars={{ pixelId: config.facebook_pixel.pixel_id }}>
+          (function() {
+            function initFBPixel() {
+              if (typeof fbq !== 'undefined') return;
+              var n = window.fbq = function() {
+                n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+              };
+              if (!window._fbq) window._fbq = n;
+              n.push = n;
+              n.loaded = true;
+              n.version = '2.0';
+              n.queue = [];
+              var t = document.createElement('script');
+              t.async = true;
+              t.src = 'https://connect.facebook.net/en_US/fbevents.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(t, s);
+              fbq('init', pixelId);
+              fbq('track', 'PageView');
+            }
+            // Check for consent manager (if available)
+            if (typeof consentManager !== 'undefined' && consentManager.status) {
+              if (consentManager.status('tracking')) {
+                initFBPixel();
+              }
+            } else {
+              // Delay Facebook Pixel to improve performance
+              setTimeout(initFBPixel, 3000);
+            }
+          })();
+        </script>
       )
     }
     <!-- favicon -->
@@ -205,15 +259,38 @@ const {
       import AOS from "aos";
 
       function aosInit() {
-        AOS.init({
-          duration: 600,
-          once: true,
-        });
+        if (typeof AOS !== 'undefined') {
+          AOS.init({
+            duration: 600,
+            once: true,
+            disable: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+          });
+        }
       }
 
-      aosInit();
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(aosInit, { timeout: 1500 });
+      } else {
+        setTimeout(aosInit, 100);
+      }
       document.addEventListener("astro:after-swap", aosInit);
     </script>
+    <!-- tawk.to live chat -->
+    {
+      config.tawk_to?.enable && (
+        <script is:inline define:vars={{ propertyId: config.tawk_to.property_id, widgetId: config.tawk_to.widget_id }}>
+          setTimeout(function() {
+            var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/' + propertyId + '/' + widgetId;
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+          }, 4000);
+        </script>
+      )
+    }
     <Footer />
   </body>
 </html>
