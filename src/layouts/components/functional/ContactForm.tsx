@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import ImageMod from "@/components/ImageMod.astro";
 
 const SUBMIT_ENDPOINT = "https://www.g2wcrm.b-24.de/receiveContact.php";
 const IS_DEVELOPMENT = import.meta.env.DEV;
 
 const INTEREST_OPTIONS = [
   { value: "Offer", label: "Beratung für individuelles Angebot" },
-  { value: "FreeTest", label: "14 Tage kostenlos testen" },
+  { value: "Order", label: "Sofort bestellen (10% Rabatt)" },
 ] as const;
 
 const DEVICE_OPTIONS = [
@@ -49,7 +48,13 @@ type FormState = {
     | "LinkedIn"
     | "Ich wurde von einem Get2world Kundenberater kontaktiert"
     | "Weiterempfehlung"
-    | "Google Ads";
+    | "Google Ads"
+    | "Bing Ads"
+    | "Newsletter"
+    | "ChatGPT"
+    | "Perplexity"
+    | "Gemini"
+    | "Webseite";
   recommender: string;
   message: string;
 };
@@ -70,9 +75,123 @@ const INITIAL_STATE: FormState = {
   postcode: "",
   placename: "",
   callback: "-",
-  source: "Google Ads",
+  source: "Webseite",
   recommender: "-",
   message: "",
+};
+
+// UTM Source Mapping: utm_source Wert -> CRM Source
+const UTM_SOURCE_MAP: Record<string, FormState["source"]> = {
+  google: "Google Suchmaschine",
+  bing: "Bing Suchmaschine",
+  facebook: "Facebook",
+  linkedin: "LinkedIn",
+  newsletter: "Newsletter",
+};
+
+// sessionStorage Key für First-Touch Attribution
+const SOURCE_STORAGE_KEY = "zfdm_traffic_source";
+
+// Erkennt die Traffic-Quelle anhand von URL-Parametern und Referrer
+const detectTrafficSource = (): FormState["source"] | null => {
+  if (typeof window === "undefined") return null;
+
+  const params = new URLSearchParams(window.location.search);
+
+  // 1. Expliziter ?source= Parameter (höchste Priorität)
+  const sourceParam = params.get("source");
+  if (sourceParam) {
+    const validSources: FormState["source"][] = [
+      "Google Suchmaschine",
+      "Bing Suchmaschine",
+      "Facebook",
+      "LinkedIn",
+      "Weiterempfehlung",
+      "Google Ads",
+      "Bing Ads",
+      "Newsletter",
+      "ChatGPT",
+      "Perplexity",
+      "Gemini",
+    ];
+    const match = validSources.find(
+      (s) => s.toLowerCase() === sourceParam.toLowerCase(),
+    );
+    return match || (sourceParam as FormState["source"]);
+  }
+
+  // 2. UTM Parameter
+  const utmSource = params.get("utm_source")?.toLowerCase();
+  if (utmSource) {
+    return UTM_SOURCE_MAP[utmSource] || (utmSource as FormState["source"]);
+  }
+
+  // 3. Click IDs (bezahlte Werbung)
+  if (params.get("gclid")) return "Google Ads";
+  if (params.get("fbclid")) return "Facebook";
+  if (params.get("msclkid")) return "Bing Ads";
+
+  // 4. Referrer-Analyse
+  const referrer = document.referrer;
+  if (referrer) {
+    try {
+      const hostname = new URL(referrer).hostname.toLowerCase();
+
+      // Eigene Domains ignorieren (interne Navigation)
+      if (hostname.includes("zfdm.") || hostname.includes("get2world.")) {
+        return null;
+      }
+
+      // Suchmaschinen
+      if (hostname.includes("google.")) return "Google Suchmaschine";
+      if (hostname.includes("bing.")) return "Bing Suchmaschine";
+
+      // Social Media
+      if (hostname.includes("facebook.") || hostname.includes("fb."))
+        return "Facebook";
+      if (hostname.includes("linkedin.")) return "LinkedIn";
+
+      // AI-Suchmaschinen
+      if (hostname.includes("chatgpt.") || hostname.includes("chat.openai."))
+        return "ChatGPT";
+      if (hostname.includes("perplexity.")) return "Perplexity";
+      if (hostname.includes("gemini.google.")) return "Gemini";
+    } catch {
+      // Ungültige Referrer-URL ignorieren
+    }
+  }
+
+  return null; // Keine Source erkannt
+};
+
+// First-Touch Attribution: Speichert die erste erkannte Source in sessionStorage
+const getOrDetectSource = (): FormState["source"] => {
+  if (typeof window === "undefined") return "Webseite";
+
+  // Prüfe ob bereits eine Source in dieser Session gespeichert wurde
+  try {
+    const storedSource = sessionStorage.getItem(SOURCE_STORAGE_KEY);
+    if (storedSource) {
+      return storedSource as FormState["source"];
+    }
+  } catch {
+    // sessionStorage nicht verfügbar (z.B. privater Modus)
+  }
+
+  // Neue Source erkennen
+  const detectedSource = detectTrafficSource();
+
+  if (detectedSource) {
+    try {
+      sessionStorage.setItem(SOURCE_STORAGE_KEY, detectedSource);
+    } catch {
+      // sessionStorage nicht verfügbar
+    }
+    return detectedSource;
+  }
+
+  // Default für direkten Zugriff
+  return "Webseite";
 };
 
 type LabelMessage = {
@@ -93,11 +212,6 @@ const ORDER_MODAL_MESSAGE =
   "Mit dieser Bestellung akzeptieren Sie unsere allgemeinen Geschäftsbedingungen (AGB). Sie können können aber die Bestellung innerhalb von 14 Tagen Retounieren.";
 
 type ModalVariant = "test" | "order";
-
-type PackageOption = {
-  value: "Starter" | "Medium";
-  label: string;
-};
 
 export function ContactForm() {
   const [formState, setFormState] = useState<FormState>(INITIAL_STATE);
@@ -121,17 +235,21 @@ export function ContactForm() {
     const interestParam = params.get("interest")?.toLowerCase();
     const modelParam = params.get("model")?.toLowerCase();
     const sizeParam = params.get("model_size")?.toLowerCase();
-    const freeTestBanner = params.get("freetest_banner")?.toLowerCase();
     const employeesParam = params.get("employees");
-    const sourceParam = params.get("source");
     const minEmployeesParam = params.get("min_employees");
+
+    // Automatische Source-Erkennung mit First-Touch Attribution
+    const detectedSource = getOrDetectSource();
 
     setFormState((previous) => {
       let updated: FormState = { ...previous };
 
+      // Source setzen (aus URL-Parameter, UTM, Referrer oder sessionStorage)
+      updated.source = detectedSource;
+
       if (interestParam) {
         const map: Record<string, InterestValue | undefined> = {
-          freetest: "FreeTest",
+          order: "Order",
           offer: "Offer",
         };
         const interestValue = map[interestParam];
@@ -163,33 +281,8 @@ export function ContactForm() {
         }
       }
 
-      if (freeTestBanner === "true") {
-        updated.interest = "FreeTest";
-        updated.message = "Kostenloses Gerät wie aus der Werbung";
-      }
-
       if (employeesParam) {
         updated.noEmployee = employeesParam;
-      }
-
-      if (sourceParam) {
-        const validSources: FormState["source"][] = [
-          "Google Suchmaschine",
-          "Bing Suchmaschine",
-          "Facebook",
-          "LinkedIn",
-          "Ich wurde von einem Get2world Kundenberater kontaktiert",
-          "Weiterempfehlung",
-          "Google Ads",
-        ];
-        const matchingSource = validSources.find(
-          (s) => s.toLowerCase() === sourceParam.toLowerCase(),
-        );
-        if (matchingSource) {
-          updated.source = matchingSource;
-        } else {
-          updated.source = sourceParam as FormState["source"];
-        }
       }
 
       return updated;
@@ -229,22 +322,15 @@ export function ContactForm() {
     };
   }, [isSending]);
 
-  const showPacketField = formState.interest === "FreeTest";
-  const showOptionField = formState.interest === "Offer";
-  const showOptionCall = formState.interest === "FreeTest";
-  const showFreeTestButton = formState.interest === "FreeTest";
+  const showAddressFields = formState.interest === "Order";
   const showOfferButton = formState.interest === "Offer";
+  const showOrderButton = formState.interest === "Order";
   const showSourceSelection = true;
   const showRecommender = formState.source === "Weiterempfehlung";
 
-  const packageOptions: PackageOption[] = [
-    { value: "Starter", label: "Starter" },
-    { value: "Medium", label: "Medium" },
-  ];
-
   const submitButtonLabel = useMemo(() => {
-    if (formState.interest === "FreeTest") {
-      return "14 Tage kostenlos testen";
+    if (formState.interest === "Order") {
+      return "Jetzt bestellen";
     }
     return "Jetzt Beratung anfragen";
   }, [formState.interest]);
@@ -366,30 +452,32 @@ export function ContactForm() {
       }
     }
 
-    if (showPacketField) {
-      if (streetValue.length < 10) {
-        window.alert("Ihre Adresse ist sehr kurz");
+    if (showAddressFields) {
+      if (streetValue.length < 5) {
+        window.alert("Bitte geben Sie Ihre Strasse und Hausnummer ein.");
         return false;
       }
       if (streetValue.length > 200) {
         window.alert("Ihre Adresse scheint nicht richtig zu sein");
         return false;
       }
-      address = streetValue.length > 0 ? streetValue : address;
-    } else if (showOptionField) {
+      address = streetValue;
+
+      if (state.postcode.trim().length < 4) {
+        window.alert("Bitte geben Sie Ihre Postleitzahl ein.");
+        return false;
+      }
+
+      if (state.placename.trim().length < 2) {
+        window.alert("Bitte geben Sie Ihren Ort ein.");
+        return false;
+      }
+    } else if (showOfferButton) {
       if (streetValue.length > 200) {
         window.alert("Ihre Adresse scheint nicht richtig zu sein");
         return false;
       }
       if (streetValue.length > 10 && streetValue.length < 200) {
-        address = streetValue;
-      }
-    } else {
-      if (streetValue.length > 200) {
-        window.alert("Ihre Adresse scheint nicht richtig zu sein");
-        return false;
-      }
-      if (streetValue.length > 10) {
         address = streetValue;
       }
     }
@@ -436,29 +524,8 @@ export function ContactForm() {
 
     const employeesValue = state.noEmployee;
 
-    const selectedPacket = showPacketField
-      ? (packageOptions.find((option) => option.value === state.packet)
-          ?.label ?? state.packet)
-      : "-";
-
-    let callbackValue = "Angebot";
-    if (showOptionCall) {
-      if (state.callback === "-") {
-        setLabelMessage({
-          text: "Bitte wählen Sie, ob Sie eine Beratung wünschen bevor wir Ihnnen das Gerät zum Testen schicken",
-          tone: "error",
-        });
-        return false;
-      }
-      if (state.callback === "Ja" && state.tel.trim().length < 5) {
-        setLabelMessage({
-          text: "Leider Ihre Telefonnummer ist falsch.",
-          tone: "error",
-        });
-        return false;
-      }
-      callbackValue = state.callback;
-    }
+    const selectedPacket = "-";
+    const callbackValue = showOrderButton ? "Bestellung" : "Angebot";
 
     const sourceIndex = (
       [
@@ -637,11 +704,6 @@ export function ContactForm() {
     await sendForm();
   };
 
-  const handleFreeTestClick = () => {
-    setModalVariant("test");
-    setIsModalOpen(true);
-  };
-
   const handleOfferClick = async () => {
     await sendForm();
   };
@@ -718,10 +780,11 @@ export function ContactForm() {
                   className="space-y-6"
                   onSubmit={async (event) => {
                     event.preventDefault();
-                    if (formState.interest === "Offer") {
-                      await handleOfferClick();
+                    if (formState.interest === "Order") {
+                      setModalVariant("order");
+                      setIsModalOpen(true);
                     } else {
-                      handleFreeTestClick();
+                      await handleOfferClick();
                     }
                   }}
                 >
@@ -729,7 +792,7 @@ export function ContactForm() {
                     <label className="form-label">
                       Anrede
                       <select
-                        name="interest"
+                        name="title"
                         id="idTitle"
                         className="form-input custom-select"
                         value={formState.title}
@@ -888,6 +951,53 @@ export function ContactForm() {
                       </select>
                     </label>
                   </div>
+
+                  {showAddressFields && (
+                    <div className="grid gap-4 sm:grid-cols-3">
+                      <label className="form-label sm:col-span-3">
+                        Strasse und Hausnummer*
+                        <input
+                          type="text"
+                          name="street"
+                          autoComplete="street-address"
+                          maxLength={100}
+                          className="form-input"
+                          value={formState.street}
+                          onChange={(event) =>
+                            updateField("street", event.target.value)
+                          }
+                        />
+                      </label>
+                      <label className="form-label">
+                        Postleitzahl*
+                        <input
+                          type="text"
+                          name="postcode"
+                          autoComplete="postal-code"
+                          maxLength={10}
+                          className="form-input"
+                          value={formState.postcode}
+                          onChange={(event) =>
+                            updateField("postcode", event.target.value)
+                          }
+                        />
+                      </label>
+                      <label className="form-label sm:col-span-2">
+                        Ort*
+                        <input
+                          type="text"
+                          name="placename"
+                          autoComplete="address-level2"
+                          maxLength={100}
+                          className="form-input"
+                          value={formState.placename}
+                          onChange={(event) =>
+                            updateField("placename", event.target.value)
+                          }
+                        />
+                      </label>
+                    </div>
+                  )}
 
                   <label className="form-label">
                     Ihre Nachricht (optional)

@@ -1,11 +1,26 @@
 ---
 import Youtube from "@/shortcodes/Youtube";
 
+interface Props {
+  systemId?: string;
+}
+
+const { systemId } = Astro.props;
+
+// Produkt-spezifische Videos für den "Funktionalität"-Tab
+const PRODUCT_VIDEOS: Record<string, string> = {
+  "chip": "rG2ExH2qFrs",
+  "fingerabdruck": "n24X2Oo8STc",
+  "gesichtserkennung": "CV1nn-yPFMw",
+};
+
+const funktionalitaetVideoId = PRODUCT_VIDEOS[systemId || "chip"] || "rG2ExH2qFrs";
+
 const videoTabs = [
   {
     id: "video-1",
     label: "Funktionalität",
-    youtube_id: "rG2ExH2qFrs",
+    youtube_id: funktionalitaetVideoId,
     title: "Videoanleitung 1",
     description: "Das Gerät und die Funktionalität"
   },

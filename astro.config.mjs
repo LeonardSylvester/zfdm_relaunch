@@ -14,11 +14,17 @@ export default defineConfig({
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   image: { service: sharp() },
-  vite: { 
+  vite: {
     plugins: [tailwindcss()],
     build: {
       cssMinify: true,
       minify: "esbuild",
+    },
+    server: {
+      fs: {
+        // Allow serving files from ZFDM root (3 levels up) where node_modules is located
+        allow: ["../../.."],
+      },
     },
   },
   integrations: [
