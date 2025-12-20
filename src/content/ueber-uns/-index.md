@@ -20,9 +20,7 @@ about:
     - title: "Gesamtzahl der weltweiten Nutzer"
       value: 1600
       suffix: ""
-    - title: "Partner Unternehmen"
-      value: 100
-      suffix: "+"
+    
   trusted:
     title: "Über 1600 KMU vertrauen bereits ZFDM ihre Zeit an"
     partners:
