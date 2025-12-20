@@ -44,17 +44,19 @@ const { why } = Astro.props;
           {
             why.points.map(
               (
-                p: { icon: string; title: string; content: string },
+                p: { icon?: string; title: string; content: string },
                 index: number
               ) => (
                 <div class="max-xl:text-center w-full md:w-1/2">
-                  <div
-                    class="w-fit mb-6 bg-transparent/[0.02] border border-border/10 p-1.5 rounded-lg max-xl:mx-auto"
-                    data-aos="fade-up-sm"
-                    data-aos-delay={index * 100}
-                  >
-                    <Icon name={p.icon} class="text-2xl" />
-                  </div>
+                  {p.icon && (
+                    <div
+                      class="w-fit mb-6 bg-transparent/[0.02] border border-border/10 p-1.5 rounded-lg max-xl:mx-auto"
+                      data-aos="fade-up-sm"
+                      data-aos-delay={index * 100}
+                    >
+                      <Icon name={p.icon} class="text-2xl" />
+                    </div>
+                  )}
                   <p
                     set:html={p.title}
                     class="text-2xl font-medium text-text-dark mb-2"

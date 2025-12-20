@@ -44,7 +44,7 @@ const ueberUnsCollection = defineCollection({
       points: z.array(
         z.object({
           title: z.string().optional(),
-          icon: z.string(),
+          icon: z.string().optional(),
           content: z.string(),
         }),
       ),
