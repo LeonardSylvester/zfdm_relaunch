@@ -1,5 +1,5 @@
 ---
-title: "hahaha"
+title: "Über uns"
 meta_title: ""
 description: ""
 image: ""
