@@ -114,9 +114,6 @@ Die **Zeiterfassung mit Gesichtserkennung** ist die innovativste und hygienischs
 
 Gerade in Zeiten erhoehter Hygieneanforderungen bietet die Gesichtserkennung entscheidende Vorteile. Niemand muss einen Chip beruehren oder den Finger auf einen Scanner legen. Die Erfassung erfolgt komplett beruehrungslos - ideal fuer Arztpraxen, Pflegeeinrichtungen, Gastronomie und alle Bereiche mit hohen Hygienestandards.
 
-### KI-basierte Praezision
-
-Unser Terminal nutzt modernste kuenstliche Intelligenz zur Gesichtserkennung. Das System erkennt Mitarbeiter zuverlaessig - auch mit Brille, veraenderter Frisur oder bei unterschiedlichen Lichtverhaeltnissen. Die Erkennungsrate liegt bei ueber 99,9%.
 
 ### DSGVO-konform und sicher
 

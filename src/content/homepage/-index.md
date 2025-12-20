@@ -1,9 +1,8 @@
 ---
 meta_title: "Zeiterfassungssysteme für Kleinbetriebe ohne monatliche Kosten | ZFDM"
 description: "Zeiterfassungssysteme für kleine und mittlere Unternehmen - einmal kaufen, ohne Abo. Terminal mit Chip, Fingerabdruck oder Gesichtserkennung ab 521€. DSGVO-konform."
-
 hero:
-  title: "<span class='text-dark'>Zeiterfassungssysteme</span> <span class='text-primary'>für Kleinbetriebe</span> <br><span class='text-dark'>ohne</span> <span class='text-primary'>monatliche Kosten</span>"
+  title: "<span class='text-dark'>Zeiterfassungssysteme für</br></span> <span class='text-primary'> Kleinbetriebe</span>  <span class='text-dark'> und </span><span class='text-primary'> Mittelstand</span> <br><span class='text-dark'>ohne</span> <span class='text-primary'>monatliche Kosten</span>"
   content: "Digitale Zeiterfassung mit Terminal, App & Software für <span class='text-primary'>kleine</span> und <span class='text-primary'> mittlere Unternehmen</span> - einmal kaufen, ohne Abo. <br> In wenigen Minuten eingerichtet, sofort stressfrei & rechtskonform"
   image: "/images/home/zfdm-zeiterfassungssystem-terminal-mit-chip-und-software.webp"
   button:
@@ -11,7 +10,7 @@ hero:
       label: "Beratung buchen"
       link: "/kontakt"
     - enable: true
-      label: "Videorundgang"
+      label: "Video Anleitung"
       link: "/ressourcen/videoanleitungen"
   customer:
     image:

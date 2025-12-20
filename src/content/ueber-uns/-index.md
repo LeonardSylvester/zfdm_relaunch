@@ -14,13 +14,13 @@ about:
   content: "In einer Welt, in der viele Zeiterfassungssysteme mit überflüssigen technischen Extras überladen sind, bieten wir Ihnen genau das, was wirklich zählt: das günstige, einfache und webbasierte Zeiterfassung für den Mittelstand (ZfdM). Unsere Zeiterfassung zeichnet sich durch Zuverlässigkeit, Datensicherheit, Benutzerfreundlichkeit und individuelle Anpassungsfähigkeit aus, Und das Beste daran?  Es ist für Unternehmen jeder Größe erschwinglich und skalierbar."
   image: "/images/avatar/gruender-zfdm-roy.webp"
   stats:
-    - title: "Founded In"
+    - title: "Gegründet in"
       value: 2023
       suffix: ""
-    - title: "Total World-wide Users"
-      value: 1400
+    - title: "Gesamtzahl der weltweiten Nutzer"
+      value: 1600
       suffix: ""
-    - title: "Business with company"
+    - title: "Partner Unternehmen"
       value: 100
       suffix: "+"
   trusted:

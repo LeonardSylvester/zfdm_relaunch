@@ -28,9 +28,9 @@ const zeiterfassungBlog = blogPosts.find(post => post.id === zeiterfassungPflich
   <Hero {hero} />
   <CustomerReferences data={customer_references} />
   <Features {feature} />
+  <ReferenzenBento />
   {target_audiences && <TargetAudiences {target_audiences} />}
   <Offering {offering} />
-  <ReferenzenBento />
   {industries && industries.enable && <IndustrySlider {industries} />}
   <Benefits {benefits} />
   {zeiterfassungPflicht.data.enable && zeiterfassungBlog && (
