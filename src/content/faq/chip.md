@@ -25,4 +25,7 @@ faqs:
 
   - question: "Wie viel kostet ZfdM – Zeiterfassung mit Chip?"
     answer: "Die Kosten für unsere Zeiterfassung mit Chip sind individuell auf Funktionen und Ihre Bedürfnisse zugeschnitten. Entdecken Sie unsere verschiedenen Produktoptionen, ihre Funktionen und Preise <a href=\"/zeiterfassung-mit-chip-preise-ohne-abo-kosten/\">hier</a>."
+    
+  - question: "Ich benutze schon ein RFID Chip für andere Zwecke, können wir dieser Chip auch für ZFDM Terminal nutzen?"
+    answer: "Eigentlich schon, abere es ist am bestens dass Sie uns den Chip zuschicken damit wir genau überprüfen können."
 ---
