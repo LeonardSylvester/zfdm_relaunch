@@ -172,7 +172,6 @@ pricing_products:
         description: "Für bis zu 10 Mitarbeiter"
         features:
           - "Einmaliger Preis"
-          - "Inkl. 10 RFID Chips"
           - "Keine monatlichen Lizenzkosten"
           - "1 Jahr Gewährleistung"
           - "1 Jahr kostenloser E-Mail und Telefon-Support"
@@ -202,7 +201,6 @@ pricing_products:
         description: "Für bis zu 30 Mitarbeiter"
         features:
           - "Alles aus dem Starter-Paket"
-          - "Inkl. 30 RFID Chips"
           - "2 Jahre Gewährleistung"
           - "+ Aufträge erfassen & filtern"
           - "+ Dienstpläne"
@@ -224,7 +222,6 @@ pricing_products:
         description: "Ab 30 Mitarbeiter"
         features:
           - "Alles aus beiden Paketen"
-          - "Inkl. aller RFID Chips"
           - "2 Jahre Gewährleistung"
           - "2 Jahre kostenloser E-Mail und Telefon-Support"
           - "+ Standortbestimmung aller Geräte"

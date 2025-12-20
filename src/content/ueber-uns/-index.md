@@ -54,14 +54,11 @@ why:
   content: "Wir lieben einfache und kostengünstige Lösungen. Deshalb setzen wir auf eine einfache und preiswerte Zeiterfassung, weil wir überzeugt sind, dass dies der Schlüssel zu Ihrem und unserem Erfolg ist."
   points:
     - title: "Keine komplexe Software"
-      icon: "rocket"
-      content: "Recruiting einfach gemacht, ohne komplizierte Tools, direkt zum Ergebnis."
+      content: "Zeiterfassung einfach gemacht, ohne komplizierte Tools, direkt zum Ergebnis."
     - title: "Keine unnötigen Kosten"
-      icon: "rocket"
-      content: "Clever sparen, smarter einstellen,  keine versteckten Gebühren, kein Budgetverschwendung."
+      content: "Einmalzahlung statt Abo-Modell, keine versteckten Gebühren, keine Budgetverschwendung."
     - title: "Keine Abhängigkeit"
-      icon: "rocket"
-      content: "Bleib unabhängig, behalte die volle Kontrolle über deinen Einstellungsprozess."
+      content: "Bleib unabhängig, behalte die volle Kontrolle über deine Arbeitszeiten und Daten."
 
 faq:
   title: ""
