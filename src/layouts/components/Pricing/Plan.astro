@@ -55,6 +55,16 @@ const systemPreviewData: Record<string, {
 
 // Default to chip
 const defaultPreview = systemPreviewData.chip;
+
+// Helper-Funktion fuer CTA-URLs mit Parametern
+const buildCtaUrl = (productKey: string, planTitle: string, buttonLabel: string) => {
+  const employeeMap: Record<string, string> = { "Starter": "10", "Medium": "11", "Pro": "30" };
+  const params = new URLSearchParams();
+  params.set("model", productKey);
+  params.set("interest", buttonLabel.toLowerCase().includes("bestellen") ? "order" : "offer");
+  params.set("employees", employeeMap[planTitle] || "10");
+  return `/kontakt?${params.toString()}`;
+};
 ---
 
 <section class="section pt-0 -mt-12 lg:-mt-24">
@@ -304,7 +314,7 @@ const defaultPreview = systemPreviewData.chip;
                     const savings = Number(plan.price) - Number(plan.discount_price);
                     return (
                       <a
-                        href={btn.link}
+                        href={buildCtaUrl("chip", plan.title, btn.label)}
                         class={`block w-full text-center rounded-lg border-2 transition-all ${
                           isPopular
                             ? "bg-light border-light hover:bg-light/90"
@@ -325,7 +335,7 @@ const defaultPreview = systemPreviewData.chip;
 
                   return (
                     <a
-                      href={btn.link}
+                      href={buildCtaUrl("chip", plan.title, btn.label)}
                       class={`btn w-full text-center ${
                         btn.style === "light"
                           ? isPopular
@@ -418,6 +428,22 @@ const defaultPreview = systemPreviewData.chip;
         link: "/zeiterfassungssysteme/gesichtserkennung"
       }
     };
+
+    // Mitarbeiter-Mapping nach Plan fuer CTA-URLs
+    const employeeMap: Record<string, string> = {
+      "Starter": "10",
+      "Medium": "11",
+      "Pro": "30"
+    };
+
+    // URL mit Parametern bauen
+    function buildCtaUrl(productType: string, planTitle: string, buttonLabel: string): string {
+      const params = new URLSearchParams();
+      params.set("model", productType);
+      params.set("interest", buttonLabel.toLowerCase().includes("bestellen") ? "order" : "offer");
+      params.set("employees", employeeMap[planTitle] || "10");
+      return `/kontakt?${params.toString()}`;
+    }
 
     function updatePreviewCard(productType: string) {
       const data = systemPreviewData[productType];
@@ -632,8 +658,9 @@ const defaultPreview = systemPreviewData.chip;
                 // Special styling for "Sofort bestellen" with discount info
                 if (btn.style === "light" && plan.discount_price) {
                   const savings = Number(plan.price) - Number(plan.discount_price);
+                  const ctaUrl = buildCtaUrl(productType, plan.title, btn.label);
                   return `
-                    <a href="${btn.link}" class="block w-full text-center rounded-lg border-2 transition-all ${
+                    <a href="${ctaUrl}" class="block w-full text-center rounded-lg border-2 transition-all ${
                       isPopular
                         ? "bg-light border-light hover:bg-light/90"
                         : "bg-white border-border hover:bg-tertiary"
@@ -665,8 +692,9 @@ const defaultPreview = systemPreviewData.chip;
                     : "btn-secondary";
                 }
 
+                const ctaUrl = buildCtaUrl(productType, plan.title, btn.label);
                 return `
-                  <a href="${btn.link}" class="btn w-full text-center ${btnClass}">${btn.label}</a>
+                  <a href="${ctaUrl}" class="btn w-full text-center ${btnClass}">${btn.label}</a>
                 `;
               })
               .join("");

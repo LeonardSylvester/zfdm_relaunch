@@ -5,7 +5,7 @@ const IS_DEVELOPMENT = import.meta.env.DEV;
 
 const INTEREST_OPTIONS = [
   { value: "Offer", label: "Beratung für individuelles Angebot" },
-  { value: "Order", label: "Sofort bestellen (10% Rabatt)" },
+  { value: "Order", label: "Per Rechnung bestellen (10% Rabatt)" },
 ] as const;
 
 const DEVICE_OPTIONS = [
@@ -262,7 +262,9 @@ export function ContactForm() {
         const modelMap: Record<string, FormState["device"] | undefined> = {
           chip: "Zeiterfassung mit RFID",
           finger: "Zeiterfassung mit Fingerabdruck",
+          fingerabdruck: "Zeiterfassung mit Fingerabdruck",
           face: "Zeiterfassung mit Gesichtserkennung",
+          gesichtserkennung: "Zeiterfassung mit Gesichtserkennung",
         };
         const device = modelMap[modelParam];
         if (device) {
