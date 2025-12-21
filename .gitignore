@@ -2,6 +2,7 @@
 # dist/
 .output/
 .json/
+.dist/.htaccess
 
 # dependencies
 node_modules/
