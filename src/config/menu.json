@@ -90,6 +90,14 @@
           "url": "/ressourcen/videoanleitungen"
         },
         {
+          "name": "Erklärvideo",
+          "url": "/ressourcen/erklaervideo"
+        },
+        {
+          "name": "Installationsvideo",
+          "url": "/ressourcen/installationsvideo"
+        },
+        {
           "name": "Blog",
           "url": "/ressourcen/blog"
         },

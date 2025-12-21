@@ -1,0 +1,47 @@
+---
+import Base from "@/layouts/Base.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import Video from "@/shortcodes/Video";
+
+const title = "Installationsvideo";
+const meta_title = "Installationsvideo | ZFDM Zeiterfassung";
+const description = "In diesem Video führen wir Sie Schritt für Schritt durch die Installation Ihres ZFDM Zeiterfassungssystems. Folgen Sie den einfachen Anweisungen und nehmen Sie Ihr System in wenigen Minuten in Betrieb.";
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <PageHeader title={title} content={description} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 lg:col-10">
+          <div class="max-w-4xl mx-auto" data-aos="fade-up-sm">
+            <!-- Video Player -->
+            <div class="relative rounded-2xl overflow-hidden shadow-lg bg-dark">
+              <Video
+                src="ZFDM-Installation.mov"
+                title="ZFDM Installationsvideo"
+                width={1280}
+                height={720}
+                client:load
+              />
+            </div>
+
+            <!-- Schema.org VideoObject Markup -->
+            <script type="application/ld+json" set:html={JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              "name": "ZFDM Installationsvideo",
+              "description": description,
+              "uploadDate": new Date().toISOString(),
+              "contentUrl": "https://zeiterfassung-direkt.com/videos/ZFDM-Installation.mov",
+            })} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>

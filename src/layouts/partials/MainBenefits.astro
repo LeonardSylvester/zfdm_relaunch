@@ -1,0 +1,114 @@
+---
+import { markdownify } from "@/lib/utils/textConverter";
+import IconMapper from "@/components/IconMapper.astro";
+import {
+  FaCoins,
+  FaShieldHalved,
+  FaLaptop,
+  FaMobileScreen,
+  FaScaleBalanced,
+  FaCheck,
+} from "react-icons/fa6";
+
+interface Props {
+  mainBenefits: {
+    title: string;
+    subtitle: string;
+    categories: {
+      title: string;
+      subtitle: string;
+      icon?: string;
+      points: {
+        title: string;
+        content: string;
+      }[];
+    }[];
+  };
+}
+
+const { mainBenefits } = Astro.props;
+
+// Icon mapping
+const iconMap: Record<string, any> = {
+  FaCoins,
+  FaShieldHalved,
+  FaLaptop,
+  FaMobileScreen,
+  FaScaleBalanced,
+};
+---
+
+<section class="section bg-white">
+  <div class="container">
+    {/* Header */}
+    <div class="row justify-center mb-12">
+      <div class="sm:col-8 text-center">
+        <p
+          set:html={markdownify(mainBenefits.subtitle)}
+          class="mb-4 text-sm text-text"
+          data-aos="fade-up-sm"
+        />
+        <h2
+          set:html={markdownify(mainBenefits.title)}
+          class="lg:h1 text-dark"
+          data-aos="fade-up-sm"
+          data-aos-delay="100"
+        />
+      </div>
+    </div>
+
+    {/* Bento Grid - 5 große Kacheln */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+      {
+        mainBenefits.categories?.map((category, catIndex) => {
+          const IconComponent = category.icon ? iconMap[category.icon] : null;
+          // Layout: Erste 2 Kacheln je 2 Spalten, 3. Kachel 4 Spalten, letzte 2 je 2 Spalten
+          const colSpan =
+            catIndex === 2
+              ? "lg:col-span-4"
+              : "md:col-span-2";
+
+          return (
+            <div
+              class={`rounded-2xl overflow-hidden flex flex-col ${colSpan}`}
+              data-aos="zoom-in-sm"
+              data-aos-delay={catIndex * 100}
+            >
+              {/* Icon Area */}
+              <div class="bg-primary/15 py-12 relative grid place-items-center">
+                {IconComponent && (
+                  <div class="text-primary">
+                    <IconComponent size="3rem" />
+                  </div>
+                )}
+              </div>
+
+              {/* Content Area */}
+              <div class="p-6 bg-primary/10 flex-grow">
+                <p class="mb-1 text-xl text-dark font-semibold">
+                  {category.title}
+                </p>
+                <p class="mb-4 text-sm text-text">{category.subtitle}</p>
+
+                {/* Points List */}
+                <ul class="space-y-3">
+                  {category.points?.map((point) => (
+                    <li class="flex items-start gap-3">
+                      <div class="text-primary mt-1 flex-shrink-0">
+                        <FaCheck size="1rem" />
+                      </div>
+                      <div>
+                        <span class="font-medium text-dark">{point.title}:</span>{" "}
+                        <span class="text-text text-sm">{point.content}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

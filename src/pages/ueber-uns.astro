@@ -10,6 +10,7 @@ import CallToAction from "@/partials/CallToAction.astro";
 import FaqAccordion from "@/partials/FaqAccordion.astro";
 import PageHeader from "@/partials/PageHeader.astro";
 import CustomerReferences from "@/components/home/CustomerReferences.astro";
+import MainBenefits from "@/partials/MainBenefits.astro";
 
 const ueberUns = await getListPage("ueber_uns", "-index");
 if (ueberUns.data.draft) {
@@ -17,14 +18,21 @@ if (ueberUns.data.draft) {
 }
 const { title, description, meta_title, hero, about, slider, why, faq } =
   ueberUns.data;
+
+// MainBenefits Daten aus Homepage laden
+const homepage = await getListPage("homepage", "-index");
+const { main_benefits } = homepage.data;
 ---
 
 <Base title={title} meta_title={meta_title} description={description}>
   <PageHeader title={hero.title} content={hero.content} />
 
   <About {about} />
-  <Why {why} />
+  {/*<Why {why} />*/}
+
+  {main_benefits && <MainBenefits mainBenefits={main_benefits} />}
+
   <Job />
 
-  <CallToAction />.
+  <CallToAction />
 </Base>

@@ -21,7 +21,7 @@ function Video({
       {...rest}
     >
       <source
-        src={src.match(/^http/) ? src : `/videos/${src}`}
+        src={src.match(/^(http|\/videos\/)/) ? src : `/videos/${src}`}
         type="video/mp4"
       />
       {title}

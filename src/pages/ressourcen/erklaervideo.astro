@@ -1,0 +1,47 @@
+---
+import Base from "@/layouts/Base.astro";
+import CallToAction from "@/partials/CallToAction.astro";
+import PageHeader from "@/partials/PageHeader.astro";
+import Video from "@/shortcodes/Video";
+
+const title = "Erklärvideo";
+const meta_title = "Erklärvideo | ZFDM Zeiterfassung";
+const description = "In diesem Video zeigen wir Ihnen die wichtigsten Funktionen und Vorteile der ZFDM Zeiterfassung. Erfahren Sie, wie einfach Sie Arbeitszeiten erfassen und verwalten können.";
+---
+
+<Base title={title} meta_title={meta_title} description={description}>
+  <PageHeader title={title} content={description} />
+
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="col-12 lg:col-10">
+          <div class="max-w-4xl mx-auto" data-aos="fade-up-sm">
+            <!-- Video Player -->
+            <div class="relative rounded-2xl overflow-hidden shadow-lg bg-dark">
+              <Video
+                src="ZfdM_Erklaervideo.mp4"
+                title="ZFDM Erklärvideo"
+                width={1280}
+                height={720}
+                client:load
+              />
+            </div>
+
+            <!-- Schema.org VideoObject Markup -->
+            <script type="application/ld+json" set:html={JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              "name": "ZFDM Erklärvideo",
+              "description": description,
+              "uploadDate": new Date().toISOString(),
+              "contentUrl": "https://zeiterfassung-direkt.com/videos/ZfdM_Erklaervideo.mp4",
+            })} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CallToAction />
+</Base>
