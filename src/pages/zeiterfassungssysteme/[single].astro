@@ -5,7 +5,7 @@ import CallToAction from "@/partials/CallToAction.astro";
 import IconMapper from "@/components/IconMapper.astro";
 import ProductHero from "@/components/zeiterfassungssysteme/ProductHero.astro";
 import TrustBar from "@/components/zeiterfassungssysteme/TrustBar.astro";
-import FeatureShowcase from "@/components/zeiterfassungssysteme/FeatureShowcase.astro";
+import Benefits from "@/components/home/Benefits.astro";
 import SpecificationTabs from "@/components/zeiterfassungssysteme/SpecificationTabs.astro";
 import RelatedProducts from "@/components/zeiterfassungssysteme/RelatedProducts.astro";
 import VideoTabs from "@/components/zeiterfassungssysteme/VideoTabs.astro";
@@ -34,7 +34,6 @@ const {
   badges,
   feature_grid,
   trust_badges,
-  features,
   specifications,
   gallery,
   testimonial,
@@ -58,6 +57,10 @@ if (faq_section) {
     console.warn(`No FAQ found for section '${faq_section}'`);
   }
 }
+
+// Load benefits data from homepage
+const homepage = await getListPage("homepage", "-index");
+const benefits = (homepage?.data as any)?.benefits;
 ---
 
 <Base
@@ -108,8 +111,8 @@ if (faq_section) {
     )
   }
 
-  <!-- Feature Showcase -->
-  <FeatureShowcase features={features} />
+  <!-- Alle Funktionen (Benefits Bento-Grid) -->
+  {benefits?.categories && <Benefits benefits={benefits} />}
 
   <!-- Testimonial Section -->
   {

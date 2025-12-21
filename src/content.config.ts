@@ -129,14 +129,32 @@ const homepageCollection = defineCollection({
     benefits: z.object({
       title: z.string(),
       subtitle: z.string(),
-      points: z.array(
-        z.object({
-          title: z.string(),
-          content: z.string(),
-          image: z.string().optional(),
-          icon: z.string().optional(),
-        }),
-      ),
+      // Legacy format (points with images)
+      points: z
+        .array(
+          z.object({
+            title: z.string(),
+            content: z.string(),
+            image: z.string(),
+          }),
+        )
+        .optional(),
+      // New format (categories with features)
+      categories: z
+        .array(
+          z.object({
+            title: z.string(),
+            description: z.string(),
+            features: z.array(
+              z.object({
+                title: z.string(),
+                content: z.string(),
+                icon: z.string().optional(),
+              }),
+            ),
+          }),
+        )
+        .optional(),
     }),
     plan: z.object({
       title: z.string(),
@@ -200,6 +218,25 @@ const homepageCollection = defineCollection({
             description: z.string().optional(),
             image: z.string(),
             link: z.string(),
+          }),
+        ),
+      })
+      .optional(),
+    main_benefits: z
+      .object({
+        title: z.string(),
+        subtitle: z.string(),
+        categories: z.array(
+          z.object({
+            title: z.string(),
+            subtitle: z.string(),
+            icon: z.string().optional(),
+            points: z.array(
+              z.object({
+                title: z.string(),
+                content: z.string(),
+              }),
+            ),
           }),
         ),
       })

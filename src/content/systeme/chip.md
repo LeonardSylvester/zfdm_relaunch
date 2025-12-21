@@ -54,29 +54,28 @@ features:
 
 specifications:
   technical:
-    - label: "Technologie"
-      value: "RFID 125 kHz"
-    - label: "Reichweite"
-      value: "Bis 10 cm"
-    - label: "Lesegeschwindigkeit"
-      value: "< 1 Sekunde"
+    - label: "Display"
+      value: "Farbdisplay mit 3,5 Zoll Touchscreen"
+    - label: "Anschlüsse"
+      value: "Netzwerkanschluss (LAN) und WLAN-Anschluss"
+    - label: "Abmessungen"
+      value: "19 cm (Höhe) x 16 cm (Breite) x 3,5 cm (Tiefe)"
+    - label: "Stromversorgung"
+      value: "5V / 1.5A"
     - label: "Betriebstemperatur"
-      value: "-25°C bis +70°C"
-    - label: "Schutzklasse"
-      value: "IP68 (wasserfest)"
-    - label: "Lebensdauer"
-      value: "> 100.000 Lesevorgänge"
+      value: "0°C bis 40°C"
+    - label: "Montage"
+      value: "Wandmontage"
+    - label: "Schutzart"
+      value: "IP21 (Innengebrauch)"
+    - label: "Verfügbare Farben"
+      value: "Weiß und Blau"
 
   delivery:
-    - "Zeiterfassungsterminal mit RFID-Leser"
-    - "10 RFID-Chips (Karten oder Schlüsselanhänger)"
-    - "Netzteil und Montagematerial"
-    - "Zugang zur Web-Software"
-    - "Deutsches Handbuch"
-    - "Kostenloser Support per E-Mail und Telefon"
-
-  requirements:
-    - "Du brauchst nur einen Web-Browser (Chrome, Firefox, Safari, Edge)"
+    - "Stromkabel & USB-Netzteil"
+    - "Netzwerkkabel zur Inbetriebnahme"
+    - "Eingabe-Stift (Stylus)"
+    - "Mitarbeiter RFID-Chips (Anzahl je nach Paket)"
 
 testimonial:
   author: "Thomas M."
@@ -106,7 +105,8 @@ faq_section: "chip"
 
 gallery:
   - "/images/zeiterfassungssysteme/zeiterfassung-mit-chip/Zeiterfassung-RFID-Chip.webp"
-  - "/images/Zeiterfassung-mit-Chip-02.jpg (1).webp"
+  - "/images/zeiterfassungssysteme/terminal-rueckseite/Zeiterfassungsystem-hinten.webp"
+  - "/images/zeiterfassungssysteme/terminal-rueckseite/Zeiterfassungssystem-hinten-seite.webp"
 
 draft: false
 ---

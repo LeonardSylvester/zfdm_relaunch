@@ -51,27 +51,28 @@ features:
 
 specifications:
   technical:
-    - label: "Sensor"
-      value: "Biometrischer Fingerabdruckscanner"
     - label: "Display"
-      value: '3,5" Touchscreen Farbdisplay'
-    - label: "Anschluss"
-      value: "Netzwerk & WLAN"
-    - label: "Gerätedimension"
-      value: "19 x 16 x 3,5 cm"
+      value: "Farbdisplay mit 3,5 Zoll Touchscreen"
+    - label: "Anschlüsse"
+      value: "Netzwerkanschluss (LAN) und WLAN-Anschluss"
+    - label: "Abmessungen"
+      value: "19 cm x 16 cm x 3,5 cm"
+    - label: "Stromversorgung"
+      value: "5V / 1.5A"
     - label: "Betriebstemperatur"
       value: "0°C bis 40°C"
-    - label: "Schutzklasse"
-      value: "IP21 (innen)"
+    - label: "Montage"
+      value: "Wandmontage"
+    - label: "Schutzart"
+      value: "IP21 (Innengebrauch)"
+    - label: "Verfügbare Farben"
+      value: "Weiß und Blau"
+    - label: "Speicherkapazität"
+      value: "Max. 200 Fingerabdrücke (2 pro Mitarbeiter)"
   delivery:
-    - "Fingerabdruck-Terminal"
-    - "Stromkabel & USB Netzteil"
-    - "Netzwerkkabel"
-    - "Zugang zur Web-Software"
-    - "Deutsches Handbuch"
-    - "Kostenloser Support per E-Mail und Telefon"
-  requirements:
-    - "Du brauchst nur einen Web-Browser (Chrome, Firefox, Safari, Edge)"
+    - "Stromkabel & USB-Netzteil"
+    - "Netzwerkkabel zur Inbetriebnahme"
+    - "Eingabe-Stift (Stylus)"
 
 testimonial:
   author: "Hannes Küspert"
@@ -101,8 +102,8 @@ faq_section: "fingerabdruck"
 
 gallery:
   - "/images/zeiterfassungssysteme/Zeiterfassung-mit-fingerabdruck/Zeiterfassung-Fingerabdruck.webp"
-  - "/images/Zeiterfassung-mit-Fingerabrdruck-02.jpg.webp"
-  - "/images/Zeiterfassung-mit-Fingerabrdruck-03.jpg.webp"
+  - "/images/zeiterfassungssysteme/terminal-rueckseite/Zeiterfassungsystem-hinten.webp"
+  - "/images/zeiterfassungssysteme/terminal-rueckseite/Zeiterfassungssystem-hinten-seite.webp"
 
 draft: false
 ---

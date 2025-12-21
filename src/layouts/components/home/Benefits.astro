@@ -1,196 +1,171 @@
 ---
 import { markdownify } from "@/lib/utils/textConverter";
-import ImageMod from "../ImageMod.astro";
 import {
-  FaWifi,
-  FaMobileScreen,
   FaDesktop,
-  FaCalendarXmark,
-  FaEnvelope,
-  FaFileLines,
-  FaDatabase,
-  FaImage,
   FaChartLine,
-  FaShield,
-  FaVideo,
-  FaEuroSign,
+  FaMagnifyingGlass,
+  FaCalendarXmark,
+  FaHouse,
+  FaFileExport,
+  FaUmbrellaBeach,
   FaPencil,
+  FaEye,
+  FaBriefcase,
+  FaCalendarDays,
+  FaMoneyBill,
+  FaMoon,
+  FaFlag,
+  FaDatabase,
+  FaLocationDot,
+  FaCloudArrowUp,
+  FaPlug,
+  FaMobileScreen,
+  FaEnvelope,
+  FaFilter,
 } from "react-icons/fa6";
 
 const { benefits } = Astro.props;
 
 // Icon mapping
 const iconMap: Record<string, any> = {
-  FaWifi,
-  FaMobileScreen,
   FaDesktop,
-  FaCalendarXmark,
-  FaEnvelope,
-  FaFileLines,
-  FaDatabase,
-  FaImage,
   FaChartLine,
-  FaShield,
-  FaVideo,
-  FaEuroSign,
+  FaMagnifyingGlass,
+  FaCalendarXmark,
+  FaHouse,
+  FaFileExport,
+  FaUmbrellaBeach,
   FaPencil,
+  FaEye,
+  FaBriefcase,
+  FaCalendarDays,
+  FaMoneyBill,
+  FaMoon,
+  FaFlag,
+  FaDatabase,
+  FaLocationDot,
+  FaCloudArrowUp,
+  FaPlug,
+  FaMobileScreen,
+  FaEnvelope,
+  FaFilter,
 };
 
-// Distribute items across 3 columns dynamically
-const points = benefits.points || [];
-const leftColumn: any[] = [];
-const middleColumn: any[] = [];
-const rightColumn: any[] = [];
+// Bento-Grid Pattern: Welche Kacheln sollen groß sein (2 Spalten)
+// Pattern: [0, 3] = erste und vierte Kachel groß, rest klein
+const getBentoPattern = (featureCount: number): number[] => {
+  if (featureCount <= 2) return [];
+  if (featureCount === 3) return [0];
+  if (featureCount === 4) return [0, 3];
+  if (featureCount === 5) return [0, 4];
+  if (featureCount === 6) return [0, 5];
+  return [0, Math.floor(featureCount / 2)];
+};
 
-points.forEach((point: any, i: number) => {
-  const columnIndex = i % 3;
-  if (columnIndex === 0) leftColumn.push(point);
-  else if (columnIndex === 1) middleColumn.push(point);
-  else rightColumn.push(point);
-});
-
-// Helper to render a benefit card
-const renderCard = (point: any, isMiddle = false) => ({
-  point,
-  isMiddle,
-});
 ---
 
-<section class="section bg-primary">
-  <div class="container">
-    <div class="row justify-center">
-      <div class="sm:col-8 text-center">
-        <p
-          set:html={markdownify(benefits.subtitle)}
-          class="mb-4 text-sm text-light/70"
-          data-aos="fade-up-sm"
-        />
-        <h2
-          set:html={markdownify(benefits.title)}
-          class="mb-8 md:mb-[7.5rem] lg:h1 text-light"
-          data-aos="fade-up-sm"
-          data-aos-delay="100"
-        />
-      </div>
-      <div class="col-12">
-        <div
-          class="flex flex-wrap lg:flex-nowrap gap-6 justify-center w-full"
-          data-aos="fade-up-sm"
-          data-aos-delay="200"
-        >
-          <!-- left column -->
-          <div
-            class="w-full lg:w-1/3 min-h-full flex flex-col md:flex-row lg:flex-col gap-6"
-          >
-            {
-              leftColumn.map((point: any, i: number) => {
-                const IconComponent = point.icon ? iconMap[point.icon] : null;
-                return (
-                  <div
-                    class="rounded-2xl overflow-hidden flex flex-col"
-                    data-aos="zoom-in-sm"
-                    data-aos-delay={`${i * 100}`}
-                  >
-                    <div class="bg-light/15 max-lg:pt-4 max-lg:pb-8 grow relative grid place-items-center py-12">
-                      {point.icon && IconComponent ? (
-                        <div class="text-light/90">
-                          <IconComponent size="2.5rem" />
-                        </div>
-                      ) : point.image ? (
-                        <div class="blurryDivBg w-[70%] rounded-2xl z-10">
-                          <ImageMod
-                            src={point.image}
-                            alt={point.title}
-                            width={364}
-                            height={300}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    <div class="p-6 bg-light/10 mt-auto">
-                      <p class="text-xl mb-2 text-light">{point.title}</p>
-                      <p class="text-light/70">{point.content}</p>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </div>
-
-          <!-- middle column -->
-          <div
-            class="w-full lg:w-1/3 min-h-full flex flex-col md:flex-row lg:flex-col gap-6"
-          >
-            {
-              middleColumn.map((point: any, i: number) => {
-                const IconComponent = point.icon ? iconMap[point.icon] : null;
-                return (
-                  <div class="rounded-2xl overflow-hidden flex flex-col">
-                    <div class="bg-light/15 max-lg:pt-4 max-lg:pb-8 grow relative grid place-items-center py-12">
-                      {point.icon && IconComponent ? (
-                        <div class="text-light/90">
-                          <IconComponent size="2.5rem" />
-                        </div>
-                      ) : point.image ? (
-                        <ImageMod
-                          src={point.image}
-                          alt={point.title}
-                          width={392}
-                          height={middleColumn.length === 1 ? 644 : 300}
-                          class="w-full"
-                        />
-                      ) : null}
-                    </div>
-                    <div class="p-6 bg-light/10 mt-auto">
-                      <p class="text-xl mb-2 text-light">{point.title}</p>
-                      <p class="text-light/70">{point.content}</p>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </div>
-
-          <!-- right column -->
-          <div
-            class="w-full lg:w-1/3 min-h-full flex flex-col md:flex-row lg:flex-col gap-6"
-          >
-            {
-              rightColumn.map((point: any, i: number) => {
-                const IconComponent = point.icon ? iconMap[point.icon] : null;
-                return (
-                  <div
-                    class="rounded-2xl overflow-hidden flex flex-col"
-                    data-aos="zoom-in-sm"
-                    data-aos-delay={`${i * 100}`}
-                  >
-                    <div class="bg-light/15 max-lg:pt-4 max-lg:pb-8 grow relative grid place-items-center py-12">
-                      {point.icon && IconComponent ? (
-                        <div class="text-light/90">
-                          <IconComponent size="2.5rem" />
-                        </div>
-                      ) : point.image ? (
-                        <div class="blurryDivBg w-[70%] rounded-2xl z-10">
-                          <ImageMod
-                            src={point.image}
-                            alt={point.title}
-                            width={364}
-                            height={300}
-                          />
-                        </div>
-                      ) : null}
-                    </div>
-                    <div class="p-6 bg-light/10 mt-auto">
-                      <p class="text-xl mb-2 text-light">{point.title}</p>
-                      <p class="text-light/70">{point.content}</p>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </div>
+<section class="section-no-padding">
+  {/* Header */}
+  <div class="bg-blue-500 py-16">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="sm:col-8 text-center">
+          <p
+            set:html={markdownify(benefits.subtitle)}
+            class="mb-4 text-sm text-light/70"
+            data-aos="fade-up-sm"
+          />
+          <h2
+            set:html={markdownify(benefits.title)}
+            class="lg:h1 text-light"
+            data-aos="fade-up-sm"
+            data-aos-delay="100"
+          />
         </div>
       </div>
     </div>
   </div>
+
+  {/* Categories - Full Width */}
+  {
+    benefits.categories?.map((category: any, catIndex: number) => {
+      const features = category.features || [];
+      const largeIndices = getBentoPattern(features.length);
+
+      // Abstufungen von Primärblau (von hell nach dunkel)
+      const blueShades = [
+        "bg-blue-500",   // Kategorie 1: Heller
+        "bg-blue-600",   // Kategorie 2: Primary-nah
+        "bg-blue-700",   // Kategorie 3: Dunkler
+        "bg-blue-800",   // Kategorie 4: Noch dunkler
+        "bg-blue-900",   // Kategorie 5: Am dunkelsten
+      ];
+      const bgColor = blueShades[catIndex % blueShades.length];
+
+      return (
+        <div
+          class={`category-section py-16 ${bgColor}`}
+          data-aos="fade-up-sm"
+          data-aos-delay={catIndex * 100}
+        >
+          <div class="container">
+            {/* Category Header */}
+            <div class="mb-8">
+              <h3 class="text-2xl md:text-3xl font-bold text-light mb-3">
+                {category.title}
+              </h3>
+              <p class="text-light/70 max-w-3xl">{category.description}</p>
+            </div>
+
+            {/* Bento Grid */}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+              {features.map((feature: any, featureIndex: number) => {
+                const IconComponent = feature.icon
+                  ? iconMap[feature.icon]
+                  : null;
+                const isLarge = largeIndices.includes(featureIndex);
+
+                return (
+                  <div
+                    class={`rounded-2xl overflow-hidden flex flex-col ${
+                      isLarge ? "md:col-span-2" : ""
+                    }`}
+                    data-aos="zoom-in-sm"
+                    data-aos-delay={featureIndex * 50}
+                  >
+                    {/* Icon Area */}
+                    <div
+                      class={`bg-light/15 grow relative grid place-items-center ${
+                        isLarge ? "py-16" : "py-12"
+                      }`}
+                    >
+                      {IconComponent && (
+                        <div class="text-light/90">
+                          <IconComponent size={isLarge ? "3.5rem" : "2.5rem"} />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Content Area */}
+                    <div class="p-6 bg-light/10">
+                      <p
+                        class={`mb-2 text-light font-semibold ${
+                          isLarge ? "text-xl" : "text-lg"
+                        }`}
+                      >
+                        {feature.title}
+                      </p>
+                      <p class="text-light/70 text-sm leading-relaxed">
+                        {feature.content}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      );
+    })
+  }
 </section>

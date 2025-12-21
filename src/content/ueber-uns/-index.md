@@ -10,14 +10,14 @@ hero:
   content: "Wir helfen Unternehmen, sich auf ihr Kerngeschäft zu konzentrieren, ohne die Zeit ihrer Mitarbeitenden mit unseren Zeiterfassungssystemen zu überwachen."
 
 about:
-  title: "Wer Wir sind"
+  title: "Roy Sirsendu, Gründer und Geschäftsführer von ZfdM"
   content: "In einer Welt, in der viele Zeiterfassungssysteme mit überflüssigen technischen Extras überladen sind, bieten wir Ihnen genau das, was wirklich zählt: das günstige, einfache und webbasierte Zeiterfassung für den Mittelstand (ZfdM). Unsere Zeiterfassung zeichnet sich durch Zuverlässigkeit, Datensicherheit, Benutzerfreundlichkeit und individuelle Anpassungsfähigkeit aus, Und das Beste daran?  Es ist für Unternehmen jeder Größe erschwinglich und skalierbar."
   image: "/images/avatar/gruender-zfdm-roy.webp"
   stats:
     - title: "Gegründet in"
       value: 2023
       suffix: ""
-    - title: "Gesamtzahl der weltweiten Nutzer"
+    - title: "Glückliche Kunden"
       value: 1600
       suffix: ""
     

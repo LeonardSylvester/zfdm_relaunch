@@ -121,19 +121,47 @@ const productImage = image || (images && images.length > 0 ? images[0] : "");
             {system.badge}
           </div>
 
-          <!-- Product Image -->
-          {
-            productImage && (
-              <ImageMod
-                src={productImage}
-                width={400}
-                height={400}
-                alt={title}
-                class="object-contain max-h-[350px] w-auto drop-shadow-xl"
-                format="webp"
-              />
-            )
-          }
+          <!-- Product Image Container -->
+          <div class="flex flex-col items-center">
+            <!-- Main Image -->
+            <div id="main-product-image" class="mb-4">
+              {
+                productImage && (
+                  <ImageMod
+                    src={productImage}
+                    width={400}
+                    height={400}
+                    alt={title}
+                    class="object-contain max-h-[350px] w-auto drop-shadow-xl"
+                    format="webp"
+                  />
+                )
+              }
+            </div>
+
+            <!-- Thumbnails -->
+            {images && images.length > 1 && (
+              <div class="flex gap-3 justify-center">
+                {images.map((img, index) => (
+                  <button
+                    class={`thumbnail-btn w-16 h-16 rounded-lg overflow-hidden border-2 ${index === 0 ? 'border-primary' : 'border-transparent'} hover:border-primary/50 transition-colors bg-white`}
+                    data-image={img}
+                    type="button"
+                    aria-label={`Produktbild ${index + 1} anzeigen`}
+                  >
+                    <ImageMod
+                      src={img}
+                      width={64}
+                      height={64}
+                      alt={`${title} Ansicht ${index + 1}`}
+                      class="object-contain w-full h-full"
+                      format="webp"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -272,3 +300,44 @@ const productImage = image || (images && images.length > 0 ? images[0] : "");
   >
   </div>
 </section>
+
+<script>
+  // Thumbnail click handler for product image gallery
+  // Using astro:page-load for View Transitions compatibility
+  function initThumbnailGallery() {
+    const thumbnails = document.querySelectorAll('.thumbnail-btn');
+    const mainImageContainer = document.querySelector('#main-product-image');
+
+    if (thumbnails.length > 0 && mainImageContainer) {
+      const mainImg = mainImageContainer.querySelector('img');
+
+      thumbnails.forEach(btn => {
+        // Remove existing listeners to prevent duplicates
+        const newBtn = btn.cloneNode(true);
+        btn.parentNode.replaceChild(newBtn, btn);
+
+        newBtn.addEventListener('click', () => {
+          const newSrc = newBtn.dataset.image;
+          if (mainImg && newSrc) {
+            // Update main image src
+            mainImg.src = newSrc;
+            // Also update srcset if exists
+            if (mainImg.srcset) {
+              mainImg.srcset = newSrc;
+            }
+            // Update active state
+            document.querySelectorAll('.thumbnail-btn').forEach(b => {
+              b.classList.remove('border-primary');
+              b.classList.add('border-transparent');
+            });
+            newBtn.classList.remove('border-transparent');
+            newBtn.classList.add('border-primary');
+          }
+        });
+      });
+    }
+  }
+
+  // Run on initial load and after View Transitions
+  document.addEventListener('astro:page-load', initThumbnailGallery);
+</script>

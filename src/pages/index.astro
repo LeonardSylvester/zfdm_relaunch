@@ -10,13 +10,14 @@ import IndustrySlider from "@/components/home/IndustrySlider.astro";
 import Base from "@/layouts/Base.astro";
 import { getListPage, getSinglePage } from "@/lib/contentParser.astro";
 import CallToAction from "@/partials/CallToAction.astro";
+import MainBenefits from "@/partials/MainBenefits.astro";
 import Testimonial from "@/partials/Testimonial.astro";
 import TestimonialSlider from "@/partials/TestimonialSlider.astro";
 import ReferenzenBento from "@/partials/ReferenzenBento.astro";
 import BlogPreviewSection from "@/partials/BlogPreviewSection.astro";
 
 const homepage = await getListPage("homepage", "-index");
-const { hero, feature, offering, benefits, plan, customer_references, target_audiences, industries } = homepage.data;
+const { hero, feature, offering, benefits, main_benefits, plan, customer_references, target_audiences, industries } = homepage.data;
 
 // Blog Preview Section
 const zeiterfassungPflicht = await getListPage("sections", "zeiterfassung-pflicht");
@@ -29,6 +30,7 @@ const zeiterfassungBlog = blogPosts.find(post => post.id === zeiterfassungPflich
   <CustomerReferences data={customer_references} />
   <Features {feature} />
   <ReferenzenBento />
+  {main_benefits && <MainBenefits mainBenefits={main_benefits} />}
   {target_audiences && <TargetAudiences {target_audiences} />}
   <Offering {offering} />
   {industries && industries.enable && <IndustrySlider {industries} />}
